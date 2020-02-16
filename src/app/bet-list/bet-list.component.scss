@@ -7,22 +7,41 @@ ul {
 }
 
 li {
-    padding: 40px 20px;
+    padding: 20px 20px;
     background-color: lightgray;
     border-radius: 15px;
     margin-top: 10px;
     position: relative;
-}
 
-li:after {
-    visibility: visible;
-    position: absolute;
-    content: $delete-icon;
-    color: red;
-    right: 20px;
-    font-size: 1em;
-}
+    &:before {
+        content: " ";
+        background: repeating-linear-gradient(
+            135deg,
+            #606dbc,
+            #606dbc 3px,
+            #465298 3px,
+            #465298 6px
+        );
+        position: absolute;
+        left:0;
+        top:0;
+        bottom:0;
+        width: 10px;
+        border-radius: 15px 0 0 15px;
+    }
 
-li:hover:after {
-    visibility: visible;
+    // &:after {
+    //     visibility: hidden;
+    //     position: absolute;
+    //     content: $delete-icon;
+    //     color: red;
+    //     right: 20px;
+    //     top: 50%;
+    //     margin-top: -0.5em;
+    //     font-size: 1em;
+    // }
+
+    // &:hover:after {
+    //     visibility: visible;
+    // }
 }

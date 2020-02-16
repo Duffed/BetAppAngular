@@ -1,1 +1,10 @@
-{{ bet.amount }}
+<div class="bet">
+    <span class="betid">
+        #{{ bet.id }}
+    </span>
+    <span class="betinfos">
+        <b>Einsatz: </b>{{ bet.amount }} <br>
+        <b>Quote: </b>{{ bet.odds }} 
+    </span>
+    <a [routerLink]="" (click)="removeBet(bet)">x</a>
+</div>
