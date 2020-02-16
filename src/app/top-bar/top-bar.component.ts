@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { BetService } from '../bet.service';
 
 @Component({
   selector: 'app-top-bar',
@@ -7,9 +8,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TopBarComponent implements OnInit {
 
-  constructor() { }
+  constructor(public betService: BetService) { }
 
   ngOnInit(): void {
+  }
+
+  getTotalBetAmount(): number {
+    let totalBetAmount: number = 0;
+
+    this.betService.getBets().forEach(bet => {
+      totalBetAmount += bet.amount;
+    });
+
+    return totalBetAmount;
   }
 
 }

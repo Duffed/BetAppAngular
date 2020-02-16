@@ -1,0 +1,28 @@
+@import "../variables.scss";
+
+ul {
+    list-style-type: none;
+    display: flex;
+    flex-direction: column;
+}
+
+li {
+    padding: 40px 20px;
+    background-color: lightgray;
+    border-radius: 15px;
+    margin-top: 10px;
+    position: relative;
+}
+
+li:after {
+    visibility: visible;
+    position: absolute;
+    content: $delete-icon;
+    color: red;
+    right: 20px;
+    font-size: 1em;
+}
+
+li:hover:after {
+    visibility: visible;
+}

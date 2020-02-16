@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Bet } from 'src/classes/bet';
+import { Bet } from 'src/domain/bet';
+import { BetResult } from 'src/domain/betResult';
 
 @Injectable({
   providedIn: 'root'
@@ -10,11 +11,11 @@ export class BetService {
   constructor() { 
     //Mock Data
     this.bets = [
-      new Bet(1, 100, 1.1),
-      new Bet(2, 200, 2.1),
-      new Bet(3, 300, 3.1),
-      new Bet(4, 400, 1.3),
-      new Bet(5, 500, 1.2),
+      { id: 0, amount: 100, odds: 1.2 },
+      { id: 1, amount: 200, odds: 1.3 },
+      { id: 1, amount: 300, odds: 4.3 },
+      { id: 1, amount: 400, odds: 2.3 },
+      { id: 1, amount: 500, odds: 3.3 }
     ];
   }
 
@@ -22,36 +23,9 @@ export class BetService {
     return this.bets;
   }
 
-  getSumOfBetAmount(): number {
-    let sumOfBetAmount: number = 0;
+  //Cartesian product
+  // getCartesianProduct(): BetResult[][] {
 
-    this.bets.forEach(bet => {
-      sumOfBetAmount += bet.amount;
-    });
-
-    return sumOfBetAmount;
-  }
-
-  getMaximumProfit(): number {
-    let maximumProfit: number = 0;
-
-    this.bets.forEach(bet => {
-      maximumProfit += (bet.amount * bet.odds);
-    });
-
-    return maximumProfit;
-  }
-
-  getMaximumLoss(): number {
-    let maximumLoss: number = 0;
-
-    this.bets.forEach(bet => {
-      maximumLoss -= bet.amount;
-    });
-
-    return maximumLoss;
-  }
-
-
+  // }
 
 }

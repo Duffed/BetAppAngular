@@ -1,1 +1,7 @@
-<p>bet-list works!</p>
+<ul>
+    <li *ngFor="let bet of bets">
+        <app-bet 
+            [bet]="bet">
+        </app-bet>
+    </li>
+</ul>

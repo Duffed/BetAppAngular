@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { Bet } from 'src/domain/bet';
 
 @Component({
   selector: 'app-bet',
@@ -7,6 +8,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BetComponent implements OnInit {
 
+  @Input() bet: Bet;
+  
   constructor() { }
 
   ngOnInit(): void {
