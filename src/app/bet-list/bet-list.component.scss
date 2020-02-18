@@ -7,7 +7,7 @@ ul {
 }
 
 li {
-    padding: 20px 20px;
+    padding: 15px 20px;
     background-color: lightgray;
     border-radius: 15px;
     margin-top: 10px;
@@ -15,6 +15,7 @@ li {
 
     &:before {
         content: " ";
+        position: absolute;
         background: repeating-linear-gradient(
             135deg,
             #606dbc,
@@ -22,7 +23,6 @@ li {
             #465298 3px,
             #465298 6px
         );
-        position: absolute;
         left:0;
         top:0;
         bottom:0;
@@ -30,18 +30,13 @@ li {
         border-radius: 15px 0 0 15px;
     }
 
-    // &:after {
-    //     visibility: hidden;
-    //     position: absolute;
-    //     content: $delete-icon;
-    //     color: red;
-    //     right: 20px;
-    //     top: 50%;
-    //     margin-top: -0.5em;
-    //     font-size: 1em;
-    // }
-
-    // &:hover:after {
-    //     visibility: visible;
-    // }
+    &.red:before {
+        background: repeating-linear-gradient(
+            135deg,
+            #c92f3c,
+            #c92f3c 3px,
+            #e06868 3px,
+            #e06868 6px
+        );
+    }
 }

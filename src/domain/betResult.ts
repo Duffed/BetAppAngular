@@ -1,5 +1,8 @@
 import { Bet } from './bet';
 
-export interface win { bet: Bet }
-export interface loss { bet: Bet }
-export type BetResult = win | loss;
+export enum ResultType { Win, Loss }
+
+export class BetResult {
+    constructor(public result: ResultType, private _bet: Bet) { }
+    get bet() { return this._bet }
+}

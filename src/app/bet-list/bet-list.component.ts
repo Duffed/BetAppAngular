@@ -16,6 +16,10 @@ export class BetListComponent implements OnInit {
     this.bets = this.betService.getBets();
   }
 
+  isRisky(bet:Bet): boolean {
+    return (bet.odds > 2);
+  }
+
   getMaximumProfit(): number {
     let maximumProfit: number = 0;
 

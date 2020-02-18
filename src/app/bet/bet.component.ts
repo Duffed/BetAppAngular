@@ -10,7 +10,7 @@ import { BetService } from '../bet.service';
 export class BetComponent implements OnInit {
 
   @Input() bet: Bet;
-  
+
   constructor(private betService: BetService) { }
 
   ngOnInit(): void {

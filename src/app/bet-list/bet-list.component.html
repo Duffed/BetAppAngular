@@ -1,6 +1,7 @@
 <ul>
-    <li *ngFor="let bet of bets">
-        <app-bet 
+    <li *ngFor="let bet of bets"
+        [class.red]="isRisky(bet)">
+        <app-bet
             [bet]="bet">
         </app-bet>
     </li>
