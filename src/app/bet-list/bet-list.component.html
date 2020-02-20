@@ -1,8 +1,22 @@
-<ul>
+<ul class="bet-list">
     <li *ngFor="let bet of bets"
+        class="bet"
         [class.red]="isRisky(bet)">
-        <app-bet
-            [bet]="bet">
-        </app-bet>
+        <div class="bet-title"><strong>{{ bet.title }}</strong></div>
+        <div class="bet-infos">
+            <span class="stake"><strong>Einsatz: </strong>{{ bet.stake | currency:'EUR' }}</span> <br>
+            <span class="odds"><strong>Quote: </strong>{{ bet.odds }}</span>
+        </div>
+
+        <div class="bet-footer">
+            <span class="sport">
+                #UFC
+            </span>
+            <span class="date">
+                {{ bet.date | date:'dd.MM.yyyy'}}
+            </span>
+        </div>
+
+        <a class="removeBet" [routerLink]="" (click)="removeBet(bet)"><mat-icon>remove_circle_outline</mat-icon></a>
     </li>
 </ul>

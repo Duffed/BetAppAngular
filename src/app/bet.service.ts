@@ -11,11 +11,11 @@ export class BetService {
   constructor() {
     //Mock Data
     this.bets = [
-      { id: 1, amount: 100, odds: 1.2 },
-      { id: 2, amount: 200, odds: 1.3 },
-      { id: 3, amount: 300, odds: 4.3 },
-      { id: 4, amount: 400, odds: 2.3 },
-      { id: 5, amount: 500, odds: 3.3 }
+      new Bet(1, "Maki Pitolo (USA) - Takashi Sato (JPN)", 5, 2.2),
+      new Bet(2, "Angela Hill (USA) - Loma Lookboonmee (THA)", 25, 2.52),
+      new Bet(3, "Kai Kara-France (NZL) - Tyson Nam (USA)", 8, 1.2),
+      new Bet(4, "Callan Potter (AUS) - Song Kenan (CHN)", 31, 3.2),
+      new Bet(5, "Kevin Aguilar (USA) - Zubaira Tukhugov (RUS)", 55, 4.2)
     ];
   }
 
@@ -26,11 +26,6 @@ export class BetService {
   removeBet(bet: Bet) {
     this.bets.splice(this.bets.indexOf(bet), 1);
   }
-
-  // Cartesian product
-  // getCartesianProduct(): BetResult[][] {
-
-  // }
 
   getAllPossibleOutcomes() {
     let numberOfBets = this.bets.length;

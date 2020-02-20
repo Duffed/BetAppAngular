@@ -1,5 +1,5 @@
 <header>
     <h1>BetApp</h1>
-    <h3>Active bets: {{ this.betService.getBets().length }}</h3>
-    <h3>Total amount: {{ getTotalBetAmount() }}</h3>
+    <h2>Active bets: {{ this.betService.getBets().length }}</h2>
+    <h2>Total stake: {{ getTotalStake() | currency:'EUR' }}</h2>
 </header>

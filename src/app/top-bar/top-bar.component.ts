@@ -13,14 +13,14 @@ export class TopBarComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  getTotalBetAmount(): number {
-    let totalBetAmount: number = 0;
+  getTotalStake(): number {
+    let totalstake: number = 0;
 
     this.betService.getBets().forEach(bet => {
-      totalBetAmount += bet.amount;
+      totalstake += bet.stake;
     });
 
-    return totalBetAmount;
+    return totalstake;
   }
 
 }

@@ -16,6 +16,10 @@ export class BetListComponent implements OnInit {
     this.bets = this.betService.getBets();
   }
 
+  removeBet(bet:Bet) {
+    this.betService.removeBet(bet);
+  }
+
   isRisky(bet:Bet): boolean {
     return (bet.odds > 2);
   }
@@ -24,7 +28,7 @@ export class BetListComponent implements OnInit {
     let maximumProfit: number = 0;
 
     this.bets.forEach(bet => {
-      maximumProfit += (bet.amount * bet.odds);
+      maximumProfit += (bet.stake * bet.odds);
     });
 
     return maximumProfit;
@@ -34,7 +38,7 @@ export class BetListComponent implements OnInit {
     let maximumLoss: number = 0;
 
     this.bets.forEach(bet => {
-      maximumLoss -= bet.amount;
+      maximumLoss -= bet.stake;
     });
 
     return maximumLoss;

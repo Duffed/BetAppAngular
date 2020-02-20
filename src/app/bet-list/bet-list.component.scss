@@ -1,42 +1,82 @@
 @import "../variables.scss";
 
-ul {
+.bet-list {
     list-style-type: none;
     display: flex;
     flex-direction: column;
+    margin-top: -50px;
 }
 
-li {
+.bet {
+    position: relative;
     padding: 15px 20px;
-    background-color: lightgray;
-    border-radius: 15px;
+    background-color: white;
+    border-radius: 3px;
+    box-shadow: 0 4px 5px 0px #ddd;
     margin-top: 10px;
     position: relative;
 
-    &:before {
-        content: " ";
-        position: absolute;
-        background: repeating-linear-gradient(
-            135deg,
-            #606dbc,
-            #606dbc 3px,
-            #465298 3px,
-            #465298 6px
-        );
-        left:0;
-        top:0;
-        bottom:0;
-        width: 10px;
-        border-radius: 15px 0 0 15px;
+    &:hover > .removeBet {
+        visibility: visible;
     }
 
-    &.red:before {
-        background: repeating-linear-gradient(
-            135deg,
-            #c92f3c,
-            #c92f3c 3px,
-            #e06868 3px,
-            #e06868 6px
-        );
+    .removeBet {
+        border: none;
+        background: none;
+        text-decoration: none;
+        color: orangered;
+        visibility: hidden;
+        padding: 10px;
+        position: absolute;
+        right: 10px;
+        top: 50%;
+        transform: translateY(-50%);
+        user-select: none;
     }
+}
+
+.bet-title {
+    margin-bottom: 10px
+}
+
+.bet-infos {
+    color: #5e5e5e
+}
+
+.bet-footer {
+    border-top: 1px solid $blue-primary;
+    margin-top: 10px;
+    font-size: 0.8em;
+    color: darkgrey;
+    display:flex;
+    justify-content: space-between;
+    padding-top: 5px;
+
+    .sport {
+        font-style: italic;
+        color: orangered
+    }
+
+    .date {
+        text-align: right;
+    }
+}
+
+@media only screen and (min-width: 800px) {
+    .bet-list {
+        flex-direction: row;
+        flex-wrap: wrap;
+        align-items: flex-start;
+        align-content: flex-start;
+        margin-right: -5px;
+        margin-left: -5px;
+
+        .bet {
+            flex-grow: 1;
+            margin-right: 5px;
+            margin-left: 5px;
+            max-width: 500px;
+        }
+    }
+
 }
