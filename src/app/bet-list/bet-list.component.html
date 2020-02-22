@@ -20,3 +20,27 @@
         <a class="removeBet" [routerLink]="" (click)="removeBet(bet)"><mat-icon>remove_circle_outline</mat-icon></a>
     </li>
 </ul>
+
+<table class="table">
+    <thead>
+        <th scope="col">#</th>
+        <th scope="col" *ngFor="let bet of bets">Bet {{ bet.id }}</th>
+        <th>Total Outcome</th>
+    </thead>
+    <tbody>
+        <tr *ngFor="let combination of allPossibleOutcomes; let i = index">
+            <th scope="row">{{ i+1 }}</th>
+            <td [className]="result.result == 'Win'? 'win' : 'loss'" *ngFor="let result of combination">
+                <ng-container *ngIf="result.result == 'Win'">
+                    <mat-icon>done</mat-icon> 
+                </ng-container>
+                <ng-container *ngIf="result.result == 'Loss'">
+                    <mat-icon>clear</mat-icon>
+                </ng-container>
+            </td>
+            <td [className]="getTotalOutcome(combination) > 0? 'win' : 'loss'">
+                {{ getTotalOutcome(combination) | number:'.0-2' | currency:'EUR'}}
+            </td>
+        </tr>
+    </tbody>
+</table>
