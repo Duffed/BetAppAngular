@@ -66,29 +66,4 @@ export class BetService {
 
     return totalOutcome;
   }
-
-  getSubsetCombinations(input: any[], size:number) {
-    let result = [];
-
-    let recursiveSubset = function(n: number, source: any[], got: any[], all) {
-
-      if (n == 0) {
-        if (got.length > 0) {
-          all[all.length] = got;
-        }
-        return;
-      }
-      
-      for (var j = 0; j < source.length; j++) {
-        recursiveSubset(n - 1, source.slice(j + 1), got.concat([source[j]]), all);
-      }
-      return;
-    }
-
-    recursiveSubset(size, input, [], result);
-
-    return result;
-  }
-
-
 }
