@@ -16,6 +16,7 @@ export class TipComponent implements OnInit {
 
   clickWinToggle() {
     this.tip.markedAsWin = !this.tip.markedAsWin;
+    this.tipService.calculateWinnings(this.tipService.getTips(), 100);
   }
 
   deleteTip(tip) {

@@ -15,6 +15,27 @@ ul {
     }
 }
 
+.addTip {
+    text-align: center;
+
+    .plusSign {
+        margin: auto;
+        width: 60px;
+        height: 60px;
+        line-height: 60px;
+        font-size: 2em;
+        border-radius: 100%;
+        background: white;
+        box-shadow: 0 0 3px 0px #ccc;
+        color: blue;
+        margin-bottom: 10px;
+
+        &::hover {
+
+        }
+    }
+}
+
 @media only screen and (min-width: 800px) {
     ul {
         flex-direction: row;
@@ -27,7 +48,6 @@ ul {
         li {
             flex: 1 1 21%; // flex-grow, flex-shrink, flex-basis
             min-width: 350px;
-            max-width: 550px;
             margin-right: 5px;
             margin-left: 5px;
             // max-width: 500px;

@@ -1,18 +1,9 @@
-export enum Combination {
-    SingleTip,
-    TwoBet,
-    ThreeBet,
-    FourBet,
-    FiveBet,
-    SixBet,
-    SevenBet,
-    EightBet
-}
-
 export class CombinationBet{
     constructor(
         public name: string,
-        public combinations: Combination[]
+        public minimumCombinationSize: number,
+        public maximumCombinationSize: number,
+        public numberOfBets?: number,
+        public winnings: number = 0,
     ) { }
 }
-
