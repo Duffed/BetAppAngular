@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Bet } from 'src/domain/bet';
 import { BetService } from '../bet.service';
 import { BetResult } from 'src/domain/betResult';
@@ -11,6 +11,7 @@ import { BetResult } from 'src/domain/betResult';
 export class BetListComponent implements OnInit {
   bets: Bet[];
   allPossibleOutcomes: BetResult[][];
+  markedAsWin: boolean = true;
 
   constructor(private betService: BetService) { }
 
@@ -49,6 +50,10 @@ export class BetListComponent implements OnInit {
 
   getTotalOutcome(betResults: BetResult[]): number {
     return this.betService.getTotalOutcome(betResults);
+  }
+
+  clickWinToggle() {
+    this.markedAsWin = !this.markedAsWin;
   }
 
 }

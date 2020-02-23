@@ -15,7 +15,10 @@ export class BetService {
       new Bet(2, 'Angela Hill (USA) - Loma Lookboonmee (THA)', 25, 2.52),
       new Bet(3, 'Kai Kara-France (NZL) - Tyson Nam (USA)', 8, 1.2),
       new Bet(4, 'Callan Potter (AUS) - Song Kenan (CHN)', 31, 3.2),
-      new Bet(5, 'Kevin Aguilar (USA) - Zubaira Tukhugov (RUS)', 55, 4.2)
+      new Bet(5, 'Kevin Aguilar (USA) - Zubaira Tukhugov (RUS)', 55, 4.2),
+      new Bet(6, 'Kevin Aguilar (USA) - Zubaira Tukhugov (RUS)', 55, 4.2),
+      new Bet(7, 'Kevin Aguilar (USA) - Zubaira Tukhugov (RUS)', 55, 4.2)
+
     ];
   }
 
@@ -63,5 +66,29 @@ export class BetService {
 
     return totalOutcome;
   }
+
+  getSubsetCombinations(input: any[], size:number) {
+    let result = [];
+
+    let recursiveSubset = function(n: number, source: any[], got: any[], all) {
+
+      if (n == 0) {
+        if (got.length > 0) {
+          all[all.length] = got;
+        }
+        return;
+      }
+      
+      for (var j = 0; j < source.length; j++) {
+        recursiveSubset(n - 1, source.slice(j + 1), got.concat([source[j]]), all);
+      }
+      return;
+    }
+
+    recursiveSubset(size, input, [], result);
+
+    return result;
+  }
+
 
 }

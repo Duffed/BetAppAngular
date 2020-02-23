@@ -1,7 +1,8 @@
 <ul class="bet-list">
     <li *ngFor="let bet of bets"
         class="bet"
-        [class.red]="isRisky(bet)">
+        [class.red]="isRisky(bet)"
+        [className]="markedAsWin? 'markedAsWin':'markedAsLoss'">
         <div class="bet-title"><strong>{{ bet.title }}</strong></div>
         <div class="bet-infos">
             <span class="stake"><strong>Einsatz: </strong>{{ bet.stake | currency:'EUR' }}</span> <br>
@@ -10,10 +11,13 @@
 
         <div class="bet-footer">
             <span class="sport">
-                #UFC
+                #UFC {{ bet.date | date:'dd.MM.yyyy'}}
             </span>
             <span class="date">
-                {{ bet.date | date:'dd.MM.yyyy'}}
+                <mat-slide-toggle 
+                    [checked]="markedAsWin"
+                    (change)="clickWinToggle()">Mark as Win</mat-slide-toggle>
+                
             </span>
         </div>
 
