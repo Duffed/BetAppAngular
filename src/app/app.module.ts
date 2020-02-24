@@ -11,7 +11,8 @@ import { BetListComponent } from './bet-list/bet-list.component';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { TipComponent } from './tip/tip.component';
 import { TipListComponent } from './tip-list/tip-list.component';
-import {MatSnackBarModule} from '@angular/material/snack-bar';
+import {MatDialogModule} from '@angular/material/dialog';
+import {MatTooltipModule} from '@angular/material/tooltip';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,7 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
     MatIconModule,
     MatTableModule,
     MatSlideToggleModule,
-    MatSnackBarModule
+    MatTooltipModule
   ],
   providers: [],
   bootstrap: [AppComponent]

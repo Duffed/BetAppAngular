@@ -20,4 +20,8 @@ export class TipListComponent implements OnInit {
     this.combinations = this.tipService.calculateWinnings(this.tips, 100);
   }
 
+  onClickAdd() {
+    
+  }
+
 }

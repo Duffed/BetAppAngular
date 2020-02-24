@@ -17,9 +17,7 @@ export class TipService {
       new Tip('Kristina', 'Julia', 1.7, new Date(), Sport.Ufc),
       new Tip('Leo', 'Thomas', 1.62, new Date(), Sport.Ufc),
       new Tip('Leo', 'Thomas', 1.9, new Date(), Sport.Ufc),
-      new Tip('Leo', 'Thomas', 2.1, new Date(), Sport.Ufc),
-      new Tip('Leo', 'Thomas', 1.7, new Date(), Sport.Ufc),
-      new Tip('Leo', 'Thomas', 2.2, new Date(), Sport.Ufc),
+      new Tip('Leo', 'Thomas', 2.1, new Date(), Sport.Ufc)
     ];
    }
 
@@ -45,7 +43,7 @@ export class TipService {
         if(combinationBet.numberOfBets){
           stakePerBet = stake/combinationBet.numberOfBets;
         } else{
-          stakePerBet = stake/this.combinationBetService.getNumberOfBets(tips.length, combinationBet.minimumCombinationSize);
+          stakePerBet = stake/this.combinationBetService.binomialCoefficient(tips.length, combinationBet.minimumCombinationSize);
         }
 
         // init winnigs
@@ -55,7 +53,9 @@ export class TipService {
         let allBetsForCombinationBet: Tip[][][] = [];
         if (combinationBet.minimumCombinationSize <= 1) {
           tips.forEach(tip => {
-            winnings += (stakePerBet * tip.odds)
+            if (tip.markedAsWin) {
+              winnings += (stakePerBet * tip.odds)
+            }
           });
 
           combinationBet.minimumCombinationSize++;
@@ -66,26 +66,17 @@ export class TipService {
         }
   
         // Gewinn berechnen
-        // allBetsForCombinationBet.forEach(currentArrayOfSubsets => {
-        //   array.forEach(element => {
-            
-        //   });
-        // });
-
-        for (let j = 0; j < allBetsForCombinationBet.length; j++) {
-          let currentArrayOfSubsets = allBetsForCombinationBet[j];
-          
-          for (let k = 0; k < currentArrayOfSubsets.length; k++) {
-            let currentArrayOfBets = currentArrayOfSubsets[k];
+        allBetsForCombinationBet.forEach(currentArrayOfSubsets => {
+          currentArrayOfSubsets.forEach(currentArrayOfBets => {
             let multiplicator = 1;
             
-            for (let l = 0; l < currentArrayOfBets.length; l++) {
-              multiplicator *= currentArrayOfBets[l].odds;
-            }
+            currentArrayOfBets.forEach(tip => {
+              multiplicator *= tip.odds;
+            });
 
             winnings += multiplicator * stakePerBet;
-          }
-        }
+          });
+        });
   
         combinationBet.winnings = winnings;
       }

@@ -2,17 +2,19 @@
     <li *ngFor="let tip of tips">
         <app-tip [tip]="tip"></app-tip>
     </li>
-    <li class="addTip">
-        <div class="plusSign">+</div>
-        Add Tip
-    </li>
+    <ng-container *ngIf="tips.length < 8">
+        <li class="addTip">
+            <div class="plusSign">+</div>
+            Add Tip
+        </li>
+    </ng-container>
     <li class="placeholder"></li>
     <li class="placeholder"></li>
     <li class="placeholder"></li>
 </ul>
 
-<ul>
+<!-- <ul>
     <li *ngFor="let combination of combinations">
         {{ combination.name }}: {{ combination.winnings | number:'.0-2'}}
     </li>
-</ul>
+</ul> -->

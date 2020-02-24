@@ -25,6 +25,10 @@
   background: repeating-linear-gradient(-45deg, #be3b3b, #be3b3b 5px, #9e2b2b 5px, #9e2b2b 10px);
 }
 
+.tip:hover > .removeTip {
+  opacity: 1;
+}
+
 .infos {
   font-size: 0.8em;
 }
@@ -43,12 +47,19 @@ footer .sport {
   color: blue;
 }
 
+footer .flag {
+  cursor: pointer;
+  user-select: none;
+}
+
 header {
   font-weight: bold;
   padding-right: 30px;
 }
 
 .removeTip {
+  opacity: 0;
+  transition: ease-in-out .3s opacity;
   position: absolute;
   top: 15px;
   right: 15px;

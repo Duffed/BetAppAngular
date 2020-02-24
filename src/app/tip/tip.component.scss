@@ -35,6 +35,10 @@
             #9e2b2b 10px
         );
     }
+
+    &:hover > .removeTip {
+        opacity: 1;
+    }
 }
 
 .infos {
@@ -53,6 +57,12 @@ footer {
     .sport {
         color: blue;
     }
+
+    .flag {
+        cursor: pointer;
+        user-select: none;
+
+    }
 }
 
 header {
@@ -61,6 +71,8 @@ header {
 }
 
 .removeTip {
+    opacity: 0;
+    transition: ease-in-out .3s opacity;
     position: absolute;
     top: 15px;
     right: 15px;
