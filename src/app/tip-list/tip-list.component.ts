@@ -1,15 +1,15 @@
-import { Component, OnInit } from '@angular/core';
-import { Tip, OutComeEnum } from 'src/domain/tip';
-import { TipService } from '../tip.service';
-import { CombinationBet } from 'src/domain/combinationBet';
-import { MatDialogConfig, MatDialog } from '@angular/material/dialog';
-import { AddTipDialogComponent } from '../add-tip-dialog/add-tip-dialog.component';
-import { Sport } from 'src/domain/sport';
+import { Component, OnInit } from "@angular/core";
+import { Tip, OutComeEnum } from "src/domain/tip";
+import { TipService } from "../tip.service";
+import { CombinationBet } from "src/domain/combinationBet";
+import { MatDialogConfig, MatDialog } from "@angular/material/dialog";
+import { AddTipDialogComponent } from "../add-tip-dialog/add-tip-dialog.component";
+import { Sport } from "src/domain/sport";
 
 @Component({
-  selector: 'app-tip-list',
-  templateUrl: './tip-list.component.html',
-  styleUrls: ['./tip-list.component.scss']
+  selector: "app-tip-list",
+  templateUrl: "./tip-list.component.html",
+  styleUrls: ["./tip-list.component.scss"]
 })
 export class TipListComponent implements OnInit {
   tips: Tip[];
@@ -30,9 +30,15 @@ export class TipListComponent implements OnInit {
       if (!result.date) result.date = new Date();
       if (!result.outcome) result.outcome = OutComeEnum.firstFighterWins;
 
-      let tip = new Tip(result.opponent1, result.opponent2, result.odds, result.date, result.sport, result.outcome);
+      let tip = new Tip(
+        result.opponent1,
+        result.opponent2,
+        result.odds,
+        result.date,
+        result.sport,
+        result.outcome
+      );
       this.tipService.addTip(tip);
-    })
+    });
   }
-
 }

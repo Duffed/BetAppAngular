@@ -1,3 +1,3 @@
-export enum Sport{
-    Ufc = "UFC"
+export enum Sport {
+  Ufc = "UFC"
 }

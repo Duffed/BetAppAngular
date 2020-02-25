@@ -1,13 +1,17 @@
-import { Component, OnInit, Inject } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
-import { Tip, OutComeEnum } from 'src/domain/tip';
-import { Sport } from 'src/domain/sport';
+import { Component, OnInit, Inject } from "@angular/core";
+import { FormGroup, FormBuilder, Validators } from "@angular/forms";
+import {
+  MatDialogRef,
+  MAT_DIALOG_DATA,
+  MatDialog
+} from "@angular/material/dialog";
+import { Tip, OutComeEnum } from "src/domain/tip";
+import { Sport } from "src/domain/sport";
 
 @Component({
-  selector: 'add-tip-dialog',
-  templateUrl: './add-tip-dialog.component.html',
-  styleUrls: ['./add-tip-dialog.component.scss']
+  selector: "add-tip-dialog",
+  templateUrl: "./add-tip-dialog.component.html",
+  styleUrls: ["./add-tip-dialog.component.scss"]
 })
 export class AddTipDialogComponent implements OnInit {
   tip: Tip;
@@ -19,22 +23,20 @@ export class AddTipDialogComponent implements OnInit {
     private fb: FormBuilder,
     public dialog: MatDialog,
     public dialogRef: MatDialogRef<AddTipDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: Tip)
-  {
-
-  }
+    @Inject(MAT_DIALOG_DATA) public data: Tip
+  ) {}
 
   ngOnInit(): void {
     this.form = this.fb.group({
-      opponent1: ['', Validators.maxLength],
-      opponent2: ['', Validators.required],
-      odds1: ['', [Validators.required, Validators.maxLength(3)]],
-      odds2: ['', [Validators.required, Validators.maxLength(3)]],
-      date: [''],
-      sport: [''],
-      outcome: [''],
-      odds: [''],
-      submitted: ['']
+      opponent1: ["", Validators.maxLength],
+      opponent2: ["", Validators.required],
+      odds1: ["", [Validators.required, Validators.maxLength(3)]],
+      odds2: ["", [Validators.required, Validators.maxLength(3)]],
+      date: [""],
+      sport: [""],
+      outcome: [""],
+      odds: [""],
+      submitted: [""]
     });
   }
 
@@ -42,7 +44,7 @@ export class AddTipDialogComponent implements OnInit {
     if (!this.form.invalid) {
       this.form.controls.submitted.setValue(true);
       let predecimal = Number(this.form.controls.odds1.value);
-      let decimal = (this.form.controls.odds2.value / 10);
+      let decimal = this.form.controls.odds2.value / 10;
       this.form.controls.odds.setValue(predecimal + decimal);
       this.dialogRef.close(this.form.value);
     }
@@ -55,5 +57,4 @@ export class AddTipDialogComponent implements OnInit {
   outComesKeys(): string[] {
     return Object.keys(this.outComeList);
   }
-
 }

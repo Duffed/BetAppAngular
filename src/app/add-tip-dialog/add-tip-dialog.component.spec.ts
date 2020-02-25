@@ -1,16 +1,15 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from "@angular/core/testing";
 
-import { AddTipDialogComponent } from './add-tip-dialog.component';
+import { AddTipDialogComponent } from "./add-tip-dialog.component";
 
-describe('AddTipDialogComponent', () => {
+describe("AddTipDialogComponent", () => {
   let component: AddTipDialogComponent;
   let fixture: ComponentFixture<AddTipDialogComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ AddTipDialogComponent ]
-    })
-    .compileComponents();
+      declarations: [AddTipDialogComponent]
+    }).compileComponents();
   }));
 
   beforeEach(() => {
@@ -19,7 +18,7 @@ describe('AddTipDialogComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it("should create", () => {
     expect(component).toBeTruthy();
   });
 });

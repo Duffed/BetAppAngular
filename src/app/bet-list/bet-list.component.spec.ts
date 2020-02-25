@@ -1,16 +1,15 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from "@angular/core/testing";
 
-import { BetListComponent } from './bet-list.component';
+import { BetListComponent } from "./bet-list.component";
 
-describe('BetListComponent', () => {
+describe("BetListComponent", () => {
   let component: BetListComponent;
   let fixture: ComponentFixture<BetListComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ BetListComponent ]
-    })
-    .compileComponents();
+      declarations: [BetListComponent]
+    }).compileComponents();
   }));
 
   beforeEach(() => {
@@ -19,7 +18,7 @@ describe('BetListComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it("should create", () => {
     expect(component).toBeTruthy();
   });
 });

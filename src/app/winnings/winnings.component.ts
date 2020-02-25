@@ -1,12 +1,12 @@
-import { Component, OnInit, DoCheck } from '@angular/core';
-import { CombinationBet } from 'src/domain/combinationBet';
-import { TipService } from '../tip.service';
-import { Tip } from 'src/domain/tip';
+import { Component, OnInit, DoCheck } from "@angular/core";
+import { CombinationBet } from "src/domain/combinationBet";
+import { TipService } from "../tip.service";
+import { Tip } from "src/domain/tip";
 
 @Component({
-  selector: 'app-winnings',
-  templateUrl: './winnings.component.html',
-  styleUrls: ['./winnings.component.scss']
+  selector: "app-winnings",
+  templateUrl: "./winnings.component.html",
+  styleUrls: ["./winnings.component.scss"]
 })
 export class WinningsComponent implements OnInit, DoCheck {
   combinations: CombinationBet[];
@@ -20,15 +20,14 @@ export class WinningsComponent implements OnInit, DoCheck {
     }
   }
 
-  constructor(private tipService: TipService) { }
+  constructor(private tipService: TipService) {}
 
   ngOnInit(): void {
-      this.combinations = this.tipService.getCombinationBets();
+    this.combinations = this.tipService.getCombinationBets();
     this.stake = this.tipService.getStake();
-    }
+  }
 
   setStake(amount: HTMLInputElement) {
-      this.tipService.setStake(Number(amount.value));
-    }
-
+    this.tipService.setStake(Number(amount.value));
+  }
 }

@@ -1,10 +1,17 @@
 <h2>Winnings</h2>
 
 <mat-label>Total Stake</mat-label>
-<input [value]="stake" matInput type="text" #inputStake (input)="setStake(inputStake)">
+<input
+  [value]="stake"
+  matInput
+  type="text"
+  #inputStake
+  (input)="setStake(inputStake)"
+/>
 
 <mat-list>
-    <mat-list-item *ngFor="let combination of combinations">
-        <strong>{{ combination.name }}</strong> : {{ combination.winnings | number:'.0-2'}}
-    </mat-list-item>
+  <mat-list-item *ngFor="let combination of combinations">
+    <strong>{{ combination.name }}</strong> :
+    {{ combination.winnings | number: ".0-2" }}
+  </mat-list-item>
 </mat-list>

@@ -1,16 +1,15 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from "@angular/core/testing";
 
-import { TipListComponent } from './tip-list.component';
+import { TipListComponent } from "./tip-list.component";
 
-describe('TipListComponent', () => {
+describe("TipListComponent", () => {
   let component: TipListComponent;
   let fixture: ComponentFixture<TipListComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ TipListComponent ]
-    })
-    .compileComponents();
+      declarations: [TipListComponent]
+    }).compileComponents();
   }));
 
   beforeEach(() => {
@@ -19,7 +18,7 @@ describe('TipListComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it("should create", () => {
     expect(component).toBeTruthy();
   });
 });

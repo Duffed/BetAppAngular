@@ -1,19 +1,19 @@
 @import "../variables.scss";
 
 header {
-    background-color: $blue-dark;
-    color: white;
-    display: block;
-    padding: 20px 40px 80px 40px;
+  background-color: $blue-dark;
+  color: white;
+  display: block;
+  padding: 20px 40px 80px 40px;
 }
 
 h1 {
-    border-bottom: 1px solid $blue-light;
-    padding-bottom: 5px;
-    margin-bottom: 15px;
+  border-bottom: 1px solid $blue-light;
+  padding-bottom: 5px;
+  margin-bottom: 15px;
 }
 
 h2 {
-    color: #eee;
-    font-size: 1.4em
+  color: #eee;
+  font-size: 1.4em;
 }

@@ -1,17 +1,18 @@
 mat-form-field {
-    display: block
+  display: block;
 }
 
-.opponents, .odds {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
+.opponents,
+.odds {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
 
-    mat-form-field {
-        display: inline-block
-    }
+  mat-form-field {
+    display: inline-block;
+  }
 
-    strong {
-        margin: 0 20px;
-    }
+  strong {
+    margin: 0 20px;
+  }
 }
