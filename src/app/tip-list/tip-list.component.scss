@@ -8,8 +8,7 @@ ul {
     flex-direction: column;
     align-content: stretch;
     justify-content: stretch;
-    margin-top: -50px;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
 
     li {
         margin-top: 10px;
@@ -26,8 +25,10 @@ ul {
     text-align: center;
     opacity: 0.5;
     transition: opacity .3s ease-in-out;
+    cursor: pointer;
 
     .plusSign {
+        transition: font-weight .3s ease-in-out;
         margin: auto;
         width: 60px;
         height: 60px;
@@ -42,6 +43,12 @@ ul {
 
     &:hover {
         opacity: 1;
+        font-weight: bold;
+
+        > .plusSign {
+            font-weight: normal;
+            box-shadow: 0 0 3px 0px rgb(151, 151, 151);
+        }
     }
 }
 

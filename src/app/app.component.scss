@@ -1,3 +1,18 @@
+@import "./variables.scss";
+
 main {
-    padding: 0 25px
+    padding: 0 25px;
+    display: flex;
+    flex-basis: 0;
+
+    app-tip-list {
+        flex: 2;
+    }
+
+    app-winnings {
+        flex: 1;
+        margin-left: 20px;
+        padding-left: 20px;
+        border-left: 1px solid $blue-primary;
+    }
 }

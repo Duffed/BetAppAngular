@@ -1,4 +1,3 @@
-<!-- Title, Löschen, Win-Toggle, odds, date, sport, outcome -->
 <div class="tip"
     [className]="tip.markedAsWin? 'win' : 'loss'">
     <header>{{tip.opponent1}} - {{tip.opponent2}}</header>
@@ -7,16 +6,16 @@
         <strong>Outcome:</strong> {{ tip.outcome }}
     </div>
     <footer>
-        
+
         <span>
             <span class="sport">{{ tip.sport }}</span> |
             <time>{{ tip.date | date:'dd.MM.yyyy' }}</time>
         </span>
-        
+
         <mat-icon
             [matTooltip]="tip.markedAsWin? 'Mark as Loss' : 'Mark as Win'"
-            class="flag" 
-            (click)="clickWinToggle()">
+            class="flag"
+            (click)="clickWinToggle(tip)">
             {{tip.markedAsWin? 'flag':'outlined_flag'}}
         </mat-icon>
 
@@ -26,9 +25,9 @@
             (change)="clickWinToggle()">Mark as Win</mat-slide-toggle> -->
     </footer>
 
-    <a 
-        [routerLink]="'/'" 
-        (click)="deleteTip(tip)" 
+    <a
+        [routerLink]="'/'"
+        (click)="deleteTip(tip)"
         class="removeTip"
         matTooltip="Delete Tip">
         <mat-icon>delete_forever</mat-icon>

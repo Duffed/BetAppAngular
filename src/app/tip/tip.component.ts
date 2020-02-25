@@ -14,9 +14,8 @@ export class TipComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  clickWinToggle() {
-    this.tip.markedAsWin = !this.tip.markedAsWin;
-    this.tipService.calculateWinnings(this.tipService.getTips(), 100);
+  clickWinToggle(tip) {
+    this.tipService.toggleMarkedAsWin(tip);
   }
 
   deleteTip(tip) {
