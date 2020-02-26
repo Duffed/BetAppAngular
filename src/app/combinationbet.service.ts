@@ -6,6 +6,7 @@ import { Tip } from "src/domain/tip";
   providedIn: "root"
 })
 export class CombinationbetService {
+  SingleBets: CombinationBet[] = [];
   ThreeTipBets: CombinationBet[] = [];
   FourTipBets: CombinationBet[] = [];
   FiveTipBets: CombinationBet[] = [];
@@ -65,6 +66,7 @@ export class CombinationbetService {
   }
 
   initCombinationBets() {
+    const noSubsets = new CombinationBet("Single", 1, 2);
     const subsetsOfTwo = new CombinationBet("2", 2, 2);
     const subsetsOfThree = new CombinationBet("3", 3, 3);
     const subsetsOfFour = new CombinationBet("4", 4, 4);
@@ -82,6 +84,7 @@ export class CombinationbetService {
     const superheinz = new CombinationBet("Super Heinz", 2, 7, 120);
     const goliath = new CombinationBet("Goliath", 2, 8, 247);
 
+    this.SingleBets = [noSubsets];
     this.ThreeTipBets = [subsetsOfTwo, trixie, patent];
     this.FourTipBets = [subsetsOfTwo, subsetsOfThree, yankee, lucky15];
     this.FiveTipBets = [

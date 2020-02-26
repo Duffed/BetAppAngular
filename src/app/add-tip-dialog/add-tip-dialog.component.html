@@ -16,12 +16,14 @@
   <div class="opponents">
     <mat-form-field>
       <mat-label>Opponent1</mat-label>
-      <input formControlName="opponent1" matInput type="text" />
+      <input placeholder="Henry Cejudo" formControlName="opponent1" matInput type="text" />
+      <mat-icon matPrefix>person</mat-icon>
     </mat-form-field>
     <strong>vs</strong>
     <mat-form-field>
       <mat-label>Opponent1</mat-label>
-      <input formControlName="opponent2" matInput type="text" />
+      <input placeholder="Nate Diaz" formControlName="opponent2" matInput type="text" />
+      <mat-icon matPrefix>person</mat-icon>
     </mat-form-field>
   </div>
 
@@ -29,12 +31,12 @@
   <div class="odds">
     <mat-form-field>
       <mat-label>Odds predecimal</mat-label>
-      <input value="1" formControlName="odds1" matInput type="text" />
+      <input formControlName="odds1" matInput value="1"/>
     </mat-form-field>
     <strong>,</strong>
     <mat-form-field>
       <mat-label>Odds decimal</mat-label>
-      <input value="0" formControlName="odds2" matInput type="text" />
+      <input formControlName="odds2" matInput value="0" />
     </mat-form-field>
   </div>
 
@@ -49,6 +51,7 @@
   <!-- Sport -->
   <mat-form-field>
     <mat-label>Sport</mat-label>
+    <mat-icon matPrefix>sports_mma</mat-icon>
     <mat-select formControlName="sport" matNativeControl>
       <mat-option *ngFor="let sport of sportListKeys()" [value]="sport">
         {{ sportList[sport] }}
@@ -59,6 +62,7 @@
   <!-- Outcome -->
   <mat-form-field>
     <mat-label>Outcome</mat-label>
+    <mat-icon matPrefix>flag</mat-icon>
     <mat-select formControlName="outcome" matNativeControl>
       <mat-option *ngFor="let outcome of outComesKeys()" [value]="outcome">
         {{ outComeList[outcome] }}

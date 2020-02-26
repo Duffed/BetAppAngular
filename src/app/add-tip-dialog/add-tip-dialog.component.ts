@@ -28,16 +28,20 @@ export class AddTipDialogComponent implements OnInit {
 
   ngOnInit(): void {
     this.form = this.fb.group({
-      opponent1: ["", Validators.maxLength],
+      opponent1: ["", Validators.required],
       opponent2: ["", Validators.required],
-      odds1: ["", [Validators.required, Validators.maxLength(3)]],
-      odds2: ["", [Validators.required, Validators.maxLength(3)]],
+      odds1: ["1", [Validators.required, Validators.maxLength(3)]],
+      odds2: ["0", [Validators.required, Validators.maxLength(3)]],
       date: [""],
       sport: [""],
       outcome: [""],
       odds: [""],
       submitted: [""]
     });
+  }
+
+  close() {
+    this.dialogRef.close();
   }
 
   save() {

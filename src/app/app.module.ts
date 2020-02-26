@@ -18,6 +18,8 @@ import { MatDividerModule } from "@angular/material/divider";
 import { MatNativeDateModule } from "@angular/material/core";
 import { MatSnackBarModule } from "@angular/material/snack-bar";
 import { MatListModule } from "@angular/material/list";
+import { MatCardModule } from "@angular/material/card";
+import { MatTabsModule } from "@angular/material/tabs";
 
 // Components
 import { AppRoutingModule } from "./app-routing.module";
@@ -58,7 +60,9 @@ import { WinningsComponent } from "./winnings/winnings.component";
     FormsModule,
     ReactiveFormsModule,
     MatSnackBarModule,
-    MatListModule
+    MatListModule,
+    MatCardModule,
+    MatTabsModule
   ],
   providers: [MatDatepickerModule],
   bootstrap: [AppComponent],

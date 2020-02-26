@@ -1,8 +1,9 @@
+@import "../../variables.scss";
+
 .tip {
   padding: 15px 15px 15px 20px;
   box-shadow: 0px 0px 4px 0px #ccc;
   border-radius: 3px;
-  z-index: 99;
   position: relative;
   background: white;
 
@@ -41,6 +42,11 @@
   }
 }
 
+.cursor {
+  cursor: pointer;
+  user-select: none;
+}
+
 .infos {
   font-size: 0.8em;
 }
@@ -55,7 +61,7 @@ footer {
   align-items: flex-end;
 
   .sport {
-    color: blue;
+    color: $primary;
   }
 
   .flag {
@@ -70,9 +76,19 @@ header {
 }
 
 .removeTip {
-  opacity: 0;
+  opacity: 1;
   transition: ease-in-out 0.3s opacity;
   position: absolute;
   top: 15px;
   right: 15px;
+}
+
+@media only screen and (min-width: 800px) {
+  .removeTip {
+    opacity: 0;
+  }
+
+  .tip:hover > .removeTip {
+    opacity: 1;
+  }
 }

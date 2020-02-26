@@ -20,11 +20,18 @@ export class TipListComponent implements OnInit {
     this.tips = this.tipService.getTips();
   }
 
+  counter(n: number) {
+    return new Array(n);
+  }
+
   onClickAdd() {
-    const dialogRef = this.dialog.open(AddTipDialogComponent);
+    const dialogRef = this.dialog.open(AddTipDialogComponent, {
+      maxWidth: "95vw",
+      width: "600px"
+    });
 
     dialogRef.afterClosed().subscribe(result => {
-      if (!result.submitted) return;
+      if (!result || !result.submitted) return;
 
       if (!result.sport) result.sport = Sport.Ufc;
       if (!result.date) result.date = new Date();
@@ -36,7 +43,7 @@ export class TipListComponent implements OnInit {
         result.odds,
         result.date,
         result.sport,
-        result.outcome
+        OutComeEnum[result.outcome]
       );
       this.tipService.addTip(tip);
     });

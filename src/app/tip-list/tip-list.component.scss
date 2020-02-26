@@ -1,3 +1,5 @@
+@import "../../variables.scss";
+
 // Mobile
 ul {
   list-style: none;
@@ -19,7 +21,6 @@ ul {
   padding: 15px 15px 15px 20px;
   box-shadow: 0px 0px 4px 0px #ccc;
   border-radius: 3px;
-  z-index: 99;
   position: relative;
   background: white;
   text-align: center;
@@ -37,7 +38,7 @@ ul {
     border-radius: 100%;
     background: white;
     box-shadow: 0 0 3px 0px #ccc;
-    color: blue;
+    color: $primary;
     margin-bottom: 10px;
   }
 

@@ -1,7 +1,7 @@
-@import "./variables.scss";
+@import "../variables.scss";
 
-main {
-  padding: 0 25px;
+.desktop {
+  padding: 10px 25px;
   display: flex;
   flex-basis: 0;
 
@@ -13,6 +13,27 @@ main {
     flex: 1;
     margin-left: 20px;
     padding-left: 20px;
-    border-left: 1px solid $blue-primary;
+    border-left: 1px solid $primary;
   }
+}
+
+.mobile {
+  padding: 10px 15px;
+  margin-bottom: 15px;
+}
+
+::ng-deep main.mobile mat-tab-header {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: white;
+  z-index: 99;
+}
+
+.mobile { display: none }
+
+@media (max-width: 800px) {
+  .desktop { display: none }
+  .mobile { display: block }
 }

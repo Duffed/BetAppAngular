@@ -1,0 +1,44 @@
+$md-mcgpalette0: (
+    50 : #fcf5e6,
+    100 : #f8e5c1,
+    200 : #f3d497,
+    300 : #eec36d,
+    400 : #ebb64e,
+    500 : #e7a92f,
+    600 : #e4a22a,
+    700 : #e09823,
+    800 : #dd8f1d,
+    900 : #d77e12,
+    A100 : #ffffff,
+    A200 : #ffe9d2,
+    A400 : #ffd19f,
+    A700 : #ffc485,
+    contrast: (
+        50 : #000000,
+        100 : #000000,
+        200 : #000000,
+        300 : #000000,
+        400 : #000000,
+        500 : #000000,
+        600 : #000000,
+        700 : #000000,
+        800 : #000000,
+        900 : #000000,
+        A100 : #000000,
+        A200 : #000000,
+        A400 : #000000,
+        A700 : #000000,
+    )
+);
+
+@import '~minireset.css/minireset';
+@import "~@angular/material/theming";
+@include mat-core();
+
+$custom-theme-primary: mat-palette($md-mcgpalette0);
+$custom-theme-accent: mat-palette($md-mcgpalette0, A200, A100, A400);
+$custom-theme-warn: mat-palette($mat-red);
+
+$custom-theme: mat-light-theme($custom-theme-primary, $custom-theme-accent, $custom-theme-warn);
+
+@include angular-material-theme($custom-theme);

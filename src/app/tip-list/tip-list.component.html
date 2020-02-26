@@ -3,7 +3,7 @@
     <app-tip [tip]="tip"></app-tip>
   </li>
   <ng-container *ngIf="tips.length < 8">
-    <li (click)="onClickAdd()" class="addTip">
+    <li (click)="onClickAdd()" class="addTip"> <!-- *ngFor="let i of counter(8-tips.length)" -->
       <div class="plusSign">+</div>
       Add Tip
     </li>

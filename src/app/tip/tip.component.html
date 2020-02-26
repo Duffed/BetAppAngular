@@ -10,26 +10,26 @@
       <time>{{ tip.date | date: "dd.MM.yyyy" }}</time>
     </span>
 
-    <mat-icon
+    <!-- <mat-icon
       [matTooltip]="tip.markedAsWin ? 'Mark as Loss' : 'Mark as Win'"
       class="flag"
       (click)="clickWinToggle(tip)"
     >
       {{ tip.markedAsWin ? "flag" : "outlined_flag" }}
-    </mat-icon>
+    </mat-icon> -->
 
-    <!-- <mat-slide-toggle
-            class=""
-            [checked]="tip.markedAsWin"
-            (change)="clickWinToggle()">Mark as Win</mat-slide-toggle> -->
+    <mat-slide-toggle
+      color="primary"
+      [matTooltip]="tip.markedAsWin ? 'Mark as Loss' : 'Mark as Win'"
+      [checked]="tip.markedAsWin"
+      (change)="clickWinToggle(tip)"
+    ></mat-slide-toggle>
   </footer>
 
-  <a
+  <mat-icon
+    color="warn"
     [routerLink]="'/'"
     (click)="deleteTip(tip)"
-    class="removeTip"
-    matTooltip="Delete Tip"
-  >
-    <mat-icon>delete_forever</mat-icon>
-  </a>
+    class="removeTip cursor"
+    matTooltip="Delete Tip">delete_forever</mat-icon>
 </div>

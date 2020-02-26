@@ -1,0 +1,12 @@
+// Import material theming functions
+@import './custom-theme';
+
+// Copy the palettes from your selected theme (usually theme.scss).
+$custom-theme-primary: mat-palette($md-mcgpalette0);
+$custom-theme-accent: mat-palette($md-mcgpalette0, A200, A100, A400);
+$custom-theme-warn: mat-palette($mat-red);
+
+// Create your Sass color vars (will be available in all the project)
+$primary: mat-color($custom-theme-primary);
+$accent: mat-color($custom-theme-accent);
+$warn: mat-color($custom-theme-warn);

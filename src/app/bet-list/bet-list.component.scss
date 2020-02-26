@@ -1,4 +1,4 @@
-@import "../variables.scss";
+@import "../../variables.scss";
 
 .bet-list {
   list-style-type: none;
@@ -61,7 +61,7 @@
 }
 
 .bet-footer {
-  border-top: 1px solid $blue-primary;
+  border-top: 1px solid $primary;
   margin-top: 10px;
   font-size: 0.8em;
   color: darkgrey;

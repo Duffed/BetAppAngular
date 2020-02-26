@@ -2,17 +2,54 @@ mat-form-field {
   display: block;
 }
 
+mat-icon {
+  vertical-align: bottom;
+}
+
 .opponents,
 .odds {
+  width: 100%;
   display: flex;
   justify-content: space-around;
   align-items: center;
 
   mat-form-field {
-    display: inline-block;
+    flex-grow: 1;
+    flex-shrink: 1;
   }
 
   strong {
-    margin: 0 20px;
+    flex-grow: 0;
+    padding: 0 15px;
   }
+}
+
+strong {
+  text-align: center;
+  display:block
+}
+
+@media only screen and (min-width: 800px) {
+  // .opponents,
+  // .odds {
+  //   display: flex;
+  //   justify-content: space-around;
+  //   align-items: center;
+
+  //   mat-form-field {
+  //     display: inline-block;
+  //     flex-grow: 1;
+  //     flex-shrink: 1;
+  //   }
+
+  //   strong {
+  //     margin: 0 20px;
+  //     flex-grow: 0;
+  //   }
+  // }
+
+  strong {
+    padding: 0;
+  }
+
 }

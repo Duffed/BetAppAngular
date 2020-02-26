@@ -10,6 +10,7 @@ import { Tip } from "src/domain/tip";
 })
 export class WinningsComponent implements OnInit, DoCheck {
   combinations: CombinationBet[];
+  tipsLength: number;
   stake: number;
 
   ngDoCheck(): void {
@@ -17,6 +18,8 @@ export class WinningsComponent implements OnInit, DoCheck {
     //Add 'implements DoCheck' to the class.
     if (this.combinations !== this.tipService.getCombinationBets()) {
       this.combinations = this.tipService.getCombinationBets();
+      this.setCombinationNames();
+      this.tipsLength = this.tipService.getTips().length;
     }
   }
 
@@ -24,10 +27,26 @@ export class WinningsComponent implements OnInit, DoCheck {
 
   ngOnInit(): void {
     this.combinations = this.tipService.getCombinationBets();
+    this.setCombinationNames();
     this.stake = this.tipService.getStake();
+    this.tipsLength = this.tipService.getTips().length;
   }
 
   setStake(amount: HTMLInputElement) {
     this.tipService.setStake(Number(amount.value));
+  }
+
+  private setCombinationNames() {
+    this.combinations.forEach(c => {
+      if (
+        c.name === "2" ||
+        c.name === "3" ||
+        c.name === "4" ||
+        c.name === "5" ||
+        c.name === "6" ||
+        c.name === "7"
+      )
+        c.name = c.name + "/" + this.tipService.getTips().length;
+    });
   }
 }

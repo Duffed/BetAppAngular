@@ -1,4 +1,28 @@
+@import "../../variables.scss";
+
+.wrapper {
+  margin-top: 10px;
+  padding: 15px 15px 15px 20px;
+  box-shadow: 0px 0px 4px 0px #ccc;
+  border-radius: 3px;
+  position: relative;
+  background: white;
+}
+
 ul {
   list-style: none;
-  padding: none;
+}
+
+h2 {
+  font-size: 1.3em;
+  margin-bottom: 15px;
+  color:  $primary
+}
+
+mat-icon {
+  vertical-align: bottom;
+}
+
+table tr td:first-child {
+  padding-right: 5px;
 }

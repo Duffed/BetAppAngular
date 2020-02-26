@@ -60,21 +60,21 @@ export class TipService {
 
   private calculateWinnings() {
     // Trennung falsche und richtige Tips
-    let availableCombinationBets = this.combinationBetService.getAvailableCombinationBets(
-      this.tips.length
-    );
+    let availableCombinationBets = this.combinationBetService.getAvailableCombinationBets(this.tips.length);
+
+    // Calculate Single Tips when < 3
+    if (!availableCombinationBets) {
+      this.calculateSingleBets();
+      return;
+    }
+
     for (const combinationBet of availableCombinationBets) {
       // Einsatz pro Wette
       let stakePerBet: number;
       if (combinationBet.numberOfBets) {
         stakePerBet = this.stake / combinationBet.numberOfBets;
       } else {
-        stakePerBet =
-          this.stake /
-          this.combinationBetService.binomialCoefficient(
-            this.tips.length,
-            combinationBet.minimumCombinationSize
-          );
+        stakePerBet = this.stake / this.combinationBetService.binomialCoefficient(this.tips.length, combinationBet.minimumCombinationSize);
       }
 
       // init winnigs
@@ -120,5 +120,19 @@ export class TipService {
     }
 
     this.combinationBets = availableCombinationBets;
+  }
+
+  private calculateSingleBets() {
+    let combinationBet = new CombinationBet("Single", 1, 2);
+
+    combinationBet.winnings = - this.stake;
+    let stakePerBet = this.stake / this.tips.length;
+
+    this.tips.forEach(tip => {
+      if (tip.markedAsWin)
+        combinationBet.winnings += (tip.odds * stakePerBet)
+    });
+
+    this.combinationBets = [combinationBet];
   }
 }
