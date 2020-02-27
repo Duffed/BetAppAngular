@@ -4,7 +4,6 @@ header {
   background-color: $primary;
   color: white;
   display: block;
-  padding: 20px 40px 20px 40px;
 }
 
 h1 {
@@ -16,4 +15,10 @@ h1 {
 h2 {
   color: #eee;
   font-size: 1.2em;
+}
+
+.wrapper {
+  max-width: 1100px;
+  margin: auto;
+  padding: 20px 30px;
 }

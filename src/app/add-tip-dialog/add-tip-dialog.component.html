@@ -14,28 +14,43 @@
 <mat-dialog-content [formGroup]="form">
   <!-- Opponents -->
   <div class="opponents">
-    <mat-form-field>
+    <mat-form-field class="marginbottom">
       <mat-label>Opponent1</mat-label>
       <input placeholder="Henry Cejudo" formControlName="opponent1" matInput type="text" />
+      <mat-error *ngIf="opponent1.touched && opponent1.invalid">
+        Please enter the name of the first opponent
+      </mat-error>
       <mat-icon matPrefix>person</mat-icon>
     </mat-form-field>
+
     <strong>vs</strong>
-    <mat-form-field>
+
+    <mat-form-field class="marginbottom">
       <mat-label>Opponent1</mat-label>
       <input placeholder="Nate Diaz" formControlName="opponent2" matInput type="text" />
+      <mat-error *ngIf="opponent2.touched && opponent2.invalid">
+        Please enter the name of the second opponent
+      </mat-error>
       <mat-icon matPrefix>person</mat-icon>
     </mat-form-field>
   </div>
 
   <!-- Odds -->
   <div class="odds">
-    <mat-form-field>
+    <mat-form-field class="marginbottom">
       <mat-label>Odds predecimal</mat-label>
       <input formControlName="odds1" matInput value="1"/>
+      <mat-error *ngIf="odds1.touched && odds1.invalid">
+        Hm, odds can't be that high
+      </mat-error>
     </mat-form-field>
     <strong>,</strong>
-    <mat-form-field>
+
+    <mat-form-field class="marginbottom">
       <mat-label>Odds decimal</mat-label>
+      <mat-error *ngIf="odds2.touched && odds2.invalid">
+        A maximum of 3 decimal numbers are allowed
+      </mat-error>
       <input formControlName="odds2" matInput value="0" />
     </mat-form-field>
   </div>
