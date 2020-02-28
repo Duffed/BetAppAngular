@@ -7,6 +7,7 @@
   border-radius: 3px;
   position: relative;
   background: white;
+  min-width: 200px
 }
 
 ul {
@@ -23,6 +24,13 @@ mat-icon {
   vertical-align: bottom;
 }
 
-table tr td:first-child {
-  padding-right: 5px;
+mat-form-field {
+  width: 100%;
+  border: none
+}
+
+table {
+  tr td:first-child {
+    padding-right: 25px;
+  }
 }

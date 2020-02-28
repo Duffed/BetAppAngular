@@ -6,7 +6,7 @@ import { Tip } from "src/domain/tip";
   providedIn: "root"
 })
 export class CombinationbetService {
-  SingleBets: CombinationBet[] = [];
+  SingleBets: CombinationBet;
   ThreeTipBets: CombinationBet[] = [];
   FourTipBets: CombinationBet[] = [];
   FiveTipBets: CombinationBet[] = [];
@@ -67,24 +67,24 @@ export class CombinationbetService {
 
   initCombinationBets() {
     const noSubsets = new CombinationBet("Single", 1, 2);
-    const subsetsOfTwo = new CombinationBet("2", 2, 2);
-    const subsetsOfThree = new CombinationBet("3", 3, 3);
-    const subsetsOfFour = new CombinationBet("4", 4, 4);
-    const subsetsOfFive = new CombinationBet("5", 5, 5);
-    const subsetsOfSix = new CombinationBet("6", 6, 6);
-    const subsetsOfSeven = new CombinationBet("7", 7, 7);
-    const trixie = new CombinationBet("Trixie", 2, 3, 4);
-    const patent = new CombinationBet("Patent", 1, 3, 7);
-    const yankee = new CombinationBet("Yankee", 2, 4, 11);
-    const lucky15 = new CombinationBet("Lucky15", 1, 4, 15);
-    const canadian = new CombinationBet("Canadian", 2, 5, 26);
-    const lucky31 = new CombinationBet("Lucky31", 1, 5, 31);
-    const heinz = new CombinationBet("Heinz", 2, 6, 57);
-    const lucky63 = new CombinationBet("Lucky63", 1, 6, 63);
-    const superheinz = new CombinationBet("Super Heinz", 2, 7, 120);
-    const goliath = new CombinationBet("Goliath", 2, 8, 247);
+    const subsetsOfTwo = new CombinationBet("System 2", 2, 2);
+    const subsetsOfThree = new CombinationBet("System 3", 3, 3);
+    const subsetsOfFour = new CombinationBet("System 4", 4, 4);
+    const subsetsOfFive = new CombinationBet("System 5", 5, 5);
+    const subsetsOfSix = new CombinationBet("System 6", 6, 6);
+    const subsetsOfSeven = new CombinationBet("System 7", 7, 7);
+    const trixie = new CombinationBet("System Trixie", 2, 3, 4);
+    const patent = new CombinationBet("System Patent", 1, 3, 7);
+    const yankee = new CombinationBet("System Yankee", 2, 4, 11);
+    const lucky15 = new CombinationBet("System Lucky15", 1, 4, 15);
+    const canadian = new CombinationBet("System Canadian", 2, 5, 26);
+    const lucky31 = new CombinationBet("System Lucky31", 1, 5, 31);
+    const heinz = new CombinationBet("System Heinz", 2, 6, 57);
+    const lucky63 = new CombinationBet("System Lucky63", 1, 6, 63);
+    const superheinz = new CombinationBet("System Super Heinz", 2, 7, 120);
+    const goliath = new CombinationBet("System Goliath", 2, 8, 247);
 
-    this.SingleBets = [noSubsets];
+    this.SingleBets = noSubsets;
     this.ThreeTipBets = [subsetsOfTwo, trixie, patent];
     this.FourTipBets = [subsetsOfTwo, subsetsOfThree, yankee, lucky15];
     this.FiveTipBets = [

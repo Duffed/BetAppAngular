@@ -9,7 +9,7 @@ import { CombinationbetService } from "./combinationbet.service";
 })
 export class TipService {
   tips: Tip[];
-  combinationBets: CombinationBet[];
+  combinationBets: CombinationBet[] = [];
   stake: number = 100;
 
   constructor(private combinationBetService: CombinationbetService) {
@@ -39,7 +39,7 @@ export class TipService {
   }
 
   addTip(tip: Tip) {
-    this.tips.push(tip);
+    this.tips.unshift(tip);
     this.calculateWinnings();
   }
 
@@ -60,9 +60,10 @@ export class TipService {
 
   private calculateWinnings() {
     // Trennung falsche und richtige Tips
+    this.combinationBets = [];
     let availableCombinationBets = this.combinationBetService.getAvailableCombinationBets(this.tips.length);
 
-    // Calculate Single Tips when < 3
+    // Calculate single bets when < 3
     if (!availableCombinationBets) {
       this.calculateSingleBets();
       return;
@@ -133,6 +134,6 @@ export class TipService {
         combinationBet.winnings += (tip.odds * stakePerBet)
     });
 
-    this.combinationBets = [combinationBet];
+    this.combinationBets.unshift(combinationBet);
   }
 }

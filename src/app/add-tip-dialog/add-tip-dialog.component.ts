@@ -28,12 +28,10 @@ export class AddTipDialogComponent implements OnInit {
       this.form = this.fb.group({
         opponent1: ["", Validators.required],
         opponent2: ["", Validators.required],
-        odds1: ["1", [Validators.required, Validators.maxLength(3)]],
-        odds2: ["0", [Validators.required, Validators.maxLength(3)]],
+        odds: ["1", [Validators.required, Validators.maxLength(3)]],
         date: [new Date()],
         sport: [""],
         outcome: [""],
-        odds: [""],
         submitted: [""]
       });
   }
@@ -49,11 +47,8 @@ export class AddTipDialogComponent implements OnInit {
   get opponent2() {
     return this.form.get("opponent2");
   }
-  get odds1() {
-    return this.form.get("odds1");
-  }
-  get odds2() {
-    return this.form.get("odds2");
+  get odds() {
+    return this.form.get("odds");
   }
 
   close() {
@@ -63,9 +58,6 @@ export class AddTipDialogComponent implements OnInit {
   save() {
     if (!this.form.invalid) {
       this.form.controls.submitted.setValue(true);
-      let predecimal = Number(this.form.controls.odds1.value);
-      let decimal = this.form.controls.odds2.value / 10;
-      this.form.controls.odds.setValue(predecimal + decimal);
       this.dialogRef.close(this.form.value);
     }
   }
