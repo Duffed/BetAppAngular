@@ -38,7 +38,7 @@
   <!-- Odds -->
   <mat-form-field appearance="outline" class="marginbottom">
     <mat-label>Odds</mat-label>
-    <input type="number" formControlName="odds" matInput value="1"/>
+    <input min="0.1" step="0.1" type="number" formControlName="odds" matInput value="1"/>
     <mat-error *ngIf="odds.touched && odds.invalid">
       Please enter a number
     </mat-error>

@@ -6,7 +6,7 @@ import { Tip } from "src/domain/tip";
   providedIn: "root"
 })
 export class CombinationbetService {
-  SingleBets: CombinationBet;
+  SingleBets: CombinationBet[] = [];
   ThreeTipBets: CombinationBet[] = [];
   FourTipBets: CombinationBet[] = [];
   FiveTipBets: CombinationBet[] = [];
@@ -48,6 +48,8 @@ export class CombinationbetService {
 
   getAvailableCombinationBets(numberOfTips: number): CombinationBet[] {
     switch (numberOfTips) {
+      case 1: case 2:
+        return this.SingleBets;
       case 3:
         return this.ThreeTipBets;
       case 4:
@@ -84,10 +86,11 @@ export class CombinationbetService {
     const superheinz = new CombinationBet("System Super Heinz", 2, 7, 120);
     const goliath = new CombinationBet("System Goliath", 2, 8, 247);
 
-    this.SingleBets = noSubsets;
-    this.ThreeTipBets = [subsetsOfTwo, trixie, patent];
-    this.FourTipBets = [subsetsOfTwo, subsetsOfThree, yankee, lucky15];
+    this.SingleBets = [noSubsets];
+    this.ThreeTipBets = [noSubsets, subsetsOfTwo, trixie, patent];
+    this.FourTipBets = [noSubsets, subsetsOfTwo, subsetsOfThree, yankee, lucky15];
     this.FiveTipBets = [
+      noSubsets,
       subsetsOfTwo,
       subsetsOfThree,
       subsetsOfFour,
@@ -95,6 +98,7 @@ export class CombinationbetService {
       lucky31
     ];
     this.SixTipBets = [
+      noSubsets,
       subsetsOfTwo,
       subsetsOfThree,
       subsetsOfFour,
@@ -103,6 +107,7 @@ export class CombinationbetService {
       lucky63
     ];
     this.SevenTipBets = [
+      noSubsets,
       subsetsOfTwo,
       subsetsOfThree,
       subsetsOfFour,
@@ -111,6 +116,7 @@ export class CombinationbetService {
       superheinz
     ];
     this.EightTipBets = [
+      noSubsets,
       subsetsOfTwo,
       subsetsOfThree,
       subsetsOfFour,

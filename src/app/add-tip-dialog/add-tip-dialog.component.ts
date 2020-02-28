@@ -28,7 +28,7 @@ export class AddTipDialogComponent implements OnInit {
       this.form = this.fb.group({
         opponent1: ["", Validators.required],
         opponent2: ["", Validators.required],
-        odds: ["1", [Validators.required, Validators.maxLength(3)]],
+        odds: ["1.9", [Validators.required, Validators.maxLength(3)]],
         date: [new Date()],
         sport: [""],
         outcome: [""],

@@ -60,29 +60,43 @@ export class TipService {
 
   private calculateWinnings() {
     // Trennung falsche und richtige Tips
-    this.combinationBets = [];
     let availableCombinationBets = this.combinationBetService.getAvailableCombinationBets(this.tips.length);
 
     // Calculate single bets when < 3
     if (!availableCombinationBets) {
-      this.calculateSingleBets();
+      this.combinationBets = [];
       return;
     }
 
     for (const combinationBet of availableCombinationBets) {
-      // Einsatz pro Wette
       let stakePerBet: number;
-      if (combinationBet.numberOfBets) {
+
+      // Single Bets
+      if (combinationBet.name === "Single") {
+        combinationBet.winnings = -this.stake;
+        combinationBet.numberOfBets = this.tips.length;
         stakePerBet = this.stake / combinationBet.numberOfBets;
-      } else {
-        stakePerBet = this.stake / this.combinationBetService.binomialCoefficient(this.tips.length, combinationBet.minimumCombinationSize);
+
+        this.tips.forEach(tip => {
+          if (tip.markedAsWin) combinationBet.winnings += tip.odds * stakePerBet;
+        });
+
+        continue;
       }
+
+      // Einsatz pro Wette
+      if (!combinationBet.numberOfBets) {
+        // Calculate binomial coefficient if not set in CombinationBet
+        combinationBet.numberOfBets = this.combinationBetService.binomialCoefficient(this.tips.length, combinationBet.minimumCombinationSize);
+      }
+
+      stakePerBet = this.stake / combinationBet.numberOfBets;
 
       // init winnigs
       let winnings = -this.stake;
       let allBetsForCombinationBet: Tip[][][] = [];
 
-      // Einzelwetten
+      // Single bets for systembets
       if (combinationBet.minimumCombinationSize <= 1) {
         this.tips.forEach(tip => {
           if (tip.markedAsWin) {
@@ -94,14 +108,8 @@ export class TipService {
       }
 
       // Alle Wetten sammeln
-      for (
-        let i = combinationBet.minimumCombinationSize;
-        i <= combinationBet.maximumCombinationSize;
-        i++
-      ) {
-        allBetsForCombinationBet.push(
-          this.combinationBetService.getSubsetCombinations(this.tips, i)
-        );
+      for (let i = combinationBet.minimumCombinationSize; i <= combinationBet.maximumCombinationSize; i++) {
+        allBetsForCombinationBet.push(this.combinationBetService.getSubsetCombinations(this.tips, i));
       }
 
       // Gewinn berechnen
@@ -123,17 +131,4 @@ export class TipService {
     this.combinationBets = availableCombinationBets;
   }
 
-  private calculateSingleBets() {
-    let combinationBet = new CombinationBet("Single", 1, 2);
-
-    combinationBet.winnings = - this.stake;
-    let stakePerBet = this.stake / this.tips.length;
-
-    this.tips.forEach(tip => {
-      if (tip.markedAsWin)
-        combinationBet.winnings += (tip.odds * stakePerBet)
-    });
-
-    this.combinationBets.unshift(combinationBet);
-  }
 }
