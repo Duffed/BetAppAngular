@@ -2,7 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { BetService } from "../bet.service";
 
 @Component({
-  selector: "app-top-bar",
+  selector: "top-bar",
   templateUrl: "./top-bar.component.html",
   styleUrls: ["./top-bar.component.scss"]
 })

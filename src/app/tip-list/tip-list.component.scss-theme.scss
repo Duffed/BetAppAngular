@@ -1,0 +1,30 @@
+@import '~@angular/material/theming';
+
+// mixin name will be used in main style.scss
+@mixin tip-list-component-theme($theme) {
+  
+    // retrieve variables from theme 
+    $primary:       map-get($theme, primary);
+    $accent:        map-get($theme, accent);
+    $warn:          map-get($theme, accent);
+    $foreground:    map-get($theme, foreground);
+    $background:    map-get($theme, background);
+    
+
+    tip-list {
+        .plusSign {
+            color: mat-color($primary);
+            background: mat-color($background, background)
+        }
+
+        .addTip {
+            color: mat-color($primary);
+        }
+
+        @media only screen and (min-width: 800px) {
+            .addTip {
+                background: mat-color($background, card);
+            }
+        }
+    }
+}

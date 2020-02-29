@@ -1,33 +1,33 @@
-// // CSS Reset, comment out if not required or using a different module
-// @import '~minireset.css/minireset';
-// // Custom Theming for Angular Material
-// // For more information: https://material.angular.io/guide/theming
-// @import "~@angular/material/theming";
-// // Plus imports for other components in your app.
-
-// // Include the common styles for Angular Material. We include this here so that you only
-// // have to load a single css file for Angular Material in your app.
-// // Be sure that you only ever include this mixin once!
-// @include mat-core();
-
-// // Define the palettes for your theme using the Material Design palettes available in palette.scss
-// // (imported above). For each palette, you can optionally specify a default, lighter, and darker
-// // hue. Available color palettes: https://material.io/design/color/
-// $betapp-primary: mat-palette($mat-indigo);
-// $betapp-accent: mat-palette($mat-pink, A200, A100, A400);
-
-// // The warn palette is optional (defaults to red).
-// $betapp-warn: mat-palette($mat-red);
-
-// // Create the theme object (a Sass map containing all of the palettes).
-// $betapp-theme: mat-light-theme($betapp-primary, $betapp-accent, $betapp-warn);
-
-// // Include theme styles for core and each component used in your app.
-// // Alternatively, you can import and @include the theme mixins for each component
-// // that you are using.
-// @include angular-material-theme($betapp-theme);
 @import './custom-theme';
 
+// Component Themes
+@import './app/tip/tip.component.scss-theme.scss';
+@import './app/tip-list/tip-list.component.scss-theme.scss';
+@import './app/app.component.scss-theme.scss';
+@import './app/top-bar/top-bar.component.scss-theme.scss';
+@import './app/winnings/winnings.component.scss-theme.scss';
+
+// Mixins
+@mixin custom-components-theme($theme) {
+  @include tip-component-theme($theme);
+  @include tip-list-component-theme($theme);
+  @include app-component-theme($theme);
+  @include top-bar-component-theme($theme);
+  @include winnings-component-theme($theme);
+}
+
+// Themes
+.light-theme {
+  @include angular-material-theme($custom-theme);
+  @include custom-components-theme($custom-theme);
+}
+
+.dark-theme {
+  @include angular-material-theme($custom-dark-theme);
+  @include custom-components-theme($custom-dark-theme);
+}
+
+// Global styles
 * {
   margin: 0;
   padding: 0;
@@ -39,7 +39,6 @@ html, body {
 
 body {
   font-family: Roboto, "Helvetica Neue", sans-serif;
-  background: #f3f3f3;
 }
 
 h1, h2, h3, h4, h5, h6 {

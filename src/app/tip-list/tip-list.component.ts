@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, HostBinding } from "@angular/core";
 import { Tip, OutComeEnum } from "src/domain/tip";
 import { TipService } from "../tip.service";
 import { CombinationBet } from "src/domain/combinationBet";
@@ -7,7 +7,7 @@ import { AddTipDialogComponent } from "../add-tip-dialog/add-tip-dialog.componen
 import { Sport } from "src/domain/sport";
 
 @Component({
-  selector: "app-tip-list",
+  selector: "tip-list",
   templateUrl: "./tip-list.component.html",
   styleUrls: ["./tip-list.component.scss"]
 })

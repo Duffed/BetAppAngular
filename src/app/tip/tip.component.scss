@@ -1,11 +1,8 @@
-@import "../../variables.scss";
-
 .tip {
   padding: 15px 15px 15px 20px;
   box-shadow: 0px 0px 4px 0px #ccc;
   border-radius: 3px;
   position: relative;
-  background: white;
 
   &::before {
     content: " ";
@@ -59,10 +56,6 @@ footer {
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
-
-  .sport {
-    color: $primary;
-  }
 
   .flag {
     cursor: pointer;

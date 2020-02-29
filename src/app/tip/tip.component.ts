@@ -3,7 +3,7 @@ import { Tip } from "src/domain/tip";
 import { TipService } from "../tip.service";
 
 @Component({
-  selector: "app-tip",
+  selector: "tip",
   templateUrl: "./tip.component.html",
   styleUrls: ["./tip.component.scss"]
 })

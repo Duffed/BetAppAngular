@@ -1,5 +1,3 @@
-@import "../../variables.scss";
-
 // Mobile
 ul {
   list-style: none;
@@ -19,10 +17,7 @@ ul {
 
 .addTip {
   padding: 15px 15px 15px 20px;
-  // box-shadow: 0px 0px 4px 0px #ccc;
-  // border-radius: 3px;
   position: relative;
-  // background: white;
   text-align: center;
   opacity: 1;
   transition: opacity 0.3s ease-in-out;
@@ -36,9 +31,7 @@ ul {
     line-height: 50px;
     font-size: 2em;
     border-radius: 100%;
-    background: white;
     box-shadow: 0 0 3px 0px #ccc;
-    color: $primary;
     margin-bottom: 10px;
   }
 
@@ -64,15 +57,9 @@ ul {
   }
 
   .addTip {
-    // padding: 15px 15px 15px 20px;
     box-shadow: 0px 0px 4px 0px #ccc;
     border-radius: 3px;
-    // position: relative;
-    background: white;
-    // text-align: center;
     opacity: 0.5;
-    // transition: opacity 0.3s ease-in-out;
-    // cursor: pointer;
   }
 
   ul {
@@ -88,7 +75,6 @@ ul {
       min-width: 300px;
       margin-right: 5px;
       margin-left: 5px;
-      // max-width: 500px;
     }
   }
 }
