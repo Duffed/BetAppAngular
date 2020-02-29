@@ -1,4 +1,4 @@
-import { TestBed } from "@angular/core/testing";
+Pimport { TestBed } from "@angular/core/testing";
 
 import { TipService } from "./tip.service";
 

@@ -7,6 +7,17 @@
 @import './app/top-bar/top-bar.component.scss-theme.scss';
 @import './app/winnings/winnings.component.scss-theme.scss';
 
+// HTML Theme
+@mixin html-theme($theme) {
+  // & {
+  //   $background: map-get($theme, background);
+  //   $foreground: map-get($theme, foreground);
+
+  //   background-color: mat-color($background, background);
+  //   color: mat-color($foreground, text);
+  // }
+}
+
 // Mixins
 @mixin custom-components-theme($theme) {
   @include tip-component-theme($theme);
@@ -20,11 +31,19 @@
 .light-theme {
   @include angular-material-theme($custom-theme);
   @include custom-components-theme($custom-theme);
+
+  @at-root .light-theme {
+    @include html-theme($custom-theme);
+  }
 }
 
 .dark-theme {
   @include angular-material-theme($custom-dark-theme);
   @include custom-components-theme($custom-dark-theme);
+
+  @at-root .dark-theme {
+    @include html-theme($custom-dark-theme);
+  }
 }
 
 // Global styles
@@ -35,9 +54,7 @@
 
 html, body {
   height: 100%;
-}
-
-body {
+  box-sizing: border-box;
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 

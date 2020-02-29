@@ -5,16 +5,14 @@ mat-form-field {
 .odds {
   display: flex;
   justify-content: space-between;
+}
 
-  mat-form-field {
-    // flex: 1 0 auto;
-    min-width: 100px !important;
-  }
+.odds mat-form-field {
+  min-width: 100px !important;
+}
 
-  strong {
-    flex: 0 0 40px;
-    // padding: 0 15px;
-  }
+.odds strong {
+  flex: 0 0 40px;
 }
 
 .marginbottom {
@@ -43,22 +41,17 @@ strong {
   .opponents {
     display: flex;
     justify-content: space-between;
-
-    mat-form-field {
-      flex: 1 1 auto;
-    }
-
-    strong {
-      flex: 0 0 40px;
-    }
   }
-
+  .opponents mat-form-field {
+    flex: 1 1 auto;
+  }
+  .opponents strong {
+    flex: 0 0 40px;
+  }
   .marginbottomopponent {
     margin-bottom: 25px;
   }
-
   strong {
     margin-top: 25px;
   }
-
 }

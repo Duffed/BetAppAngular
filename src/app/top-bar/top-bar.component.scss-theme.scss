@@ -20,7 +20,7 @@
         }
 
         h2 {
-            color: mat-color($primary, lighter);
+            color: mat-color($foreground, text);
         }
     }
 }

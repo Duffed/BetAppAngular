@@ -1,28 +1,30 @@
-<header>
-  <top-bar></top-bar>
-</header>
+<div class="wrapper mat-typography mat-app-background">
+  <header>
+    <top-bar></top-bar>
+  </header>
 
-<main class="desktop">
-  <tip-list></tip-list>
-  <winnings class="winnings"></winnings>
-</main>
+  <main class="desktop">
+    <tip-list></tip-list>
+    <winnings class="winnings"></winnings>
+  </main>
 
-<main class="mobile">
-  <mat-tab-group
-    mat-align-tabs="center"
-    headerPosition="below"
-    animationDuration="0ms">
-    <mat-tab>
-      <ng-template mat-tab-label>
-        <mat-icon color="primary">flag</mat-icon> Tips
-      </ng-template>
-      <tip-list></tip-list>
-    </mat-tab>
-    <mat-tab>
-      <ng-template mat-tab-label>
-        <mat-icon color="primary">attach_money</mat-icon> Winnings
-      </ng-template>
-      <winnings></winnings>
-    </mat-tab>
-  </mat-tab-group>
-</main>
+  <main class="mobile">
+    <mat-tab-group
+      mat-align-tabs="center"
+      headerPosition="below"
+      animationDuration="0ms">
+      <mat-tab>
+        <ng-template mat-tab-label>
+          <mat-icon color="primary">flag</mat-icon> Tips
+        </ng-template>
+        <tip-list></tip-list>
+      </mat-tab>
+      <mat-tab>
+        <ng-template mat-tab-label>
+          <mat-icon color="primary">attach_money</mat-icon> Winnings
+        </ng-template>
+        <winnings></winnings>
+      </mat-tab>
+    </mat-tab-group>
+  </main>
+</div>

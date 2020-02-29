@@ -3,7 +3,7 @@
   padding: 15px 15px 15px 20px;
   border-radius: 4px;
   position: relative;
-  min-width: 200px
+  min-width: 200px;
 }
 
 ul {
@@ -21,11 +21,9 @@ mat-icon {
 
 mat-form-field {
   width: 100%;
-  border: none
+  border: none;
 }
 
-table {
-  tr td:first-child {
-    padding-right: 25px;
-  }
+table tr td:first-child {
+  padding-right: 25px;
 }

@@ -14,6 +14,7 @@
         .tip {
             background-color: mat-color($background, card);
             color: mat-color($foreground, text);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
         }
 
         footer {

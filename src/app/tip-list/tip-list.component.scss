@@ -31,7 +31,6 @@ ul {
     line-height: 50px;
     font-size: 2em;
     border-radius: 100%;
-    box-shadow: 0 0 3px 0px #ccc;
     margin-bottom: 10px;
   }
 
@@ -41,7 +40,6 @@ ul {
 
     > .plusSign {
       font-weight: normal;
-      box-shadow: 0 0 3px 0px rgb(151, 151, 151);
     }
   }
 }
@@ -57,7 +55,6 @@ ul {
   }
 
   .addTip {
-    box-shadow: 0px 0px 4px 0px #ccc;
     border-radius: 3px;
     opacity: 0.5;
   }
