@@ -3,6 +3,7 @@ import { Tip, OutComeEnum } from "src/domain/tip";
 import { Sport } from "src/domain/sport";
 import { CombinationBet } from "src/domain/combinationBet";
 import { CombinationbetService } from "./combinationbet.service";
+import { FirebaseService } from './firebase.service';
 
 @Injectable({
   providedIn: "root"
@@ -12,7 +13,9 @@ export class TipService {
   combinationBets: CombinationBet[] = [];
   stake: number = 100;
 
-  constructor(private combinationBetService: CombinationbetService) {
+  constructor(private combinationBetService: CombinationbetService,
+    private firebaseService: FirebaseService) {
+
     this.tips = [
       new Tip("Connor", "Alex", 2.8, new Date(), Sport.Ufc),
       new Tip("Tobi", "Markus", 2.0, new Date(), Sport.Ufc),
@@ -40,6 +43,7 @@ export class TipService {
 
   addTip(tip: Tip) {
     this.tips.unshift(tip);
+    this.firebaseService.addTip(tip);
     this.calculateWinnings();
   }
 

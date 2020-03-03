@@ -5,6 +5,7 @@ import { CombinationBet } from "src/domain/combinationBet";
 import { MatDialogConfig, MatDialog } from "@angular/material/dialog";
 import { AddTipDialogComponent } from "../add-tip-dialog/add-tip-dialog.component";
 import { Sport } from "src/domain/sport";
+import { FirebaseService } from '../firebase.service';
 
 @Component({
   selector: "tip-list",
@@ -12,12 +13,24 @@ import { Sport } from "src/domain/sport";
   styleUrls: ["./tip-list.component.scss"]
 })
 export class TipListComponent implements OnInit {
-  tips: Tip[];
+  tips: Tip[] = [];
+  tips$;
 
-  constructor(private tipService: TipService, private dialog: MatDialog) {}
+  constructor(
+    private tipService: TipService, 
+    private dialog: MatDialog,
+    private db: FirebaseService) {
 
-  ngOnInit(): void {
-    this.tips = this.tipService.getTips();
+    }
+    
+    ngOnInit(): void {
+      // this.tips = this.tipService.getTips();
+
+      // Subscribe to Tips from Server
+      this.tips$ = this.db.getTips();
+      this.db.getTips().subscribe(snapshot => {
+        this.tips = snapshot;
+      });
   }
 
   counter(n: number) {

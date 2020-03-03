@@ -6,7 +6,7 @@
     </li>
   </ng-container>
 
-  <li *ngFor="let tip of tips">
+  <li *ngFor="let tip of tips$ | async">
     <tip [tip]="tip"></tip>
   </li>
 
