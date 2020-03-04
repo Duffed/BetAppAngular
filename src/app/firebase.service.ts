@@ -1,38 +1,36 @@
 import { Injectable } from '@angular/core';
-import { AngularFirestore, AngularFirestoreCollectionGroup } from 'angularfire2/firestore';
+import { AngularFirestore, AngularFirestoreCollectionGroup, AngularFirestoreCollection, AngularFirestoreDocument } from 'angularfire2/firestore';
 import { Tip } from 'src/domain/tip';
+import { map, filter, catchError, mergeMap } from "rxjs/operators";
 import { Observable } from 'rxjs';
-
+import { Timestamp } from 'rxjs/internal/operators/timestamp';
 
 @Injectable({
   providedIn: 'root'
 })
 export class FirebaseService {
-  private userPath: '/users';
-  private betsPath: './bets';
+  private userPath: 'users';
+  private betsPath: "bets";
 
   constructor(private db: AngularFirestore) {
-    console.log(
-    this.getTips);
+
   }
 
-  getTips(): Observable<any> {
-    return this.db.collection<Tip>('bets').get();
-    // tip => { 
-    //   return new Tip(tip.get('opponent1'), tip.get('opponent2'), tip.get('odds'), tip.get('date').toDate(), tip.get('sport')); 
-    // }
-
+  getTips(): Observable<Tip[]> {
+    return this.db.collection<Tip>(this.betsPath).valueChanges();
   }
 
   addTip(tip: Tip) {
-    this.db.collection<Tip>('bets').add({
-      opponent1: tip.opponent1,
-      opponent2: tip.opponent2,
-      odds: tip.odds,
-      date: tip.date,
-      markedAsWin: tip.markedAsWin,
-      outcome: tip.outcome,
-      sport: tip.sport
-    });
+    this.db
+      .collection<Tip>(this.betsPath)
+      .add({
+        opponent1: tip.opponent1,
+        opponent2: tip.opponent2,
+        odds: tip.odds,
+        date: tip.date,
+        markedAsWin: tip.markedAsWin,
+        outcome: tip.outcome,
+        sport: tip.sport
+      });
   }
 }

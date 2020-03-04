@@ -18,7 +18,7 @@ export class WinningsComponent implements OnInit, DoCheck {
     //Add 'implements DoCheck' to the class.
     if (this.combinations !== this.tipService.getCombinationBets()) {
       this.combinations = this.tipService.getCombinationBets();
-      this.tipsLength = this.tipService.getTips().length;
+      // this.tipsLength = this.tipService.getTips();
     }
   }
 
@@ -27,7 +27,7 @@ export class WinningsComponent implements OnInit, DoCheck {
   ngOnInit(): void {
     this.combinations = this.tipService.getCombinationBets();
     this.stake = this.tipService.getStake();
-    this.tipsLength = this.tipService.getTips().length;
+    // this.tipsLength = this.tipService.getTips().length;
   }
 
   setStake(amount: HTMLInputElement) {

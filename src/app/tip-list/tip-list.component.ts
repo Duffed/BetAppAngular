@@ -1,11 +1,12 @@
 import { Component, OnInit, HostBinding } from "@angular/core";
 import { Tip, OutComeEnum } from "src/domain/tip";
 import { TipService } from "../tip.service";
-import { CombinationBet } from "src/domain/combinationBet";
 import { MatDialogConfig, MatDialog } from "@angular/material/dialog";
 import { AddTipDialogComponent } from "../add-tip-dialog/add-tip-dialog.component";
 import { Sport } from "src/domain/sport";
 import { FirebaseService } from '../firebase.service';
+import { map, concatMap } from "rxjs/operators";
+import { Observable } from 'rxjs';
 
 @Component({
   selector: "tip-list",
@@ -14,23 +15,16 @@ import { FirebaseService } from '../firebase.service';
 })
 export class TipListComponent implements OnInit {
   tips: Tip[] = [];
-  tips$;
+  tips$: Observable<any>;
 
   constructor(
-    private tipService: TipService, 
+    private tipService: TipService,
     private dialog: MatDialog,
-    private db: FirebaseService) {
+  ) {}
 
-    }
-    
-    ngOnInit(): void {
-      // this.tips = this.tipService.getTips();
-
-      // Subscribe to Tips from Server
-      this.tips$ = this.db.getTips();
-      this.db.getTips().subscribe(snapshot => {
-        this.tips = snapshot;
-      });
+  ngOnInit(): void {
+    // this.tips$ = this.tipService.getTips();
+    this.tips$ = this.tipService.getTips();
   }
 
   counter(n: number) {

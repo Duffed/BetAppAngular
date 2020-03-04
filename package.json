@@ -17,6 +17,7 @@
     "@angular/common": "~9.0.1",
     "@angular/compiler": "~9.0.1",
     "@angular/core": "~9.0.1",
+    "@angular/fire": "^5.4.2",
     "@angular/forms": "~9.0.1",
     "@angular/material": "^9.0.1",
     "@angular/platform-browser": "~9.0.1",
@@ -31,6 +32,7 @@
     "prettier": "^1.19.1",
     "resize-observer-polyfill": "^1.5.1",
     "rxjs": "~6.5.4",
+    "rxjs-compat": "^6.5.4",
     "tslib": "^1.10.0",
     "web-animations-js": "^2.3.2",
     "zone.js": "~0.10.2"

@@ -1,35 +1,57 @@
 import { Injectable } from "@angular/core";
-import { Tip, OutComeEnum } from "src/domain/tip";
-import { Sport } from "src/domain/sport";
+import { Tip } from "src/domain/tip";
 import { CombinationBet } from "src/domain/combinationBet";
 import { CombinationbetService } from "./combinationbet.service";
 import { FirebaseService } from './firebase.service';
+import { Observable } from 'rxjs';
+import { AngularFirestore } from 'angularfire2/firestore';
+import { map } from "rxjs/operators";
 
 @Injectable({
   providedIn: "root"
 })
 export class TipService {
-  tips: Tip[];
+  private betsPath = "bets";
+
+  tips = [];
   combinationBets: CombinationBet[] = [];
   stake: number = 100;
 
   constructor(private combinationBetService: CombinationbetService,
-    private firebaseService: FirebaseService) {
+    private firebaseService: FirebaseService,
+    private db: AngularFirestore) {
+      this.calculateWinnings();
+      // console.log(this.getNumberOfTips());
 
-    this.tips = [
-      new Tip("Connor", "Alex", 2.8, new Date(), Sport.Ufc),
-      new Tip("Tobi", "Markus", 2.0, new Date(), Sport.Ufc),
-      new Tip("Kristina", "Julia", 1.7, new Date(), Sport.Ufc),
-      new Tip("Leo", "Thomas", 1.62, new Date(), Sport.Ufc),
-      new Tip("Leo", "Thomas", 1.9, new Date(), Sport.Ufc),
-      new Tip("Leo", "Thomas", 2.1, new Date(), Sport.Ufc)
-    ];
-
-    this.calculateWinnings();
   }
 
-  getTips(): Tip[] {
-    return this.tips;
+  // async getNumberOfTips(): Promise<number> {
+  //   let size = 0;
+  //   await this.getTips().toPromise().then(val => {size = val.length} );
+  //   return size;
+  // }
+
+  // getTips(): Observable<Tip[]> {
+  //   return this.db.collection<Tip>(this.betsPath).valueChanges();
+  // }
+
+  getTips() {
+    return this.db.collection<Tip>(this.betsPath).snapshotChanges().pipe(
+        map(changes => {
+            return changes.map(doc => {
+                return{
+                    id: doc.payload.doc.id,
+                    opponent1: doc.payload.doc.data().opponent1,
+                    opponent2: doc.payload.doc.data().opponent2,
+                    date: doc.payload.doc.data().date,
+                    odds: doc.payload.doc.data().odds,
+                    markedAsWin: doc.payload.doc.data().markedAsWin,
+                    sport: doc.payload.doc.data().sport,
+                    outcome: doc.payload.doc.data().outcome
+                }
+            })
+        })
+    )
   }
 
   getStake(): number {
@@ -41,15 +63,15 @@ export class TipService {
     this.calculateWinnings();
   }
 
-  addTip(tip: Tip) {
+  addTip(tip: Tip){
     this.tips.unshift(tip);
     this.firebaseService.addTip(tip);
     this.calculateWinnings();
   }
 
   removeTip(tip: Tip) {
-    this.tips.splice(this.tips.indexOf(tip), 1);
-    this.calculateWinnings();
+    this.db.collection("bets").doc(tip.id).delete();
+    // this.calculateWinnings();
   }
 
   getCombinationBets(): CombinationBet[] {
@@ -57,12 +79,12 @@ export class TipService {
   }
 
   toggleMarkedAsWin(tip: Tip) {
-    let index = this.tips.indexOf(tip);
-    this.tips[index].markedAsWin = !this.tips[index].markedAsWin;
+    tip.markedAsWin = !tip.markedAsWin;
+    this.db.collection(this.betsPath).doc(tip.id).update({ markedAsWin: tip.markedAsWin });
     this.calculateWinnings();
   }
 
-  private calculateWinnings() {
+  private async calculateWinnings() {
     // Trennung falsche und richtige Tips
     let availableCombinationBets = this.combinationBetService.getAvailableCombinationBets(this.tips.length);
 
