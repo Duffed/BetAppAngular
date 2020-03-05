@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
-import { AngularFirestore, AngularFirestoreCollectionGroup, AngularFirestoreCollection, AngularFirestoreDocument } from 'angularfire2/firestore';
+import { AngularFirestore } from 'angularfire2/firestore';
 import { Tip } from 'src/domain/tip';
-import { map, filter, catchError, mergeMap } from "rxjs/operators";
 import { Observable } from 'rxjs';
-import { Timestamp } from 'rxjs/internal/operators/timestamp';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -13,11 +12,18 @@ export class FirebaseService {
   private betsPath: "bets";
 
   constructor(private db: AngularFirestore) {
-
   }
 
   getTips(): Observable<Tip[]> {
-    return this.db.collection<Tip>(this.betsPath).valueChanges();
+    return this.db.collection<Tip>(this.betsPath).snapshotChanges().pipe(
+      map(changes => {
+          return changes.map(doc => {         
+            const id = doc.payload.doc.id;
+            const data = doc.payload.doc.data();
+            return {id, ...data}
+          })
+      })
+    );
   }
 
   addTip(tip: Tip) {
