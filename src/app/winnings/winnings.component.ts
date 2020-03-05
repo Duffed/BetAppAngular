@@ -10,13 +10,14 @@ import { Observable } from 'rxjs';
   styleUrls: ["./winnings.component.scss"]
 })
 export class WinningsComponent implements OnInit, DoCheck {
-  combinations: CombinationBet[];
-  tipsLength: Observable<number>;
-  stake: Observable<number>;
+  combinations$: Observable<CombinationBet[]>;
+  tipsLength: number;
+  stake: number;
 
-  ngDoCheck(): void {
+  ngDoCheck() {
     //Called every time that the input properties of a component or a directive are checked. Use it to extend change detection by performing a custom check.
     //Add 'implements DoCheck' to the class.
+    // let a = await this.tipService.getCombinationBets();
     // if (this.combinations !== this.tipService.getCombinationBets()) {
       
     //   this.combinations = this.tipService.getCombinationBets();
@@ -26,14 +27,12 @@ export class WinningsComponent implements OnInit, DoCheck {
     // this.tipService.getCombinationBets().then(res => { this.combinations = res })
   }
   
-  constructor(private tipService: TipService) {
-
-  }
+  constructor(private tipService: TipService) { }
   
-  ngOnInit(): void {
-    this.tipService.getCombinationBets().then(result => { this.combinations = result });
-    this.stake = this.tipService.getStake();
-    this.tipsLength = this.tipService.getNumberOfBets();
+  async ngOnInit(): Promise<void> {
+    this.combinations$ = this.tipService.getCombinationBets();
+    this.stake = await this.tipService.getStake();
+    this.tipsLength = await this.tipService.getNumberOfBets();
   }
 
   setStake(amount: HTMLInputElement) {

@@ -47,31 +47,27 @@ export class CombinationbetService {
     return result;
   }
 
-  getAvailableCombinationBets(numberOfBets: Observable<number>): Observable<CombinationBet[]> {
-    return Observable.create(observer => {
-      numberOfBets.subscribe(number => {
-        switch (number) {
-          case 1: case 2:
-            observer.next(this.SingleBets);
-          case 3:
-            observer.next(this.ThreeTipBets);
-          case 4:
-            observer.next(this.FourTipBets);
-          case 5:
-            observer.next(this.FiveTipBets);
-          case 6:
-            observer.next(this.SixTipBets);
-          case 7:
-            observer.next(this.SevenTipBets);
-          case 8:
-            observer.next(this.EightTipBets);
-          default:
-            observer.complete();
-          }    
-      });
+  async getAvailableCombinationBets(numberOfBetsInput: number): Promise<CombinationBet[]> {
+    const numberOfBets = await numberOfBetsInput;
 
-      observer.complete();
-    })
+    switch (numberOfBets) {
+      case 1: case 2:
+        return this.SingleBets;
+      case 3:
+        return this.ThreeTipBets;
+      case 4:
+        return this.FourTipBets;
+      case 5:
+        return this.FiveTipBets;
+      case 6:
+        return this.SixTipBets;
+      case 7:
+        return this.SevenTipBets;
+      case 8:
+        return this.EightTipBets;
+      default:
+        return null;
+      }    
   }
 
   initCombinationBets() {
