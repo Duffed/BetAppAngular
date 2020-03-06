@@ -12,37 +12,25 @@ import { firestore } from 'firebase/app';
 @Injectable({
   providedIn: "root"
 })
-export class TipService {
+export class TipService implements OnInit {
   private userID = "kF7jIJWZ5942bGEkaZVN";
   private userPath = "users";
   private betsPath = "bets";
   private stakePath = "stake";
-  private numberOfBetsPath = "numberOfBets";
+  private numberOfBetsPath = "numberOfBets";  
+  private CombinationBetSubject: Subject<CombinationBet[]> = new Subject();;
+  
   
   constructor(private combinationBetService: CombinationbetService, private db: AngularFirestore) {  
     this.updateCombinationBets();
   }
   
-  getNumberOfBets(): Promise<number> {
-    return this.db.collection(this.userPath).doc(this.userID).get().toPromise().then(
-      res => res.get(this.numberOfBetsPath)
-    );
+  async ngOnInit(): Promise<void> {
+    // let combinationBets = await this.calculateCombinationBets();
   }
-
-  private changeBetCounter(n: number) {
-    const increment = firestore.FieldValue.increment(n);
-    this.db.collection(this.userPath).doc(this.userID).update({ numberOfBets: increment }).catch( e =>
-      // create Field if there is none
-      this.db.collection(this.userPath).doc(this.userID).set({ numberOfBets: 1})
-    )
-  }
-
-  private incrementBetCounter() {
-    this.changeBetCounter(1);
-  }
-
-  private reduceBetCounter() {
-    this.changeBetCounter(-1);
+  
+  getNumberOfBets(): Observable<number> {
+    return this.getBetCollection().get().pipe(map(snapshot => snapshot.size));
   }
 
   private getBetCollection(): AngularFirestoreCollection<Tip> {
@@ -87,7 +75,7 @@ export class TipService {
   }
 
   async addTip(tip: Tip){
-    this.getBetCollection()
+    await this.getBetCollection()
       .add({
         opponent1: tip.opponent1,
         opponent2: tip.opponent2,
@@ -97,14 +85,12 @@ export class TipService {
         outcome: tip.outcome,
         sport: tip.sport
     });
-    this.incrementBetCounter();
    
     this.updateCombinationBets();
   }
 
   async removeTip(tip) {
-    this.getBetCollection().doc(tip.id).delete();
-    this.reduceBetCounter();
+    await this.getBetCollection().doc(tip.id).delete();
     
     this.updateCombinationBets();
   }
@@ -115,8 +101,6 @@ export class TipService {
 
     this.updateCombinationBets();
   }
-
-  private CombinationBetSubject: Subject<CombinationBet[]> = new Subject()
   
   public getCombinationBets() {
     return this.CombinationBetSubject.asObservable();
@@ -125,17 +109,14 @@ export class TipService {
   private async updateCombinationBets() {
     let combinationBets = await this.calculateCombinationBets();
     this.CombinationBetSubject.next(combinationBets);
-    console.log(this.CombinationBetSubject);
-    
-    this.CombinationBetSubject.complete();
   } 
   
   private async calculateCombinationBets(): Promise<CombinationBet[]> {
     // Trennung falsche und richtige Tips
-    const numberOfBets: number = await this.getNumberOfBets();
+    const tips: Tip[] = await this.getTipsOnce();
+    const numberOfBets = tips.length;
     const availableCombinationBets = await this.combinationBetService.getAvailableCombinationBets(numberOfBets);
     const stake: number = await this.getStake();
-    const tips: Tip[] = await this.getTipsOnce();
 
     if (!availableCombinationBets) {
       return [];
@@ -152,7 +133,7 @@ export class TipService {
         stakePerBet = stake / combinationBet.numberOfBets;
 
         tips.forEach(tip => {
-          if (tip.markedAsWin) combinationBet.winnings += tip.odds * stakePerBet;
+          if (tip.markedAsWin) combinationBet.winnings += (<number>tip.odds * stakePerBet);
         });
 
         continue;
@@ -161,7 +142,7 @@ export class TipService {
       // Einsatz pro Wette
       if (!combinationBet.numberOfBets) {
         // Calculate binomial coefficient if not set in CombinationBet
-        combinationBet.numberOfBets = this.combinationBetService.binomialCoefficient(tips.length, combinationBet.minimumCombinationSize);
+        combinationBet.numberOfBets = this.combinationBetService.binomialCoefficient(numberOfBets, combinationBet.minimumCombinationSize);
       }
 
       stakePerBet = stake / combinationBet.numberOfBets;
@@ -174,7 +155,7 @@ export class TipService {
       if (combinationBet.minimumCombinationSize <= 1) {
         tips.forEach(tip => {
           if (tip.markedAsWin) {
-            winnings += stakePerBet * tip.odds;
+            winnings += (stakePerBet * <number>tip.odds);
           }
         });
 
@@ -192,7 +173,7 @@ export class TipService {
           let multiplicator = 1;
   
           currentArrayOfBets.forEach(tip => {
-            multiplicator *= tip.odds;
+            multiplicator *= <number>tip.odds;
           });
   
           winnings += multiplicator * stakePerBet;

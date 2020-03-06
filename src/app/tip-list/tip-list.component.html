@@ -6,9 +6,15 @@
     </li>
   </ng-container>
 
-  <li *ngFor="let tip of tips$ | async">
-    <tip [tip]="tip"></tip>
-  </li>
+  <ng-container *ngIf="tips$ | async as tips; else loading">
+    <li *ngFor="let tip of tips">
+      <tip [tip]="tip"></tip>
+    </li>
+  </ng-container>
+  
+  <ng-template #loading>
+    <li #loading>Loading ...</li>
+  </ng-template>
 
   <li class="placeholder"></li>
   <li class="placeholder"></li>

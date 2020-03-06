@@ -7,17 +7,23 @@ import { Observable, onErrorResumeNext, of } from 'rxjs';
   providedIn: "root"
 })
 export class CombinationbetService {
-  SingleBets: CombinationBet[] = [];
-  ThreeTipBets: CombinationBet[] = [];
-  FourTipBets: CombinationBet[] = [];
-  FiveTipBets: CombinationBet[] = [];
-  SixTipBets: CombinationBet[] = [];
-  SevenTipBets: CombinationBet[] = [];
-  EightTipBets: CombinationBet[] = [];
-
-  constructor() {
-    this.initCombinationBets();
-  }
+  noSubsets       = new CombinationBet("Single", 1, 2);
+  subsetsOfTwo    = new CombinationBet("System 2", 2, 2);
+  subsetsOfThree  = new CombinationBet("System 3", 3, 3);
+  subsetsOfFour   = new CombinationBet("System 4", 4, 4);
+  subsetsOfFive   = new CombinationBet("System 5", 5, 5);
+  subsetsOfSix    = new CombinationBet("System 6", 6, 6);
+  subsetsOfSeven  = new CombinationBet("System 7", 7, 7);
+  trixie          = new CombinationBet("System Trixie", 2, 3, 4);
+  patent          = new CombinationBet("System Patent", 1, 3, 7);
+  yankee          = new CombinationBet("System Yankee", 2, 4, 11);
+  lucky15         = new CombinationBet("System Lucky15", 1, 4, 15);
+  canadian        = new CombinationBet("System Canadian", 2, 5, 26);
+  lucky31         = new CombinationBet("System Lucky31", 1, 5, 31);
+  heinz           = new CombinationBet("System Heinz", 2, 6, 57);
+  lucky63         = new CombinationBet("System Lucky63", 1, 6, 63);
+  superheinz      = new CombinationBet("System Super Heinz", 2, 7, 120);
+  goliath         = new CombinationBet("System Goliath", 2, 8, 247);
 
   getSubsetCombinations(tips: Tip[], size: number) {
     let result = [];
@@ -49,85 +55,66 @@ export class CombinationbetService {
 
   async getAvailableCombinationBets(numberOfBetsInput: number): Promise<CombinationBet[]> {
     const numberOfBets = await numberOfBetsInput;
+    let availableCombinationBets: CombinationBet[] = [];
 
     switch (numberOfBets) {
       case 1: case 2:
-        return this.SingleBets;
+        availableCombinationBets.push(this.noSubsets);
+        break;
       case 3:
-        return this.ThreeTipBets;
+        availableCombinationBets.push(this.noSubsets, 
+          this.subsetsOfTwo, 
+          this.trixie, 
+          this.patent);
+        break;
       case 4:
-        return this.FourTipBets;
+        availableCombinationBets.push(this.noSubsets, 
+          this.subsetsOfTwo, 
+          this.subsetsOfThree, 
+          this.yankee, 
+          this.lucky15);
+        break;
       case 5:
-        return this.FiveTipBets;
+        availableCombinationBets.push(this.noSubsets,
+          this.subsetsOfTwo,
+          this.subsetsOfThree,
+          this.subsetsOfFour,
+          this.canadian,
+          this.lucky31);
+        break;
       case 6:
-        return this.SixTipBets;
+        availableCombinationBets.push(this.noSubsets,
+          this.subsetsOfTwo,
+          this.subsetsOfThree,
+          this.subsetsOfFour,
+          this.subsetsOfFive,
+          this.heinz,
+          this.lucky63);
+        break;
       case 7:
-        return this.SevenTipBets;
+        availableCombinationBets.push(this.noSubsets,
+          this.subsetsOfTwo,
+          this.subsetsOfThree,
+          this.subsetsOfFour,
+          this.subsetsOfFive,
+          this.subsetsOfSix,
+          this.superheinz);
+        break;
       case 8:
-        return this.EightTipBets;
+        availableCombinationBets.push(this.noSubsets,
+          this.subsetsOfTwo,
+          this.subsetsOfThree,
+          this.subsetsOfFour,
+          this.subsetsOfFive,
+          this.subsetsOfSix,
+          this.subsetsOfSeven,
+          this.goliath);
+        break;
       default:
-        return null;
-      }    
-  }
-
-  initCombinationBets() {
-    const noSubsets = new CombinationBet("Single", 1, 2);
-    const subsetsOfTwo = new CombinationBet("System 2", 2, 2);
-    const subsetsOfThree = new CombinationBet("System 3", 3, 3);
-    const subsetsOfFour = new CombinationBet("System 4", 4, 4);
-    const subsetsOfFive = new CombinationBet("System 5", 5, 5);
-    const subsetsOfSix = new CombinationBet("System 6", 6, 6);
-    const subsetsOfSeven = new CombinationBet("System 7", 7, 7);
-    const trixie = new CombinationBet("System Trixie", 2, 3, 4);
-    const patent = new CombinationBet("System Patent", 1, 3, 7);
-    const yankee = new CombinationBet("System Yankee", 2, 4, 11);
-    const lucky15 = new CombinationBet("System Lucky15", 1, 4, 15);
-    const canadian = new CombinationBet("System Canadian", 2, 5, 26);
-    const lucky31 = new CombinationBet("System Lucky31", 1, 5, 31);
-    const heinz = new CombinationBet("System Heinz", 2, 6, 57);
-    const lucky63 = new CombinationBet("System Lucky63", 1, 6, 63);
-    const superheinz = new CombinationBet("System Super Heinz", 2, 7, 120);
-    const goliath = new CombinationBet("System Goliath", 2, 8, 247);
-
-    this.SingleBets = [noSubsets];
-    this.ThreeTipBets = [noSubsets, subsetsOfTwo, trixie, patent];
-    this.FourTipBets = [noSubsets, subsetsOfTwo, subsetsOfThree, yankee, lucky15];
-    this.FiveTipBets = [
-      noSubsets,
-      subsetsOfTwo,
-      subsetsOfThree,
-      subsetsOfFour,
-      canadian,
-      lucky31
-    ];
-    this.SixTipBets = [
-      noSubsets,
-      subsetsOfTwo,
-      subsetsOfThree,
-      subsetsOfFour,
-      subsetsOfFive,
-      heinz,
-      lucky63
-    ];
-    this.SevenTipBets = [
-      noSubsets,
-      subsetsOfTwo,
-      subsetsOfThree,
-      subsetsOfFour,
-      subsetsOfFive,
-      subsetsOfSix,
-      superheinz
-    ];
-    this.EightTipBets = [
-      noSubsets,
-      subsetsOfTwo,
-      subsetsOfThree,
-      subsetsOfFour,
-      subsetsOfFive,
-      subsetsOfSix,
-      subsetsOfSeven,
-      goliath
-    ];
+        break;
+    } 
+    
+    return availableCombinationBets;
   }
 
   binomialCoefficient(n: number, k: number): number {

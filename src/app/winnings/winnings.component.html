@@ -1,6 +1,6 @@
 <div class="wrapper">
-  <!-- <h2 color="primary">{{ tipsLength > 0? 'Winnings' : 'No active bets' | async}}</h2> -->
-  <ng-container *ngIf="true">
+  <h2 color="primary">{{ tipsLength > 0? 'Winnings' : 'No active bets'}}</h2>
+  <ng-container *ngIf="tipsLength > 0">
     <mat-form-field appearance="outline" class="stake">
       <mat-icon matSuffix>attach_money</mat-icon>
       <mat-label>Total Stake</mat-label>
@@ -14,10 +14,13 @@
     </mat-form-field>
 
     <table>
-      <tr *ngFor="let combination of combinations$ | async">
-        <td><strong>{{ combination.name }}</strong>:  </td>
-        <td>{{ combination.winnings | currency: "USD":"symbol":"0.0-2" }}</td>
-      </tr>
+      <ng-container *ngIf="combinations$ | async as combinations; else loading">
+        <tr *ngFor="let combination of combinations">
+          <td><strong>{{ combination.name }}</strong>:  </td>
+          <td>{{ combination.winnings | currency: "USD":"symbol":"0.0-2" }}</td>
+        </tr>
+      </ng-container>
+      <ng-template #loading>Loading...</ng-template>
     </table>
 
   </ng-container>
