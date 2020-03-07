@@ -75,7 +75,7 @@ export class TipService implements OnInit {
   }
 
   async addTip(tip: Tip){
-    let added = await this.getBetCollection()
+    await this.getBetCollection()
       .add({
         opponent1: tip.opponent1,
         opponent2: tip.opponent2,
@@ -86,12 +86,11 @@ export class TipService implements OnInit {
         sport: tip.sport
     });
     
-    if (added)
-      this.updateCombinationBets();
+    this.updateCombinationBets();
   }
 
   async removeTip(tip) {
-    await this.getBetCollection().doc(tip.id).delete().then();
+    await this.getBetCollection().doc(tip.id).delete();
     this.updateCombinationBets();
   }
 
