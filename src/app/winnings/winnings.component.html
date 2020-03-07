@@ -15,9 +15,15 @@
 
     <table>
       <ng-container *ngIf="combinations$ | async as combinations; else loading">
+        <tr>
+          <th>Bet</th>
+          <th>Winnings</th>
+          <th>Stake per bet</th>
+        </tr>
         <tr *ngFor="let combination of combinations">
-          <td><strong>{{ combination.name }}</strong>:  </td>
-          <td>{{ combination.winnings | currency: "USD":"symbol":"0.0-2" }}</td>
+          <td>{{ combination.name }}:  </td>
+          <td [className]="combination.winnings > 0? 'positive':'negative'">{{ combination.winnings | currency: "USD":"symbol":"0.0-2" }}</td>
+          <td>({{ combination.stakePerBet | currency: "USD":"symbol":"0.0-2" }})</td>
         </tr>
       </ng-container>
       <ng-template #loading>Loading...</ng-template>

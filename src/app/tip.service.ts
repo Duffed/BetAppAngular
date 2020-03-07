@@ -75,7 +75,7 @@ export class TipService implements OnInit {
   }
 
   async addTip(tip: Tip){
-    await this.getBetCollection()
+    let added = await this.getBetCollection()
       .add({
         opponent1: tip.opponent1,
         opponent2: tip.opponent2,
@@ -85,19 +85,19 @@ export class TipService implements OnInit {
         outcome: tip.outcome,
         sport: tip.sport
     });
-   
-    this.updateCombinationBets();
+    
+    if (added)
+      this.updateCombinationBets();
   }
 
   async removeTip(tip) {
-    await this.getBetCollection().doc(tip.id).delete();
-    
+    await this.getBetCollection().doc(tip.id).delete().then();
     this.updateCombinationBets();
   }
 
   async toggleMarkedAsWin(tip) {
     tip.markedAsWin = !tip.markedAsWin;
-    this.getBetCollection().doc(tip.id).update({ markedAsWin: tip.markedAsWin });
+    await this.getBetCollection().doc(tip.id).update({ markedAsWin: tip.markedAsWin });
 
     this.updateCombinationBets();
   }
@@ -114,8 +114,9 @@ export class TipService implements OnInit {
   private async calculateCombinationBets(): Promise<CombinationBet[]> {
     // Trennung falsche und richtige Tips
     const tips: Tip[] = await this.getTipsOnce();
-    const numberOfBets = tips.length;
-    const availableCombinationBets = await this.combinationBetService.getAvailableCombinationBets(numberOfBets);
+    const numberOfTips = tips.length;
+    let numberOfBets: number;
+    const availableCombinationBets = await this.combinationBetService.getAvailableCombinationBets(numberOfTips);
     const stake: number = await this.getStake();
 
     if (!availableCombinationBets) {
@@ -128,9 +129,8 @@ export class TipService implements OnInit {
       // Single Bets
       if (combinationBet.name === "Single") {
         combinationBet.winnings = -stake;
-        combinationBet.numberOfBets = numberOfBets;
-
-        stakePerBet = stake / combinationBet.numberOfBets;
+        stakePerBet = stake / numberOfTips;
+        combinationBet.stakePerBet = stakePerBet;
 
         tips.forEach(tip => {
           if (tip.markedAsWin) combinationBet.winnings += (<number>tip.odds * stakePerBet);
@@ -142,10 +142,13 @@ export class TipService implements OnInit {
       // Einsatz pro Wette
       if (!combinationBet.numberOfBets) {
         // Calculate binomial coefficient if not set in CombinationBet
-        combinationBet.numberOfBets = this.combinationBetService.binomialCoefficient(numberOfBets, combinationBet.minimumCombinationSize);
+        numberOfBets = this.combinationBetService.binomialCoefficient(numberOfTips, combinationBet.minimumCombinationSize);
+      } else {
+        numberOfBets = combinationBet.numberOfBets;
       }
 
-      stakePerBet = stake / combinationBet.numberOfBets;
+      stakePerBet = stake / numberOfBets;
+      combinationBet.stakePerBet = stakePerBet;
 
       // init winnigs
       let winnings = -stake;
@@ -156,6 +159,7 @@ export class TipService implements OnInit {
         tips.forEach(tip => {
           if (tip.markedAsWin) {
             winnings += (stakePerBet * <number>tip.odds);
+            let a = 5;
           }
         });
 

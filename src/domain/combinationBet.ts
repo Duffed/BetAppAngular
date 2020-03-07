@@ -4,6 +4,7 @@ export class CombinationBet {
     public minimumCombinationSize: number,
     public maximumCombinationSize: number,
     public numberOfBets?: number,
-    public winnings: number = 0
+    public winnings: number = 0,
+    public stakePerBet: number = 0
   ) {}
 }

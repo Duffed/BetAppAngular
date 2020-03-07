@@ -7,23 +7,23 @@ import { Observable, onErrorResumeNext, of } from 'rxjs';
   providedIn: "root"
 })
 export class CombinationbetService {
-  noSubsets       = new CombinationBet("Single", 1, 2);
-  subsetsOfTwo    = new CombinationBet("System 2", 2, 2);
-  subsetsOfThree  = new CombinationBet("System 3", 3, 3);
-  subsetsOfFour   = new CombinationBet("System 4", 4, 4);
-  subsetsOfFive   = new CombinationBet("System 5", 5, 5);
-  subsetsOfSix    = new CombinationBet("System 6", 6, 6);
-  subsetsOfSeven  = new CombinationBet("System 7", 7, 7);
-  trixie          = new CombinationBet("System Trixie", 2, 3, 4);
-  patent          = new CombinationBet("System Patent", 1, 3, 7);
-  yankee          = new CombinationBet("System Yankee", 2, 4, 11);
-  lucky15         = new CombinationBet("System Lucky15", 1, 4, 15);
-  canadian        = new CombinationBet("System Canadian", 2, 5, 26);
-  lucky31         = new CombinationBet("System Lucky31", 1, 5, 31);
-  heinz           = new CombinationBet("System Heinz", 2, 6, 57);
-  lucky63         = new CombinationBet("System Lucky63", 1, 6, 63);
-  superheinz      = new CombinationBet("System Super Heinz", 2, 7, 120);
-  goliath         = new CombinationBet("System Goliath", 2, 8, 247);
+  noSubsets = new CombinationBet("Single", 1, 2);
+  subsetsOfTwo = new CombinationBet("System 2", 2, 2);
+  subsetsOfThree = new CombinationBet("System 3", 3, 3);
+  subsetsOfFour = new CombinationBet("System 4", 4, 4);
+  subsetsOfFive = new CombinationBet("System 5", 5, 5);
+  subsetsOfSix = new CombinationBet("System 6", 6, 6);
+  subsetsOfSeven = new CombinationBet("System 7", 7, 7);
+  trixie = new CombinationBet("System Trixie", 2, 3, 4);
+  patent = new CombinationBet("System Patent", 1, 3, 7);
+  yankee = new CombinationBet("System Yankee", 2, 4, 11);
+  lucky15 = new CombinationBet("System Lucky15", 1, 4, 15);
+  canadian = new CombinationBet("System Canadian", 2, 5, 26);
+  lucky31 = new CombinationBet("System Lucky31", 1, 5, 31);
+  heinz = new CombinationBet("System Heinz", 2, 6, 57);
+  lucky63 = new CombinationBet("System Lucky63", 1, 6, 63);
+  superheinz = new CombinationBet("System Super Heinz", 2, 7, 120);
+  goliath = new CombinationBet("System Goliath", 2, 8, 247);
 
   getSubsetCombinations(tips: Tip[], size: number) {
     let result = [];
@@ -116,7 +116,7 @@ export class CombinationbetService {
     
     return availableCombinationBets;
   }
-
+  
   binomialCoefficient(n: number, k: number): number {
     const numerator = this.fact(n);
     const denominator = this.fact(n - k) * this.fact(k);

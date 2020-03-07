@@ -3,8 +3,8 @@
   padding: 15px 15px 15px 20px;
   border-radius: 4px;
   position: relative;
-  min-width: 200px
-}
+  min-width: 320px
+} 
 
 ul {
   list-style: none;
@@ -25,7 +25,19 @@ mat-form-field {
 }
 
 table {
-  tr td:first-child {
-    padding-right: 25px;
+  width: 100%;
+
+  tr th {
+    padding-bottom: 5px;
+  }
+
+  tr td,
+  tr th {
+    padding-left: 15px;
+  }
+
+  tr td:first-child,
+  tr th:first-child {
+    padding: 0;
   }
 }
