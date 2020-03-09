@@ -16,12 +16,24 @@ ul {
 }
 
 .addTip {
-  padding: 15px 15px 15px 20px;
   position: relative;
   text-align: center;
   opacity: 1;
   transition: opacity 0.3s ease-in-out;
   cursor: pointer;
+
+  .addTipLabel {
+    background: rgb(61, 61, 61);
+    border-radius: 3px;
+    padding: 15px 15px 15px 20px;
+    font-weight: bold;
+    font-size: 1em;
+    display: none;
+  }
+
+  .content {
+    padding: 15px 15px 15px 20px;
+  }
 
   .plusSign {
     transition: font-weight 0.3s ease-in-out;
@@ -36,27 +48,17 @@ ul {
 
   &:hover {
     opacity: 1;
-    font-weight: bold;
-
-    > .plusSign {
-      font-weight: normal;
-    }
   }
-}
-
-.addTipLabel {
-  display: none;
 }
 
 @media only screen and (min-width: 800px) {
-
-  .addTipLabel {
-    display: block;
-  }
-
   .addTip {
     border-radius: 3px;
     opacity: 0.5;
+    
+    .addTipLabel {
+      display: block;
+    }
   }
 
   ul {

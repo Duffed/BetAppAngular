@@ -3,8 +3,11 @@ import { NgModule } from "@angular/core";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { environment } from '../environments/environment';
+
+// Firestore
 import { AngularFireModule } from 'angularfire2';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
+import { AngularFireAuthModule } from 'angularfire2/auth';
 
 // Material
 import { MatIconModule } from "@angular/material/icon";
@@ -23,6 +26,7 @@ import { MatSnackBarModule } from "@angular/material/snack-bar";
 import { MatListModule } from "@angular/material/list";
 import { MatCardModule } from "@angular/material/card";
 import { MatTabsModule } from "@angular/material/tabs";
+import { HammerGestureConfig, HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
 
 // Components
 import { AppRoutingModule } from "./app-routing.module";
@@ -33,6 +37,7 @@ import { TipComponent } from "./tip/tip.component";
 import { TipListComponent } from "./tip-list/tip-list.component";
 import { AddTipDialogComponent } from "./add-tip-dialog/add-tip-dialog.component";
 import { WinningsComponent } from "./winnings/winnings.component";
+import { ServiceWorkerModule } from '@angular/service-worker';
 
 @NgModule({
   declarations: [
@@ -66,9 +71,13 @@ import { WinningsComponent } from "./winnings/winnings.component";
     MatListModule,
     MatCardModule,
     MatTabsModule,
-    AngularFireModule.initializeApp(environment.firebase), AngularFirestoreModule
+    AngularFireModule.initializeApp(environment.firebase), AngularFirestoreModule, AngularFireAuthModule, 
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
-  providers: [MatDatepickerModule],
+  providers: [MatDatepickerModule, {
+    provide: HAMMER_GESTURE_CONFIG, 
+    useClass: HammerGestureConfig 
+  }],
   bootstrap: [AppComponent],
   entryComponents: [AddTipDialogComponent]
 })

@@ -15,18 +15,18 @@ header {
   border: none;
   color: #ccc;
   align-items: center;
+}
 
-  div {
-    padding-top: 3px;
-  }
+.logout_btn div {
+  padding-top: 3px;
+}
 
-  mat-icon {
-    margin-left: 10px
-  }
+.logout_btn mat-icon {
+  margin-left: 10px;
+}
 
-  &:hover {
-    color: white;
-  }
+.logout_btn:hover {
+  color: white;
 }
 
 h1 {

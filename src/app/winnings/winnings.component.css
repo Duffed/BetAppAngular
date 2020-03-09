@@ -24,6 +24,15 @@ mat-form-field {
   border: none;
 }
 
+input[type=number] {
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+
+input[type=number]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}
+
 table {
   width: 100%;
 }

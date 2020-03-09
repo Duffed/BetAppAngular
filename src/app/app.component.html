@@ -3,28 +3,43 @@
     <top-bar></top-bar>
   </header>
 
-  <main class="desktop">
-    <tip-list></tip-list>
-    <winnings class="winnings"></winnings>
-  </main>
+  <ng-container *ngIf="!isLoggedIn; else loggedIn">
+    <main class="loginscreen">
+      <button class="login" (click)="googleLogin()"><mat-icon>account_circle</mat-icon><div>Login with Google</div></button>
+    </main>
+  </ng-container>
 
-  <main class="mobile">
-    <mat-tab-group
+  <ng-template #loggedIn>
+    <!-- Desktop View -->
+    <main class="desktop">
+      <tip-list [userID]="userID"></tip-list>
+      <winnings class="winnings" [userID]="userID"></winnings>
+    </main>
+    
+    <!-- Mobile View (Tabs) -->
+    <main class="mobile">
+
+      <mat-tab-group
       mat-align-tabs="center"
       headerPosition="below"
-      animationDuration="0ms">
-      <mat-tab>
-        <ng-template mat-tab-label>
-          <mat-icon color="primary">flag</mat-icon> Tips
-        </ng-template>
-        <tip-list></tip-list>
-      </mat-tab>
-      <mat-tab>
-        <ng-template mat-tab-label>
-          <mat-icon color="primary">attach_money</mat-icon> Winnings
-        </ng-template>
-        <winnings></winnings>
-      </mat-tab>
-    </mat-tab-group>
-  </main>
+      animationDuration="0ms"
+      [selectedIndex]="selected"  (swipeleft)="swipe($event.type)" (swiperight)="swipe($event.type)">
+      
+        <mat-tab >
+          <ng-template mat-tab-label>
+            <mat-icon color="primary">flag</mat-icon> Tips
+          </ng-template>
+          <tip-list [userID]="userID"></tip-list>
+        </mat-tab>
+        
+        <mat-tab>
+          <ng-template mat-tab-label>
+            <mat-icon color="primary">attach_money</mat-icon> Winnings
+          </ng-template>
+          <winnings [userID]="userID"></winnings>
+        </mat-tab>
+      </mat-tab-group>
+    </main>
+  </ng-template>
+
 </div>

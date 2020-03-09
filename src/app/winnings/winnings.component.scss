@@ -24,6 +24,19 @@ mat-form-field {
   border: none
 }
 
+// hide arrows on number field
+input[type=number] { 
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+input[type=number]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}
+
+.dollarSign {
+  
+}
+
 table {
   width: 100%;
 

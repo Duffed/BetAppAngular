@@ -1,4 +1,4 @@
-import { Component, OnInit, DoCheck } from "@angular/core";
+import { Component, OnInit, DoCheck, Input } from "@angular/core";
 import { CombinationBet } from "src/domain/combinationBet";
 import { TipService } from "../tip.service";
 import { Tip } from "src/domain/tip";
@@ -10,6 +10,7 @@ import { Observable } from 'rxjs';
   styleUrls: ["./winnings.component.scss"]
 })
 export class WinningsComponent implements OnInit {
+  @Input() userID: string
   combinations$: Observable<CombinationBet[]>;
   tipsLength: number;
   stake: number;
@@ -19,14 +20,14 @@ export class WinningsComponent implements OnInit {
   async ngOnInit(): Promise<void> {
     this.combinations$ = this.tipService.getCombinationBets();
     
-    this.tipService.getNumberOfBets().subscribe(observer => {
+    this.tipService.getNumberOfBets(this.userID).subscribe(observer => {
       this.tipsLength = observer
     })
 
-    this.stake = await this.tipService.getStake();
+    this.stake = await this.tipService.getStake(this.userID);
   }
 
   setStake(amount: HTMLInputElement) {
-    this.tipService.setStake(Number(amount.value));
+    this.tipService.setStake(Number(amount.value), this.userID);
   }
 }

@@ -1,14 +1,11 @@
 .tip {
-  padding: 15px 15px 15px 20px;
   box-shadow: 0px 0px 4px 0px #ccc;
   border-radius: 3px;
-  z-index: 99;
   position: relative;
-  background: white;
 }
 
 .tip::before {
-  content: ' ';
+  content: " ";
   position: absolute;
   left: 0;
   top: 0;
@@ -25,42 +22,59 @@
   background: repeating-linear-gradient(-45deg, #be3b3b, #be3b3b 5px, #9e2b2b 5px, #9e2b2b 10px);
 }
 
-.tip:hover > .removeTip {
+.tip:hover .removeTip {
   opacity: 1;
 }
 
+.content {
+  padding: 10px 15px 10px 20px;
+}
+
+.cursor {
+  cursor: pointer;
+  user-select: none;
+}
+
 .infos {
-  font-size: 0.8em;
+  font-size: 0.95em;
 }
 
 footer {
-  padding-top: 3px;
-  margin-top: 6px;
-  border-top: 1px solid #ccc;
+  padding-top: 10px;
+  margin-top: 10px;
+  border-top: 1px solid #252525;
   font-size: 0.8em;
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
 }
 
-footer .sport {
-  color: blue;
-}
-
-footer .flag {
-  cursor: pointer;
-  user-select: none;
+.toggle {
+  size: 5px;
 }
 
 header {
+  background: #3d3d3d;
+  border-radius: 3px;
+  padding: 15px 15px 15px 20px;
   font-weight: bold;
-  padding-right: 30px;
+  font-size: 1em;
 }
 
 .removeTip {
-  opacity: 0;
-  transition: ease-in-out .3s opacity;
+  color: #ccc;
+  opacity: 1;
+  transition: ease-in-out 0.3s opacity;
   position: absolute;
   top: 15px;
   right: 15px;
+}
+
+@media only screen and (min-width: 800px) {
+  .removeTip {
+    opacity: 0;
+  }
+  .tip:hover > .removeTip {
+    opacity: 1;
+  }
 }

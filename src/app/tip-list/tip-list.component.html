@@ -1,14 +1,16 @@
 <ul>
-  <ng-container *ngIf="tips.length < 8">
+  <ng-container *ngIf="tipLength < 8">
     <li (click)="onClickAdd()" class="addTip"> <!-- *ngFor="let i of counter(8-tips.length)" -->
-      <div class="plusSign">+</div>
       <div class="addTipLabel">Add Tip</div>
+      <div class="content">
+        <div class="plusSign">+</div>
+      </div>
     </li>
   </ng-container>
 
   <ng-container *ngIf="tips$ | async as tips; else loading">
     <li *ngFor="let tip of tips">
-      <tip [tip]="tip"></tip>
+      <tip [tip]="tip" [userID]="userID"></tip>
     </li>
   </ng-container>
   

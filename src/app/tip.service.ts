@@ -1,44 +1,43 @@
-import { Injectable, OnInit } from "@angular/core";
+import { Injectable, OnInit, Input } from "@angular/core";
 import { Tip } from "src/domain/tip";
 import { CombinationBet } from "src/domain/combinationBet";
 import { CombinationbetService } from "./combinationbet.service";
-import { FirebaseService } from './firebase.service';
 import { Observable, Subject } from 'rxjs';
 import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
 import { map } from "rxjs/operators";
-import { firestore } from 'firebase/app';
+import { AuthService } from './auth.service';
 
 
 @Injectable({
   providedIn: "root"
 })
 export class TipService implements OnInit {
-  private userID = "kF7jIJWZ5942bGEkaZVN";
+  userIDSubject: Subject<string> = new Subject();
+  private userID: string;
   private userPath = "users";
   private betsPath = "bets";
   private stakePath = "stake";
-  private numberOfBetsPath = "numberOfBets";  
-  private CombinationBetSubject: Subject<CombinationBet[]> = new Subject();;
+  private CombinationBetSubject: Subject<CombinationBet[]> = new Subject();
   
-  
-  constructor(private combinationBetService: CombinationbetService, private db: AngularFirestore) {  
-    this.updateCombinationBets();
+  constructor(private combinationBetService: CombinationbetService, private db: AngularFirestore, private auth: AuthService) {  
   }
   
-  async ngOnInit(): Promise<void> {
-    // let combinationBets = await this.calculateCombinationBets();
+  ngOnInit() {
+    
   }
   
-  getNumberOfBets(): Observable<number> {
-    return this.getBetCollection().get().pipe(map(snapshot => snapshot.size));
+  getNumberOfBets(userID: string): Observable<number> {
+    return this.getBetCollection(userID).snapshotChanges().pipe(map(snapshot => snapshot.length));
   }
 
-  private getBetCollection(): AngularFirestoreCollection<Tip> {
-    return this.db.collection(this.userPath).doc(this.userID).collection(this.betsPath);
+  private getBetCollection(userID: string): AngularFirestoreCollection<Tip> {
+    console.log("Userid: " + userID);
+    
+    return this.db.collection(this.userPath).doc(userID).collection(this.betsPath);
   }
 
-  private async getTipsOnce(): Promise<Tip[]> {
-    let promise = this.getBetCollection().get().pipe(
+  private async getTipsOnce(userID: string): Promise<Tip[]> {
+    let promise = this.getBetCollection(userID).get().pipe(
       map(value => { 
         return value.docs.map(x => <Tip>x.data())
       }) 
@@ -47,8 +46,8 @@ export class TipService implements OnInit {
     return promise.toPromise();
   }
 
-  getTips(): Observable<Tip[]> {
-    return this.getBetCollection().snapshotChanges().pipe(
+  getTips(userID: string): Observable<Tip[]> {
+    return this.getBetCollection(userID).snapshotChanges().pipe(
       map(changes => {
           return changes.map(doc => {         
             const id = doc.payload.doc.id;
@@ -59,23 +58,23 @@ export class TipService implements OnInit {
     );
   }
 
-  getStake(): Promise<number> {
-    return this.db.collection(this.userPath).doc(this.userID).get().toPromise().then(
+  getStake(userID: string): Promise<number> {
+    return this.db.collection(this.userPath).doc(userID).get().toPromise().then(
       res => res.get(this.stakePath)
     );
   }
 
-  setStake(stake: number) {
-    this.db.collection(this.userPath).doc(this.userID).update({ stake: stake }).catch( e =>
+  setStake(stake: number, userID: string) {
+    this.db.collection(this.userPath).doc(userID).update({ stake: stake }).catch( e =>
       // create Field if there is none
-      this.db.collection(this.userPath).doc(this.userID).set({ stake: stake})
+      this.db.collection(this.userPath).doc(userID).set({ stake: stake})
     )
 
-    this.updateCombinationBets();
+    this.updateCombinationBets(userID);
   }
 
-  async addTip(tip: Tip){
-    await this.getBetCollection()
+  async addTip(tip: Tip, userID: string){
+    await this.getBetCollection(userID)
       .add({
         opponent1: tip.opponent1,
         opponent2: tip.opponent2,
@@ -86,37 +85,37 @@ export class TipService implements OnInit {
         sport: tip.sport
     });
     
-    this.updateCombinationBets();
+    this.updateCombinationBets(userID);
   }
 
-  async removeTip(tip) {
-    await this.getBetCollection().doc(tip.id).delete();
-    this.updateCombinationBets();
+  async removeTip(tip, userID: string) {
+    await this.getBetCollection(userID).doc(tip.id).delete();
+    this.updateCombinationBets(userID);
   }
 
-  async toggleMarkedAsWin(tip) {
+  async toggleMarkedAsWin(tip, userID: string) {
     tip.markedAsWin = !tip.markedAsWin;
-    await this.getBetCollection().doc(tip.id).update({ markedAsWin: tip.markedAsWin });
+    await this.getBetCollection(userID).doc(tip.id).update({ markedAsWin: tip.markedAsWin });
 
-    this.updateCombinationBets();
+    this.updateCombinationBets(userID);
   }
   
   public getCombinationBets() {
     return this.CombinationBetSubject.asObservable();
   }
   
-  private async updateCombinationBets() {
-    let combinationBets = await this.calculateCombinationBets();
+  async updateCombinationBets(userID) {
+    let combinationBets = await this.calculateCombinationBets(userID);
     this.CombinationBetSubject.next(combinationBets);
   } 
   
-  private async calculateCombinationBets(): Promise<CombinationBet[]> {
+  private async calculateCombinationBets(userID: string): Promise<CombinationBet[]> {
     // Trennung falsche und richtige Tips
-    const tips: Tip[] = await this.getTipsOnce();
+    const tips: Tip[] = await this.getTipsOnce(userID);
     const numberOfTips = tips.length;
     let numberOfBets: number;
     const availableCombinationBets = await this.combinationBetService.getAvailableCombinationBets(numberOfTips);
-    const stake: number = await this.getStake();
+    const stake: number = await this.getStake(userID);
 
     if (!availableCombinationBets) {
       return [];

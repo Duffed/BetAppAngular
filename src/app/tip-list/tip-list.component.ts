@@ -1,4 +1,4 @@
-import { Component, OnInit, HostBinding } from "@angular/core";
+import { Component, OnInit, HostBinding, Input } from "@angular/core";
 import { Tip, OutComeEnum } from "src/domain/tip";
 import { TipService } from "../tip.service";
 import { MatDialogConfig, MatDialog } from "@angular/material/dialog";
@@ -14,7 +14,8 @@ import { Observable } from 'rxjs';
   styleUrls: ["./tip-list.component.scss"]
 })
 export class TipListComponent implements OnInit {
-  tips: Tip[] = [];
+  @Input() userID: string;
+  tipLength: number;
   tips$: Observable<any>;
 
   constructor(
@@ -23,8 +24,11 @@ export class TipListComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    // this.tips$ = this.tipService.getTips();
-    this.tips$ = this.tipService.getTips();
+    this.tips$ = this.tipService.getTips(this.userID);
+    this.tipService.getNumberOfBets(this.userID).subscribe(observer => 
+      this.tipLength = observer);
+    
+    this.tipService.updateCombinationBets(this.userID);
   }
 
   counter(n: number) {
@@ -52,7 +56,7 @@ export class TipListComponent implements OnInit {
         result.sport,
         OutComeEnum[result.outcome]
       );
-      this.tipService.addTip(tip);
+      this.tipService.addTip(tip, this.userID);
     });
   }
 }

@@ -2,5 +2,11 @@
   <div class="wrapper">
     <h1>BetHelper</h1>
     <h2>Make educated bets</h2>
+    <ng-container *ngIf="isLoggedIn">
+      <div class="login">
+        <!--  -->
+        <button class="logout_btn" (click)="logout()"><div>Logout </div><mat-icon>input</mat-icon></button>
+      </div>
+    </ng-container>
   </div>
 </header>

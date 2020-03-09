@@ -13,9 +13,15 @@
     app-root {       
         winnings {
             border-left-color: mat-color($primary);
+        }    
+    }
+    
+
+    .login {
+        mat-icon {
+        color: mat-color($primary)
         }
     }
-
 
     mat-tab-header {
         background: mat-color($background, status-bar);

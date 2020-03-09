@@ -2,7 +2,7 @@
   <h2 color="primary">{{ tipsLength > 0? 'Winnings' : 'No active bets'}}</h2>
   <ng-container *ngIf="tipsLength > 0">
     <mat-form-field appearance="outline" class="stake">
-      <mat-icon matSuffix>attach_money</mat-icon>
+      <mat-icon class="dollarSign" matSuffix>attach_money</mat-icon>
       <mat-label>Total Stake</mat-label>
       <input
         [value]="stake"

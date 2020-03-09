@@ -1,5 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { BetService } from "../bet.service";
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: "top-bar",
@@ -7,17 +8,23 @@ import { BetService } from "../bet.service";
   styleUrls: ["./top-bar.component.scss"]
 })
 export class TopBarComponent implements OnInit {
-  constructor(public betService: BetService) {}
+  isLoggedIn: boolean;
 
-  ngOnInit(): void {}
+  constructor(private auth: AuthService) {}
+  
+  ngOnInit(): void {
+    this.auth.user.subscribe(user => {
+      if (user) {
+        this.isLoggedIn = true;
+      } else {
+        this.isLoggedIn = false;
+      }
+      console.log(this.isLoggedIn);
 
-  getTotalStake(): number {
-    let totalstake: number = 0;
-
-    this.betService.getBets().forEach(bet => {
-      totalstake += bet.stake;
-    });
-
-    return totalstake;
+    })
+  }
+  
+  logout(){
+    this.auth.logout();
   }
 }

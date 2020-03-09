@@ -1,5 +1,4 @@
 .tip {
-  padding: 15px 15px 15px 20px;
   box-shadow: 0px 0px 4px 0px #ccc;
   border-radius: 3px;
   position: relative;
@@ -31,44 +30,50 @@
       #be3b3b 5px,
       #9e2b2b 5px,
       #9e2b2b 10px
-    );
-  }
-
-  &:hover > .removeTip {
-    opacity: 1;
-  }
+      );
+    }
+    
+    &:hover .removeTip {
+      opacity: 1;
+    }
 }
 
+.content {
+  padding: 10px 15px 10px 20px;
+}
 .cursor {
   cursor: pointer;
   user-select: none;
 }
 
 .infos {
-  font-size: 0.8em;
+  font-size: 0.95em;
 }
 
 footer {
-  padding-top: 3px;
-  margin-top: 6px;
-  border-top: 1px solid #ccc;
+  padding-top: 10px;
+  margin-top: 10px;
+  border-top: 1px solid rgb(37, 37, 37);
   font-size: 0.8em;
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
+}
 
-  .flag {
-    cursor: pointer;
-    user-select: none;
-  }
+.toggle {
+  size: 5px
 }
 
 header {
+  background: rgb(61, 61, 61);
+  border-radius: 3px;
+  padding: 15px 15px 15px 20px;
   font-weight: bold;
-  padding-right: 30px;
+  font-size: 1em;
 }
 
 .removeTip {
+  color: #ccc;
   opacity: 1;
   transition: ease-in-out 0.3s opacity;
   position: absolute;
