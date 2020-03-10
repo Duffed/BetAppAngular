@@ -8,6 +8,8 @@ import { environment } from '../environments/environment';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { AngularFireAuthModule } from 'angularfire2/auth';
+import { FirebaseUIModule, firebase, firebaseui } from 'firebaseui-angular';
+
 
 // Material
 import { MatIconModule } from "@angular/material/icon";
@@ -38,6 +40,28 @@ import { TipListComponent } from "./tip-list/tip-list.component";
 import { AddTipDialogComponent } from "./add-tip-dialog/add-tip-dialog.component";
 import { WinningsComponent } from "./winnings/winnings.component";
 import { ServiceWorkerModule } from '@angular/service-worker';
+
+const firebaseUiAuthConfig: firebaseui.auth.Config = {
+  signInFlow: 'popup',
+  signInOptions: [
+    firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+    {
+      scopes: [
+        'public_profile',
+        'email',
+        'user_likes',
+        'user_friends'
+      ],
+      customParameters: {
+        'auth_type': 'reauthenticate'
+      },
+      provider: firebase.auth.FacebookAuthProvider.PROVIDER_ID
+    },
+    firebase.auth.PhoneAuthProvider.PROVIDER_ID,
+    firebaseui.auth.AnonymousAuthProvider.PROVIDER_ID
+  ],
+  credentialHelper: firebaseui.auth.CredentialHelper.ACCOUNT_CHOOSER_COM
+};
 
 @NgModule({
   declarations: [
@@ -71,7 +95,7 @@ import { ServiceWorkerModule } from '@angular/service-worker';
     MatListModule,
     MatCardModule,
     MatTabsModule,
-    AngularFireModule.initializeApp(environment.firebase), AngularFirestoreModule, AngularFireAuthModule, 
+    AngularFireModule.initializeApp(environment.firebase), AngularFirestoreModule, AngularFireAuthModule, FirebaseUIModule, FirebaseUIModule.forRoot(firebaseUiAuthConfig),
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
   providers: [MatDatepickerModule, {

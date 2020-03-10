@@ -5,7 +5,15 @@
 
   <ng-container *ngIf="!isLoggedIn; else loggedIn">
     <main class="loginscreen">
-      <button class="login" (click)="googleLogin()"><mat-icon>account_circle</mat-icon><div>Login with Google</div></button>
+      <!-- <h2 centered>Login</h2> -->
+      <div class="login">
+        <!-- <h2>Choose your prefered method</h2> -->
+      <!-- <button class="login" (click)="googleLogin()">
+        <img width="25px" height="25px" src="../assets/google.svg" alt="Google Logo">
+        <div>Login with Google</div>
+      </button> -->
+        <firebase-ui></firebase-ui>
+      </div>
     </main>
   </ng-container>
 

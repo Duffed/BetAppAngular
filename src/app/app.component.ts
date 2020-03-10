@@ -26,7 +26,7 @@ export class AppComponent implements OnInit {
 
     if (localStorage.getItem(this.THEMES.DARK) == null) {
       this.onSetTheme(this.THEMES.DARK);
-      localStorage.setItem(this.THEMES.DARK, "true");
+      localStorage.setItem(this.THEMES.DARK, "true")
       this.isDarkTheme = true;
     } else {
       if (localStorage.getItem(this.THEMES.DARK) === "true") { 

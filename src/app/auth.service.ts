@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { auth } from 'firebase/app';
+import { FirebaseUIModule, firebase, firebaseui} from 'firebaseui-angular';
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +10,7 @@ import { auth } from 'firebase/app';
 export class AuthService {
   user: Observable<firebase.User>;
   loggedIn: Subject<boolean> = new Subject();
-  
+    
   constructor(private firebaseAuth: AngularFireAuth) { 
     this.user = firebaseAuth.authState;
   }
