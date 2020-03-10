@@ -1,10 +1,11 @@
 import { Component, OnInit, Inject } from "@angular/core";
-import { FormGroup, FormBuilder, Validators } from "@angular/forms";
+import { FormGroup, FormBuilder, Validators, ValidationErrors } from "@angular/forms";
 import {
   MatDialogRef,
   MAT_DIALOG_DATA,
   MatDialog
 } from "@angular/material/dialog";
+import {MatSnackBar} from '@angular/material/snack-bar';
 import { Tip, OutComeEnum } from "src/domain/tip";
 import { Sport } from "src/domain/sport";
 
@@ -20,11 +21,11 @@ export class AddTipDialogComponent implements OnInit {
   form: FormGroup;
 
   constructor(
+    private snackbar: MatSnackBar,
     private fb: FormBuilder,
     public dialog: MatDialog,
     public dialogRef: MatDialogRef<AddTipDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: Tip
-  ) {
+    @Inject(MAT_DIALOG_DATA) public data: Tip) {
       this.form = this.fb.group({
         opponent1: ["", Validators.required],
         opponent2: ["", Validators.required],
@@ -59,8 +60,19 @@ export class AddTipDialogComponent implements OnInit {
     if (!this.form.invalid) {
       this.form.controls.submitted.setValue(true);
       this.dialogRef.close(this.form.value);
+    } else {
+      if (this.opponent1.invalid) document.getElementById("opponent1").focus();
+      if (this.opponent2.invalid) document.getElementById("opponent2").focus();
+      if (this.odds.invalid) document.getElementById("odds").focus();
+      document.getElementById("submitButton").focus();
+
+      // Snackbar
+      this.snackbar.open("Please fill out all required fields", "Validation Error", {
+        duration: 2000, panelClass: ['mat-toolbar']
+      });
     }
   }
+
 
   sportListKeys(): string[] {
     return Object.keys(this.sportList);

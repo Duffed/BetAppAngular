@@ -1,9 +1,7 @@
-import { Component, HostBinding, OnInit, ViewChild, ViewChildren } from "@angular/core";
+import { Component, HostBinding, OnInit } from "@angular/core";
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { AuthService } from './auth.service';
-import { Observable, Subject } from 'rxjs';
 import { TipService } from './tip.service';
-import { ThemeService } from './theme.service';
 
 @Component({
   selector: "app-root",
@@ -20,21 +18,22 @@ export class AppComponent implements OnInit {
   selected = 0;
   tab_num = 2;
   SWIPE_ACTION = { LEFT: 'swipeleft', RIGHT: 'swiperight' };
+  THEMES = { DARK: "dark-theme", LIGHT: "light-theme" };
   
   constructor(public overlayContainer: OverlayContainer, 
       private auth: AuthService, 
       private tipService: TipService) {
 
-    if (localStorage.getItem("dark-theme") == null) {
-      this.onSetTheme("dark-theme");
-      localStorage.setItem("dark-theme", "true");
+    if (localStorage.getItem(this.THEMES.DARK) == null) {
+      this.onSetTheme(this.THEMES.DARK);
+      localStorage.setItem(this.THEMES.DARK, "true");
       this.isDarkTheme = true;
     } else {
-      if (localStorage.getItem("dark-theme") === "true") { 
-        this.onSetTheme("dark-theme");
+      if (localStorage.getItem(this.THEMES.DARK) === "true") { 
+        this.onSetTheme(this.THEMES.DARK);
         this.isDarkTheme = true;
       } else {
-        this.onSetTheme("light-theme");
+        this.onSetTheme(this.THEMES.LIGHT);
         this.isDarkTheme = false;
       }
     }
@@ -42,14 +41,12 @@ export class AppComponent implements OnInit {
 
   toggleTheme() {
     this.isDarkTheme = !this.isDarkTheme;
-    localStorage.setItem("dark-theme", this.isDarkTheme? "true":"false");
+    localStorage.setItem(this.THEMES.DARK, this.isDarkTheme? "true":"false");
     if (this.isDarkTheme){
-      this.onSetTheme("dark-theme") 
+      this.onSetTheme(this.THEMES.DARK) 
     } else {
-      this.onSetTheme("light-theme") 
+      this.onSetTheme(this.THEMES.LIGHT) 
     }
-    console.log(this.isDarkTheme);
-    
   }
   
   ngOnInit(): void {
@@ -71,11 +68,16 @@ export class AppComponent implements OnInit {
     this.auth.googleLogin();
   }
   
-  
   @HostBinding('class') componentCssClass;
 
   onSetTheme(theme) {
-    this.overlayContainer.getContainerElement().classList.add(theme);
+    if (theme === this.THEMES.DARK) {
+      this.overlayContainer.getContainerElement().classList.remove(this.THEMES.LIGHT);
+      this.overlayContainer.getContainerElement().classList.add(this.THEMES.DARK);
+    } else {
+      this.overlayContainer.getContainerElement().classList.remove(this.THEMES.DARK);
+      this.overlayContainer.getContainerElement().classList.add(this.THEMES.LIGHT);
+    }
     this.componentCssClass = theme;
   }
 

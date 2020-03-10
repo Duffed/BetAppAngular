@@ -19,7 +19,7 @@
         }
 
         .addTipLabel {
-            background: mat-color($background, status-bar)
+            background: mat-color($background, app-bar)
         }
 
         @media only screen and (min-width: 800px) {

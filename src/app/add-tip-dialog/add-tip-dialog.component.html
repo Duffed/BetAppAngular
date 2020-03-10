@@ -16,7 +16,7 @@
   <div class="opponents">
     <mat-form-field appearance="outline" class="marginbottomopponent">
       <mat-label>Opponent1</mat-label>
-      <input placeholder="Henry Cejudo" formControlName="opponent1" matInput type="text" />
+      <input id="opponent1" placeholder="Henry Cejudo" formControlName="opponent1" matInput type="text" />
       <mat-error *ngIf="opponent1.touched && opponent1.invalid">
         Opponent 1 required
       </mat-error>
@@ -27,7 +27,7 @@
 
     <mat-form-field appearance="outline" class="marginbottom">
       <mat-label>Opponent1</mat-label>
-      <input placeholder="Nate Diaz" formControlName="opponent2" matInput type="text" />
+      <input id="opponent2" placeholder="Nate Diaz" formControlName="opponent2" matInput type="text" />
       <mat-error *ngIf="opponent2.touched && opponent2.invalid">
         Opponent 2 required
       </mat-error>
@@ -38,7 +38,7 @@
   <!-- Odds -->
   <mat-form-field appearance="outline" class="marginbottom">
     <mat-label>Odds</mat-label>
-    <input min="0.1" step="0.1" type="number" formControlName="odds" matInput value="1"/>
+    <input id="odds" min="0.1" step="0.1" type="number" formControlName="odds" matInput value="1"/>
     <mat-error *ngIf="odds.touched && odds.invalid">
       Please enter a number
     </mat-error>
@@ -77,7 +77,7 @@
 
 <mat-dialog-actions align="end">
   <button mat-raised-button mat-dialog-close>Cancel</button>
-  <button mat-raised-button class="mat-primary" (click)="save()" cdkFocusInitial>
+  <button id="submitButton" mat-raised-button class="mat-primary" (click)="save()" cdkFocusInitial>
     Add Tip
   </button>
 </mat-dialog-actions>

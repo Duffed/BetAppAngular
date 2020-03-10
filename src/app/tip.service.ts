@@ -30,9 +30,7 @@ export class TipService implements OnInit {
     return this.getBetCollection(userID).snapshotChanges().pipe(map(snapshot => snapshot.length));
   }
 
-  private getBetCollection(userID: string): AngularFirestoreCollection<Tip> {
-    console.log("Userid: " + userID);
-    
+  private getBetCollection(userID: string): AngularFirestoreCollection<Tip> {   
     return this.db.collection(this.userPath).doc(userID).collection(this.betsPath);
   }
 

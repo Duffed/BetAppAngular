@@ -1,6 +1,6 @@
-import { Component, OnInit } from "@angular/core";
-import { BetService } from "../bet.service";
+import { Component, OnInit, HostBinding } from "@angular/core";
 import { AuthService } from '../auth.service';
+import { AppComponent } from '../app.component';
 
 @Component({
   selector: "top-bar",
@@ -10,7 +10,9 @@ import { AuthService } from '../auth.service';
 export class TopBarComponent implements OnInit {
   isLoggedIn: boolean;
 
-  constructor(private auth: AuthService) {}
+  constructor(public approot: AppComponent, private auth: AuthService) {
+
+  }
   
   ngOnInit(): void {
     this.auth.user.subscribe(user => {
@@ -19,12 +21,16 @@ export class TopBarComponent implements OnInit {
       } else {
         this.isLoggedIn = false;
       }
-      console.log(this.isLoggedIn);
-
     })
   }
   
   logout(){
     this.auth.logout();
   }
+
+  toggleTheme() {
+    this.approot.toggleTheme();
+  }
+
+
 }

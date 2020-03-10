@@ -23,8 +23,11 @@
             color: mat-color($foreground, text);
         }
         
-        .logout_btn div {
-            color: mat-color($foreground, text);
+        .logout_btn {
+            color: mat-color($foreground, disabled-button);
+            &:hover {
+                color: mat-color($foreground, text)
+            }
         }
 
         .logout_btn mat-icon {

@@ -8,5 +8,9 @@
         <button class="logout_btn" (click)="logout()"><div>Logout </div><mat-icon>input</mat-icon></button>
       </div>
     </ng-container>
+    <mat-slide-toggle 
+      matTooltip='Toggle Dark/Light Theme' 
+      (change)="toggleTheme()">
+    </mat-slide-toggle>
   </div>
 </header>
