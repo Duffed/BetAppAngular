@@ -1,8 +1,9 @@
 import { Component, HostBinding, OnInit, ViewChild, ViewChildren } from "@angular/core";
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { AuthService } from './auth.service';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { TipService } from './tip.service';
+import { ThemeService } from './theme.service';
 
 @Component({
   selector: "app-root",
@@ -13,14 +14,42 @@ export class AppComponent implements OnInit {
   themeClass: string;
   isLoggedIn: boolean;
   userID: string;
+  isDarkTheme: boolean;
 
   // Swipe
   selected = 0;
   tab_num = 2;
   SWIPE_ACTION = { LEFT: 'swipeleft', RIGHT: 'swiperight' };
   
-  constructor(public overlayContainer: OverlayContainer, private auth: AuthService, private tipService: TipService) {
-    this.onSetTheme("dark-theme");
+  constructor(public overlayContainer: OverlayContainer, 
+      private auth: AuthService, 
+      private tipService: TipService) {
+
+    if (localStorage.getItem("dark-theme") == null) {
+      this.onSetTheme("dark-theme");
+      localStorage.setItem("dark-theme", "true");
+      this.isDarkTheme = true;
+    } else {
+      if (localStorage.getItem("dark-theme") === "true") { 
+        this.onSetTheme("dark-theme");
+        this.isDarkTheme = true;
+      } else {
+        this.onSetTheme("light-theme");
+        this.isDarkTheme = false;
+      }
+    }
+  }
+
+  toggleTheme() {
+    this.isDarkTheme = !this.isDarkTheme;
+    localStorage.setItem("dark-theme", this.isDarkTheme? "true":"false");
+    if (this.isDarkTheme){
+      this.onSetTheme("dark-theme") 
+    } else {
+      this.onSetTheme("light-theme") 
+    }
+    console.log(this.isDarkTheme);
+    
   }
   
   ngOnInit(): void {

@@ -2,7 +2,7 @@ header {
   display: block;
 }
 
-.login {
+.logout {
   position: absolute;
   right: 40px;
   top: 50px;
@@ -13,7 +13,6 @@ header {
   display: flex;
   background: none;
   border: none;
-  color: #ccc;
   align-items: center;
 }
 

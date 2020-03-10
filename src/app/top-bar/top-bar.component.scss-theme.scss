@@ -22,9 +22,15 @@
         h2 {
             color: mat-color($foreground, text);
         }
+        
+        .logout_btn div {
+            color: mat-color($foreground, text);
+        }
 
         .logout_btn mat-icon {
             color: mat-color($primary);
         }
+
+
     }
 }

@@ -54,7 +54,7 @@
   border-left: 1px solid #252525;
 }
 
-.mobile {
+::ng-deep .mat-tab-body-content {
   padding: 10px 15px;
 }
 
