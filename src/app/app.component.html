@@ -5,13 +5,7 @@
 
   <ng-container *ngIf="!isLoggedIn; else loggedIn">
     <main class="loginscreen">
-      <!-- <h2 centered>Login</h2> -->
       <div class="login">
-        <!-- <h2>Choose your prefered method</h2> -->
-      <!-- <button class="login" (click)="googleLogin()">
-        <img width="25px" height="25px" src="../assets/google.svg" alt="Google Logo">
-        <div>Login with Google</div>
-      </button> -->
         <firebase-ui></firebase-ui>
       </div>
     </main>
@@ -33,6 +27,7 @@
       animationDuration="0ms"
       [selectedIndex]="selected"  (swipeleft)="swipe($event.type)" (swiperight)="swipe($event.type)">
       
+      <!-- Tab: Tip List -->
         <mat-tab >
           <ng-template mat-tab-label>
             <mat-icon color="primary">flag</mat-icon> Tips
@@ -40,6 +35,7 @@
           <tip-list [userID]="userID"></tip-list>
         </mat-tab>
         
+        <!-- Tab: Winnings -->
         <mat-tab>
           <ng-template mat-tab-label>
             <mat-icon color="primary">attach_money</mat-icon> Winnings

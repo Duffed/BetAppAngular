@@ -24,7 +24,7 @@ export class TipComponent implements OnInit {
 
   printOutcome(): string {
     let outcome = this.tip.outcome;
-
+    
     return outcome;
   }
 }

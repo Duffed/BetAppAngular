@@ -1,5 +1,17 @@
 header {
   display: block;
+
+  // Logo
+  figure {
+    position: relative;
+  }
+
+  caption {
+    position: absolute;
+    left: 95px;
+    bottom: 23px;
+    font-weight: bold;
+  }
 }
 
 .logout {
@@ -42,4 +54,25 @@ h2 {
   margin: auto;
   padding: 20px 30px;
   position: relative;
+}
+
+.themeToggle {
+  position: absolute;
+  bottom: 20px;
+  right: 40px;
+}
+
+
+@media only screen and (max-width: 800px) {
+  header {
+    figure img{
+      height: 125px;
+      width: 125px;
+    }
+
+    caption {
+      bottom: 15px;
+      left: 90px;
+    }
+  }
 }

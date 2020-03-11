@@ -1,7 +1,9 @@
 <header color="primary">
   <div class="wrapper">
-    <h1>BetHelper</h1>
-    <h2>Make educated bets</h2>
+    <figure>
+      <img src="../../assets/bh_logo_150.png" alt="">
+      <caption>Make educated bets</caption>
+    </figure>
     <ng-container *ngIf="isLoggedIn">
       <div class="logout">
         <!--  -->
@@ -9,6 +11,7 @@
       </div>
     </ng-container>
     <mat-slide-toggle 
+      class="themeToggle"
       matTooltip='Toggle Dark/Light Theme' 
       (change)="toggleTheme()">
     </mat-slide-toggle>
