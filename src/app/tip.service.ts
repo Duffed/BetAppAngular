@@ -90,6 +90,11 @@ export class TipService implements OnInit {
     this.updateCombinationBets(userID);
   }
 
+  async updateTip(tip, userID: string) {
+    await this.getBetCollection(userID).doc(tip.id).set(tip);
+    this.updateCombinationBets(userID);
+  }
+
   async toggleMarkedAsWin(tip, userID: string) {
     tip.markedAsWin = !tip.markedAsWin;
     await this.getBetCollection(userID).doc(tip.id).update({ markedAsWin: tip.markedAsWin });
