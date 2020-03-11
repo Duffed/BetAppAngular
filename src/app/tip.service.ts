@@ -7,7 +7,6 @@ import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/fires
 import { map } from "rxjs/operators";
 import { AuthService } from './auth.service';
 
-
 @Injectable({
   providedIn: "root"
 })
@@ -18,36 +17,36 @@ export class TipService implements OnInit {
   private betsPath = "bets";
   private stakePath = "stake";
   private CombinationBetSubject: Subject<CombinationBet[]> = new Subject();
-  
-  constructor(private combinationBetService: CombinationbetService, private db: AngularFirestore, private auth: AuthService) {  
+
+  constructor(private combinationBetService: CombinationbetService, private db: AngularFirestore, private auth: AuthService) {
   }
-  
+
   ngOnInit() {
-    
+
   }
-  
+
   getNumberOfBets(userID: string): Observable<number> {
     return this.getBetCollection(userID).snapshotChanges().pipe(map(snapshot => snapshot.length));
   }
 
-  private getBetCollection(userID: string): AngularFirestoreCollection<Tip> {   
+  private getBetCollection(userID: string): AngularFirestoreCollection<Tip> {
     return this.db.collection(this.userPath).doc(userID).collection(this.betsPath);
   }
 
   private async getTipsOnce(userID: string): Promise<Tip[]> {
     let promise = this.getBetCollection(userID).get().pipe(
-      map(value => { 
+      map(value => {
         return value.docs.map(x => <Tip>x.data())
-      }) 
+      })
     )
-  
+
     return promise.toPromise();
   }
 
   getTips(userID: string): Observable<Tip[]> {
     return this.getBetCollection(userID).snapshotChanges().pipe(
       map(changes => {
-          return changes.map(doc => {         
+          return changes.map(doc => {
             const id = doc.payload.doc.id;
             const data = doc.payload.doc.data();
             return {id, ...data}
@@ -82,7 +81,7 @@ export class TipService implements OnInit {
         outcome: tip.outcome,
         sport: tip.sport
     });
-    
+
     this.updateCombinationBets(userID);
   }
 
@@ -97,16 +96,16 @@ export class TipService implements OnInit {
 
     this.updateCombinationBets(userID);
   }
-  
+
   public getCombinationBets() {
     return this.CombinationBetSubject.asObservable();
   }
-  
+
   async updateCombinationBets(userID) {
     let combinationBets = await this.calculateCombinationBets(userID);
     this.CombinationBetSubject.next(combinationBets);
-  } 
-  
+  }
+
   private async calculateCombinationBets(userID: string): Promise<CombinationBet[]> {
     // Trennung falsche und richtige Tips
     const tips: Tip[] = await this.getTipsOnce(userID);
@@ -123,14 +122,35 @@ export class TipService implements OnInit {
       let stakePerBet: number;
 
       // Single Bets
-      if (combinationBet.name === "Single") {
+      if (combinationBet.name === "Single Bets") {
         combinationBet.winnings = -stake;
         stakePerBet = stake / numberOfTips;
         combinationBet.stakePerBet = stakePerBet;
 
         tips.forEach(tip => {
-          if (tip.markedAsWin) combinationBet.winnings += (<number>tip.odds * stakePerBet);
+          if (tip.markedAsWin)
+            combinationBet.winnings += <number>tip.odds * stakePerBet;
         });
+
+        continue;
+      }
+
+      // Combination Bets (Alle gewinnen oder verlieren)
+      if (combinationBet.name === "Combination") {
+        combinationBet.winnings = -stake;
+        stakePerBet = stake / numberOfTips;
+        combinationBet.stakePerBet = stakePerBet;
+        let totalOdds = 1;
+        let cbCombWin = true;
+
+        tips.forEach(tip => {
+          totalOdds *= tip.odds;
+          if (!tip.markedAsWin) cbCombWin = false;
+        });
+
+        cbCombWin
+          ? (combinationBet.winnings = stake * totalOdds)
+          : (combinationBet.winnings = -stake);
 
         continue;
       }
@@ -161,25 +181,25 @@ export class TipService implements OnInit {
 
         combinationBet.minimumCombinationSize++;
       }
-      
+
       // Alle Wetten sammeln
       for (let i = combinationBet.minimumCombinationSize; i <= combinationBet.maximumCombinationSize; i++) {
         allBetsForCombinationBet.push(this.combinationBetService.getSubsetCombinations(tips, i));
       }
-  
+
       // Gewinn berechnen
       allBetsForCombinationBet.forEach(currentArrayOfSubsets => {
         currentArrayOfSubsets.forEach(currentArrayOfBets => {
           let multiplicator = 1;
-  
+
           currentArrayOfBets.forEach(tip => {
             multiplicator *= <number>tip.odds;
           });
-  
+
           winnings += multiplicator * stakePerBet;
         });
       });
-  
+
       combinationBet.winnings = winnings;
     }
 

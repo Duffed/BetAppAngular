@@ -7,7 +7,8 @@ import { Observable, onErrorResumeNext, of } from 'rxjs';
   providedIn: "root"
 })
 export class CombinationbetService {
-  noSubsets = new CombinationBet("Single", 1, 2);
+  noSubsets = new CombinationBet("Single Bets", 1, 2);
+  combination = new CombinationBet("Combination", 2, 8);
   subsetsOfTwo = new CombinationBet("System 2", 2, 2);
   subsetsOfThree = new CombinationBet("System 3", 3, 3);
   subsetsOfFour = new CombinationBet("System 4", 4, 4);
@@ -58,24 +59,30 @@ export class CombinationbetService {
     let availableCombinationBets: CombinationBet[] = [];
 
     switch (numberOfBets) {
-      case 1: case 2:
+      case 1:
         availableCombinationBets.push(this.noSubsets);
         break;
+      case 2:
+        availableCombinationBets.push(this.noSubsets, this.combination);
+        break;
       case 3:
-        availableCombinationBets.push(this.noSubsets, 
-          this.subsetsOfTwo, 
-          this.trixie, 
+        availableCombinationBets.push(this.noSubsets,
+          this.combination,
+          this.subsetsOfTwo,
+          this.trixie,
           this.patent);
         break;
       case 4:
-        availableCombinationBets.push(this.noSubsets, 
-          this.subsetsOfTwo, 
-          this.subsetsOfThree, 
-          this.yankee, 
+        availableCombinationBets.push(this.noSubsets,
+          this.combination,
+          this.subsetsOfTwo,
+          this.subsetsOfThree,
+          this.yankee,
           this.lucky15);
         break;
       case 5:
         availableCombinationBets.push(this.noSubsets,
+          this.combination,
           this.subsetsOfTwo,
           this.subsetsOfThree,
           this.subsetsOfFour,
@@ -84,6 +91,7 @@ export class CombinationbetService {
         break;
       case 6:
         availableCombinationBets.push(this.noSubsets,
+          this.combination,
           this.subsetsOfTwo,
           this.subsetsOfThree,
           this.subsetsOfFour,
@@ -93,6 +101,7 @@ export class CombinationbetService {
         break;
       case 7:
         availableCombinationBets.push(this.noSubsets,
+          this.combination,
           this.subsetsOfTwo,
           this.subsetsOfThree,
           this.subsetsOfFour,
@@ -102,6 +111,7 @@ export class CombinationbetService {
         break;
       case 8:
         availableCombinationBets.push(this.noSubsets,
+          this.combination,
           this.subsetsOfTwo,
           this.subsetsOfThree,
           this.subsetsOfFour,
@@ -112,11 +122,11 @@ export class CombinationbetService {
         break;
       default:
         break;
-    } 
-    
+    }
+
     return availableCombinationBets;
   }
-  
+
   binomialCoefficient(n: number, k: number): number {
     const numerator = this.fact(n);
     const denominator = this.fact(n - k) * this.fact(k);
