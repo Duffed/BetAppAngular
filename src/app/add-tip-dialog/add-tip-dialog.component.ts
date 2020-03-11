@@ -19,26 +19,41 @@ export class AddTipDialogComponent implements OnInit {
   sportList = Sport;
   outComeList = OutComeEnum;
   form: FormGroup;
+  edit = false;
 
   constructor(
     private snackbar: MatSnackBar,
     private fb: FormBuilder,
     public dialog: MatDialog,
     public dialogRef: MatDialogRef<AddTipDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: Tip) {
-      this.form = this.fb.group({
-        opponent1: ["", Validators.required],
-        opponent2: ["", Validators.required],
-        odds: ["1.9", [Validators.required, Validators.maxLength(3)]],
-        date: [new Date()],
-        sport: [""],
-        outcome: [""],
-        submitted: [""]
-      });
-  }
+    @Inject(MAT_DIALOG_DATA) public data) {}
 
   ngOnInit(): void {
-    this.form.get("sport").setValue(this.sportList[0]); // not working
+      if (this.data) {
+        this.form = this.fb.group({
+          opponent1: [this.data.opponent1, Validators.required],
+          opponent2: [this.data.opponent2, Validators.required],
+          odds: [
+            this.data.odds,
+            [Validators.required, Validators.maxLength(3)]
+          ],
+          date: [this.data.date],
+          sport: [this.data.sport],
+          outcome: [this.data.outcome],
+          submitted: [""]
+        });
+      } else {
+        this.edit = true;
+        this.form = this.fb.group({
+          opponent1: ["", Validators.required],
+          opponent2: ["", Validators.required],
+          odds: ["1.9", [Validators.required, Validators.maxLength(3)]],
+          date: [new Date()],
+          sport: [""],
+          outcome: [""],
+          submitted: [""]
+        });
+      }
   }
 
   // Getter for Formgroups
@@ -72,7 +87,6 @@ export class AddTipDialogComponent implements OnInit {
       });
     }
   }
-
 
   sportListKeys(): string[] {
     return Object.keys(this.sportList);

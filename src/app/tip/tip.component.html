@@ -1,9 +1,9 @@
 <div class="tip" [className]="tip.markedAsWin ? 'win' : 'loss'">
-  <header>{{ tip.opponent1 }} - {{ tip.opponent2 }}</header>
+  <header (click)="editTip(tip)">{{ tip.opponent1 }} - {{ tip.opponent2 }}</header>
   <div class="content">
       <div class="infos">
         Odds: {{ tip.odds }} <br />
-      Outcome: {{ tip.outcome }}
+        Outcome: {{ tip.outcome }}
     </div>
     <footer>
       <span>

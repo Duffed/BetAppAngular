@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from "@angular/core";
 import { Tip } from "src/domain/tip";
 import { TipService } from "../tip.service";
+import { TipListComponent } from '../tip-list/tip-list.component';
 
 @Component({
   selector: "tip",
@@ -10,7 +11,7 @@ import { TipService } from "../tip.service";
 export class TipComponent implements OnInit {
   @Input() tip: Tip;
   @Input() userID: string;
-  constructor(private tipService: TipService) {}
+  constructor(private tipService: TipService, private tiplist: TipListComponent) {}
 
   ngOnInit(): void {}
 
@@ -24,7 +25,11 @@ export class TipComponent implements OnInit {
 
   printOutcome(): string {
     let outcome = this.tip.outcome;
-    
+
     return outcome;
+  }
+
+  editTip(tip) {
+    this.tiplist.editTip(tip);
   }
 }
