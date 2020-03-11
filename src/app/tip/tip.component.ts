@@ -21,4 +21,10 @@ export class TipComponent implements OnInit {
   deleteTip(tip) {
     this.tipService.removeTip(tip, this.userID);
   }
+
+  printOutcome(): string {
+    let outcome = this.tip.outcome;
+
+    return outcome;
+  }
 }

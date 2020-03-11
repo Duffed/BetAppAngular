@@ -10,16 +10,16 @@
         <span class="sport">{{ tip.sport }}</span> |
         <time>{{ tip.date.toDate() | date: "dd.MM.yyyy" }}</time>
       </span>
-      
+
       <mat-slide-toggle
         class="toggle"
         color="primary"
         [matTooltip]="tip.markedAsWin ? 'Mark as Loss' : 'Mark as Win'"
         [checked]="tip.markedAsWin"
-        (change)="clickWinToggle(tip)"
-        ></mat-slide-toggle>
+        (change)="clickWinToggle(tip)">
+      </mat-slide-toggle>
     </footer>
-    
+
     <mat-icon
     [routerLink]="'/'"
     (click)="deleteTip(tip)"

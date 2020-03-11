@@ -2,14 +2,14 @@
 
 // mixin name will be used in main style.scss
 @mixin winnings-component-theme($theme) {
-  
-    // retrieve variables from theme 
+
+    // retrieve variables from theme
     $primary:       map-get($theme, primary);
     $accent:        map-get($theme, accent);
     $warn:          map-get($theme, warn);
     $foreground:    map-get($theme, foreground);
     $background:    map-get($theme, background);
-    
+
     winnings {
         color: mat-color($foreground, text);
 
@@ -25,9 +25,15 @@
         .positive {
             color: mat-color($primary);
         }
-        
+
         .negative {
             color: mat-color($warn, text);
+        }
+
+        table {
+            tr:nth-child(even) {
+                background: mat-color($background, app-bar)
+            }
         }
     }
 }
