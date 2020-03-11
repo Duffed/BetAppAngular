@@ -6,8 +6,9 @@ import {
   MatDialog
 } from "@angular/material/dialog";
 import {MatSnackBar} from '@angular/material/snack-bar';
-import { Tip, OutComeEnum } from "src/domain/tip";
+import { Tip } from "src/domain/tip";
 import { Sport } from "src/domain/sport";
+import { OutComeEnum } from 'src/domain/outcomeEnum';
 
 @Component({
   selector: "add-tip-dialog",

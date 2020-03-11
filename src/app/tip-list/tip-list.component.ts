@@ -1,10 +1,11 @@
 import { Component, OnInit, HostBinding, Input } from "@angular/core";
-import { Tip, OutComeEnum } from "src/domain/tip";
+import { Tip } from "src/domain/tip";
 import { TipService } from "../tip.service";
 import { MatDialog } from "@angular/material/dialog";
 import { AddTipDialogComponent } from "../add-tip-dialog/add-tip-dialog.component";
 import { Sport } from "src/domain/sport";
 import { Observable } from 'rxjs';
+import { OutComeEnum, OutComeLabel } from 'src/domain/outcomeEnum';
 
 @Component({
   selector: "tip-list",
@@ -52,7 +53,7 @@ export class TipListComponent implements OnInit {
         result.odds,
         result.date,
         result.sport,
-        OutComeEnum[result.outcome]
+        OutComeEnum[OutComeLabel.get(result.outcome)]
       );
       this.tipService.addTip(tip, this.userID);
     });

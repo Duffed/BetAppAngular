@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from "@angular/core";
 import { Tip } from "src/domain/tip";
 import { TipService } from "../tip.service";
 import { TipListComponent } from '../tip-list/tip-list.component';
+import { OutComeLabel } from 'src/domain/outcomeEnum';
 
 @Component({
   selector: "tip",
@@ -24,7 +25,7 @@ export class TipComponent implements OnInit {
   }
 
   printOutcome(): string {
-    let outcome = this.tip.outcome;
+    let outcome = OutComeLabel.get(this.tip.outcome);
 
     return outcome;
   }
