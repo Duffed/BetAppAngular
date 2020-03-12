@@ -5,17 +5,17 @@ import { TipListComponent } from '../tip-list/tip-list.component';
 import { OutComeLabel } from 'src/domain/outcomeEnum';
 import { SportLabel } from 'src/domain/sport';
 
+
 @Component({
   selector: "tip",
   templateUrl: "./tip.component.html",
   styleUrls: ["./tip.component.scss"]
 })
-export class TipComponent implements OnInit {
+export class TipComponent {
   @Input() tip: Tip;
   @Input() userID: string;
-  constructor(private tipService: TipService, private tiplist: TipListComponent) {}
 
-  ngOnInit(): void {}
+  constructor(private tipService: TipService, private tiplist: TipListComponent) {}
 
   clickWinToggle(tip) {
     this.tipService.toggleMarkedAsWin(tip, this.userID);

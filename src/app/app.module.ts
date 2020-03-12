@@ -62,6 +62,7 @@ const firebaseUiAuthConfig: firebaseui.auth.Config = {
   credentialHelper: firebaseui.auth.CredentialHelper.ACCOUNT_CHOOSER_COM
 };
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -97,10 +98,12 @@ const firebaseUiAuthConfig: firebaseui.auth.Config = {
     AngularFireModule.initializeApp(environment.firebase), AngularFirestoreModule, AngularFireAuthModule, FirebaseUIModule, FirebaseUIModule.forRoot(firebaseUiAuthConfig),
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
-  providers: [MatDatepickerModule, {
-    provide: HAMMER_GESTURE_CONFIG,
-    useClass: HammerGestureConfig
-  }],
+  providers: [MatDatepickerModule, 
+    {
+      provide: HAMMER_GESTURE_CONFIG,
+      useClass: HammerGestureConfig
+    }
+  ],
   bootstrap: [AppComponent],
   entryComponents: [AddTipDialogComponent]
 })

@@ -8,9 +8,17 @@
     </li>
   </ng-container>
 
+  <mat-card 
+  (swipe)="onSwipe($event)">
+    <mat-card-content>{{eventText}}</mat-card-content>
+  </mat-card>
+
   <ng-container *ngIf="tips$ | async as tips; else loading">
     <li *ngFor="let tip of tips">
-      <tip [tip]="tip" [userID]="userID"></tip>
+      <tip 
+        [tip]="tip" 
+        [userID]="userID">
+      </tip>
     </li>
   </ng-container>
   
