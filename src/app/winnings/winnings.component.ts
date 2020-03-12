@@ -14,20 +14,25 @@ export class WinningsComponent implements OnInit {
   combinations$: Observable<CombinationBet[]>;
   tipsLength: number;
   stake: number;
-  
+
   constructor(private tipService: TipService) { }
-  
+
   async ngOnInit(): Promise<void> {
     this.combinations$ = this.tipService.getCombinationBets();
-    
+
     this.tipService.getNumberOfBets(this.userID).subscribe(observer => {
       this.tipsLength = observer
     })
 
     this.stake = await this.tipService.getStake(this.userID);
+    if (!this.stake) this.setStakePerNumber(100);
+  }
+
+  private setStakePerNumber(n: number) {
+    this.tipService.setStake(n, this.userID);
   }
 
   setStake(amount: HTMLInputElement) {
-    this.tipService.setStake(Number(amount.value), this.userID);
+    this.setStakePerNumber(Number(amount.value));
   }
 }

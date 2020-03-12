@@ -30,6 +30,10 @@
             color: mat-color($warn, text);
         }
 
+        .dollarSign {
+            color: mat-color($primary);
+        }
+
         table {
             tr:nth-child(even) {
                 background: mat-color($background, app-bar)

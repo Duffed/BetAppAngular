@@ -10,7 +10,6 @@ import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { FirebaseUIModule, firebase, firebaseui } from 'firebaseui-angular';
 
-
 // Material
 import { MatIconModule } from "@angular/material/icon";
 import { MatTableModule } from "@angular/material/table";
@@ -99,8 +98,8 @@ const firebaseUiAuthConfig: firebaseui.auth.Config = {
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
   providers: [MatDatepickerModule, {
-    provide: HAMMER_GESTURE_CONFIG, 
-    useClass: HammerGestureConfig 
+    provide: HAMMER_GESTURE_CONFIG,
+    useClass: HammerGestureConfig
   }],
   bootstrap: [AppComponent],
   entryComponents: [AddTipDialogComponent]

@@ -3,9 +3,10 @@ import { Tip } from "src/domain/tip";
 import { TipService } from "../tip.service";
 import { MatDialog } from "@angular/material/dialog";
 import { AddTipDialogComponent } from "../add-tip-dialog/add-tip-dialog.component";
-import { Sport } from "src/domain/sport";
+import { SportEnum, SportLabel } from "src/domain/sport";
 import { Observable } from 'rxjs';
 import { OutComeEnum, OutComeLabel } from 'src/domain/outcomeEnum';
+import * as firebase from 'firebase';
 
 @Component({
   selector: "tip-list",
@@ -24,8 +25,8 @@ export class TipListComponent implements OnInit {
 
   ngOnInit(): void {
     this.tips$ = this.tipService.getTips(this.userID);
-    this.tipService.getNumberOfBets(this.userID).subscribe(observer =>
-      this.tipLength = observer);
+    this.tipService.getNumberOfBets(this.userID)
+      .subscribe(observer => this.tipLength = observer);
 
     this.tipService.updateCombinationBets(this.userID);
   }
@@ -40,21 +41,20 @@ export class TipListComponent implements OnInit {
       width: "600px"
     });
 
-    dialogRef.afterClosed().subscribe(result => {
-      if (!result || !result.submitted) return;
-
-      if (!result.sport) result.sport = Sport.Ufc;
-      if (!result.date) result.date = new Date();
-      if (!result.outcome) result.outcome = OutComeEnum.firstFighterWins;
+    dialogRef.afterClosed().subscribe(data => {
+      if (!data || !data.submitted) return;
+      if (!data.sport) data.sport = SportEnum.Ufc;
+      if (!data.outcome) data.outcome = OutComeEnum.firstFighterWins;
 
       let tip = new Tip(
-        result.opponent1,
-        result.opponent2,
-        result.odds,
-        result.date,
-        result.sport,
-        OutComeEnum[OutComeLabel.get(result.outcome)]
+        data.opponent1,
+        data.opponent2,
+        Number(data.odds),
+        firebase.firestore.Timestamp.fromDate(data.date),
+        Number(data.sport),
+        Number(data.outcome)
       );
+
       this.tipService.addTip(tip, this.userID);
     });
   }
@@ -66,20 +66,18 @@ export class TipListComponent implements OnInit {
       data: tip
     });
 
-    dialogRef.afterClosed().subscribe(output => {
-      if (!output || !output.submitted) return;
+    dialogRef.afterClosed().subscribe(data => {
+      if (!data || !data.submitted) return;
+      if (!data.sport) data.sport = SportEnum.Ufc;
+      if (!data.outcome) data.outcome = OutComeEnum.firstFighterWins;
 
-      if (!output.sport) output.sport = Sport.Ufc;
-      if (!output.date) output.date = new Date();
-      if (!output.outcome) output.outcome = OutComeEnum.firstFighterWins;
+      tip.opponent1 = data.opponent1;
+      tip.opponent2 = data.opponent2;
+      tip.odds = Number(data.odds),
+      tip.date = firebase.firestore.Timestamp.fromDate(data.date),
+      tip.sport = Number(data.sport),
+      tip.outcome = Number(data.outcome)
 
-      tip.opponent1 = output.opponent1;
-      tip.opponent2 = output.opponent2;
-      tip.odds = output.odds;
-      tip.date = output.date;
-      tip.sport = output.sport;
-      tip.outcome = OutComeEnum[output.outcome];
-      debugger;
       this.tipService.updateTip(tip, this.userID);
     });
   }

@@ -3,6 +3,7 @@ import { Tip } from "src/domain/tip";
 import { TipService } from "../tip.service";
 import { TipListComponent } from '../tip-list/tip-list.component';
 import { OutComeLabel } from 'src/domain/outcomeEnum';
+import { SportLabel } from 'src/domain/sport';
 
 @Component({
   selector: "tip",
@@ -25,9 +26,17 @@ export class TipComponent implements OnInit {
   }
 
   printOutcome(): string {
-    let outcome = OutComeLabel.get(this.tip.outcome);
+    let outcome = OutComeLabel.get(+this.tip.outcome);
 
     return outcome;
+  }
+
+  printDate(): Date {
+    return this.tip.date.toDate();
+  }
+
+  printSport(): string {
+    return SportLabel.get(+this.tip.sport);
   }
 
   editTip(tip) {

@@ -1,26 +1,22 @@
 import { Component, OnInit, Inject } from "@angular/core";
-import { FormGroup, FormBuilder, Validators, ValidationErrors } from "@angular/forms";
+import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import {
   MatDialogRef,
   MAT_DIALOG_DATA,
   MatDialog
 } from "@angular/material/dialog";
-import {MatSnackBar} from '@angular/material/snack-bar';
-import { Tip } from "src/domain/tip";
-import { Sport } from "src/domain/sport";
-import { OutComeEnum } from 'src/domain/outcomeEnum';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { SportEnum, SportLabel } from "src/domain/sport";
+import { OutComeEnum, OutComeLabel } from 'src/domain/outcomeEnum';
 
 @Component({
   selector: "add-tip-dialog",
   templateUrl: "./add-tip-dialog.component.html",
-  styleUrls: ["./add-tip-dialog.component.scss"]
+  styleUrls: ["./add-tip-dialog.component.scss"],
 })
 export class AddTipDialogComponent implements OnInit {
-  tip: Tip;
-  sportList = Sport;
-  outComeList = OutComeEnum;
   form: FormGroup;
-  edit = false;
+  editMode = false;
 
   constructor(
     private snackbar: MatSnackBar,
@@ -31,6 +27,8 @@ export class AddTipDialogComponent implements OnInit {
 
   ngOnInit(): void {
       if (this.data) {
+        // Editmode
+        this.editMode = true;
         this.form = this.fb.group({
           opponent1: [this.data.opponent1, Validators.required],
           opponent2: [this.data.opponent2, Validators.required],
@@ -38,20 +36,19 @@ export class AddTipDialogComponent implements OnInit {
             this.data.odds,
             [Validators.required, Validators.maxLength(3)]
           ],
-          date: [this.data.date],
-          sport: [this.data.sport],
-          outcome: [this.data.outcome],
+          date: [this.data.date.toDate()],
+          sport: [String(this.data.sport)],
+          outcome: [String(this.data.outcome)],
           submitted: [""]
         });
       } else {
-        this.edit = true;
         this.form = this.fb.group({
           opponent1: ["", Validators.required],
           opponent2: ["", Validators.required],
           odds: ["1.9", [Validators.required, Validators.maxLength(3)]],
           date: [new Date()],
-          sport: [""],
-          outcome: [""],
+          sport: ["0"],
+          outcome: ["0"],
           submitted: [""]
         });
       }
@@ -89,11 +86,23 @@ export class AddTipDialogComponent implements OnInit {
     }
   }
 
-  sportListKeys(): string[] {
-    return Object.keys(this.sportList);
+  getSportKeys(): string[] {
+    let list = Object.keys(SportEnum).filter(o => !isNaN(o as any));
+    return list;
   }
 
-  outComesKeys(): string[] {
-    return Object.keys(this.outComeList);
+  getSportLabel(key): string {
+    let label = SportLabel.get(+key);
+    return label;
+  }
+
+  getOutcomeKeys(): string[] {
+    let list = Object.keys(OutComeEnum).filter(o => !isNaN(o as any));
+    return list;
+  }
+
+  getOutcomeLabel(key): string {
+    let label = OutComeLabel.get(+key);
+    return label;
   }
 }

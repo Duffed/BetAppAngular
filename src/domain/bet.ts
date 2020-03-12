@@ -1,4 +1,4 @@
-import { Sport } from "./sport";
+import { SportEnum } from "./sport";
 import { Url } from "url";
 
 export class Bet {
@@ -8,7 +8,7 @@ export class Bet {
     private _stake: number,
     private _odds: number,
     private _date: Date = new Date(),
-    private _sport: Sport = Sport.Ufc,
+    private _sport: SportEnum = SportEnum.Ufc,
     private _link?: Url
   ) {}
 

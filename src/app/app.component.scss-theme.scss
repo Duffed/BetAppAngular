@@ -2,26 +2,22 @@
 
 // mixin name will be used in main style.scss
 @mixin app-component-theme($theme) {
-  
-    // retrieve variables from theme 
+
+    // retrieve variables from theme
     $primary:       map-get($theme, primary);
     $accent:        map-get($theme, accent);
     $warn:          map-get($theme, accent);
     $foreground:    map-get($theme, foreground);
     $background:    map-get($theme, background);
-    
-    app-root {       
-        winnings {
-            border-left-color: mat-color($primary);
-        }    
-    }
-    
+
+    // winnings {
+    //     border-left: 1px solid mat-color($primary);
+    // }
 
     .login {
         background: mat-color($background, card);
         box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
     }
-
 
     mat-tab-header {
         background: mat-color($background, status-bar);

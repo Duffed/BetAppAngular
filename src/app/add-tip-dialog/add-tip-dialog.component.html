@@ -9,7 +9,9 @@
     public markedAsWin: boolean = true
 -->
 
-<h1 mat-dialog-title class="marginbottom">Add Tip</h1>
+<h1 mat-dialog-title class="marginbottom">
+  {{ editMode? "Edit Tip":"Add Tip" }}
+</h1>
 
 <mat-dialog-content [formGroup]="form">
   <!-- Opponents -->
@@ -57,8 +59,8 @@
     <mat-label>Sport</mat-label>
     <mat-icon matSuffix>sports_mma</mat-icon>
     <mat-select formControlName="sport" matNativeControl>
-      <mat-option *ngFor="let sport of sportListKeys()" [value]="sport">
-        {{ sportList[sport] }}
+      <mat-option *ngFor="let sport of getSportKeys()" [value]="sport">
+        {{ getSportLabel(sport) }}
       </mat-option>
     </mat-select>
   </mat-form-field>
@@ -68,8 +70,8 @@
     <mat-label>Outcome</mat-label>
     <mat-icon matSuffix>flag</mat-icon>
     <mat-select formControlName="outcome" matNativeControl>
-      <mat-option *ngFor="let outcome of outComesKeys()" [value]="outcome">
-        {{ outComeList[outcome] }}
+      <mat-option *ngFor="let outcome of getOutcomeKeys()" [value]="outcome">
+        {{ getOutcomeLabel(outcome) }}
       </mat-option>
     </mat-select>
   </mat-form-field>
@@ -78,6 +80,7 @@
 <mat-dialog-actions align="end">
   <button mat-raised-button mat-dialog-close>Cancel</button>
   <button id="submitButton" mat-raised-button class="mat-primary" (click)="save()" cdkFocusInitial>
-    Add Tip
+    <ng-container *ngIf="editMode"></ng-container>
+    {{ editMode? "Save changes":"Add Tip" }}
   </button>
 </mat-dialog-actions>
