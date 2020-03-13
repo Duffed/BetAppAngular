@@ -1,25 +1,17 @@
-import { Component, OnInit, HostBinding, Input } from "@angular/core";
+import { Component, OnInit, Input } from "@angular/core";
 import { Tip } from "src/domain/tip";
 import { TipService } from "../tip.service";
 import { MatDialog } from "@angular/material/dialog";
 import { AddTipDialogComponent } from "../add-tip-dialog/add-tip-dialog.component";
-import { SportEnum, SportLabel } from "src/domain/sport";
+import { SportEnum } from "src/domain/sport";
 import { Observable } from 'rxjs';
-import { OutComeEnum, OutComeLabel } from 'src/domain/outcomeEnum';
+import { OutComeEnum } from 'src/domain/outcomeEnum';
 import * as firebase from 'firebase';
-
-import { trigger, keyframes, animate, transition } from '@angular/animations';
-import * as kf from './keyframes'
 
 @Component({
   selector: "tip-list",
   templateUrl: "./tip-list.component.html",
-  styleUrls: ["./tip-list.component.scss"],
-  animations: [
-    trigger('cardAnimator', [
-      transition('* => slideOutRight', animate(1000, keyframes(kf.slideOutRight)))
-    ])
-  ]
+  styleUrls: ["./tip-list.component.scss"]
 })
 export class TipListComponent implements OnInit {
   @Input() userID: string;
@@ -38,21 +30,6 @@ export class TipListComponent implements OnInit {
       .subscribe(observer => this.tipLength = observer);
 
     this.tipService.updateCombinationBets(this.userID);
-  }
-
-  eventText = '';
-
-  onSwipe(evt) {
-    console.log(evt);
-    
-      const x = Math.abs(evt.deltaX) > 40 ? (evt.deltaX > 0 ? 'right' : 'left'):'';
-      const y = Math.abs(evt.deltaY) > 40 ? (evt.deltaY > 0 ? 'down' : 'up') : '';
-
-      this.eventText += `${x} ${y}<br/>`;
-  }
-
-  counter(n: number) {
-    return new Array(n);
   }
 
   onClickAdd() {

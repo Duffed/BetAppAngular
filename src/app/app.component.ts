@@ -13,15 +13,10 @@ export class AppComponent implements OnInit {
   isLoggedIn: boolean;
   userID: string;
   isDarkTheme: boolean;
-
-  // Swipe
-  selected = 0;
-  tab_num = 2;
-  SWIPE_ACTION = { LEFT: 'swipeleft', RIGHT: 'swiperight' };
   THEMES = { DARK: "dark-theme", LIGHT: "light-theme" };
-  
-  constructor(public overlayContainer: OverlayContainer, 
-      private auth: AuthService, 
+
+  constructor(public overlayContainer: OverlayContainer,
+      private auth: AuthService,
       private tipService: TipService) {
 
     if (localStorage.getItem(this.THEMES.DARK) == null) {
@@ -29,7 +24,7 @@ export class AppComponent implements OnInit {
       localStorage.setItem(this.THEMES.DARK, "true")
       this.isDarkTheme = true;
     } else {
-      if (localStorage.getItem(this.THEMES.DARK) === "true") { 
+      if (localStorage.getItem(this.THEMES.DARK) === "true") {
         this.onSetTheme(this.THEMES.DARK);
         this.isDarkTheme = true;
       } else {
@@ -43,12 +38,12 @@ export class AppComponent implements OnInit {
     this.isDarkTheme = !this.isDarkTheme;
     localStorage.setItem(this.THEMES.DARK, this.isDarkTheme? "true":"false");
     if (this.isDarkTheme){
-      this.onSetTheme(this.THEMES.DARK) 
+      this.onSetTheme(this.THEMES.DARK)
     } else {
-      this.onSetTheme(this.THEMES.LIGHT) 
+      this.onSetTheme(this.THEMES.LIGHT)
     }
   }
-  
+
   ngOnInit(): void {
     this.auth.user.subscribe(user => {
       if (user) {
@@ -60,14 +55,14 @@ export class AppComponent implements OnInit {
         this.tipService.userIDSubject.next("anonymous");
         this.userID = "anonymous";
       }
-      
+
     })
   }
-  
+
   googleLogin() {
     this.auth.googleLogin();
   }
-  
+
   @HostBinding('class') componentCssClass;
 
   onSetTheme(theme) {
@@ -79,18 +74,5 @@ export class AppComponent implements OnInit {
       this.overlayContainer.getContainerElement().classList.add(this.THEMES.LIGHT);
     }
     this.componentCssClass = theme;
-  }
-
-  swipe(eType){
-    console.log(eType);
-    if(eType === this.SWIPE_ACTION.LEFT && this.selected > 0){
-      console.log("movin left")
-      this.selected--;
-    }
-    else if(eType === this.SWIPE_ACTION.RIGHT && this.selected < this.tab_num){
-      console.log("movin right")
-      this.selected++;
-    }
-    console.log(this.selected)
   }
 }

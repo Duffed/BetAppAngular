@@ -1,6 +1,6 @@
-<div class="tip" 
+<div class="tip"
   [className]="tip.markedAsWin ? 'win' : 'loss'"
-  >
+  cdkDrag cdkDragLockAxis="x" DragRef (cdkDragReleased)="test($event)">
   <header (click)="editTip(tip)" [matTooltip]="'Click here to edit'">{{ tip.opponent1 }} - {{ tip.opponent2 }}</header>
   <div class="content">
       <div class="infos">

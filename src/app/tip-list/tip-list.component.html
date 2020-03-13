@@ -1,6 +1,6 @@
 <ul>
   <ng-container *ngIf="tipLength < 8">
-    <li (click)="onClickAdd()" class="addTip"> <!-- *ngFor="let i of counter(8-tips.length)" -->
+    <li (click)="onClickAdd()" class="addTip">
       <div class="addTipLabel">Add Tip</div>
       <div class="content">
         <div class="plusSign">+</div>
@@ -8,20 +8,16 @@
     </li>
   </ng-container>
 
-  <mat-card 
-  (swipe)="onSwipe($event)">
-    <mat-card-content>{{eventText}}</mat-card-content>
-  </mat-card>
-
   <ng-container *ngIf="tips$ | async as tips; else loading">
     <li *ngFor="let tip of tips">
-      <tip 
-        [tip]="tip" 
+
+      <tip
+        [tip]="tip"
         [userID]="userID">
       </tip>
     </li>
   </ng-container>
-  
+
   <ng-template #loading>
     <li #loading>Loading ...</li>
   </ng-template>

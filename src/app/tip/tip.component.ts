@@ -4,18 +4,45 @@ import { TipService } from "../tip.service";
 import { TipListComponent } from '../tip-list/tip-list.component';
 import { OutComeLabel } from 'src/domain/outcomeEnum';
 import { SportLabel } from 'src/domain/sport';
-
+import { trigger, keyframes, animate, transition } from '@angular/animations';
+import * as kf from './keyframes'
+import { CdkDrag } from '@angular/cdk/drag-drop';
 
 @Component({
   selector: "tip",
   templateUrl: "./tip.component.html",
-  styleUrls: ["./tip.component.scss"]
+  styleUrls: ["./tip.component.scss"],
+  animations: [
+    trigger('cardAnimator', [
+      transition('* => slideOutRight', animate(400, keyframes(kf.slideOutRight)))
+    ])
+  ]
 })
 export class TipComponent {
   @Input() tip: Tip;
   @Input() userID: string;
+  animationState: string = '';
 
   constructor(private tipService: TipService, private tiplist: TipListComponent) {}
+
+  async test($event: CdkDrag) {
+    // let distance = $event.ended.
+    console.log($event);
+  }
+
+  startAnimation(state) {
+    console.log(state)
+    if (!this.animationState) {
+      this.animationState = state;
+    }
+  }
+
+  resetAnimationState() {
+    if (this.animationState !== '') {
+      this.deleteTip(this.tip);
+      this.animationState = ''
+    }
+  }
 
   clickWinToggle(tip) {
     this.tipService.toggleMarkedAsWin(tip, this.userID);

@@ -1,4 +1,4 @@
-import { BrowserModule } from "@angular/platform-browser";
+import { BrowserModule, HammerModule } from "@angular/platform-browser";
 import { NgModule } from "@angular/core";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
@@ -28,6 +28,7 @@ import { MatListModule } from "@angular/material/list";
 import { MatCardModule } from "@angular/material/card";
 import { MatTabsModule } from "@angular/material/tabs";
 import { HammerGestureConfig, HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
+import {DragDropModule} from '@angular/cdk/drag-drop';
 
 // Components
 import { AppRoutingModule } from "./app-routing.module";
@@ -62,7 +63,6 @@ const firebaseUiAuthConfig: firebaseui.auth.Config = {
   credentialHelper: firebaseui.auth.CredentialHelper.ACCOUNT_CHOOSER_COM
 };
 
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -74,6 +74,7 @@ const firebaseUiAuthConfig: firebaseui.auth.Config = {
     WinningsComponent
   ],
   imports: [
+    DragDropModule,
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
@@ -95,10 +96,11 @@ const firebaseUiAuthConfig: firebaseui.auth.Config = {
     MatListModule,
     MatCardModule,
     MatTabsModule,
+    HammerModule,
     AngularFireModule.initializeApp(environment.firebase), AngularFirestoreModule, AngularFireAuthModule, FirebaseUIModule, FirebaseUIModule.forRoot(firebaseUiAuthConfig),
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
-  providers: [MatDatepickerModule, 
+  providers: [MatDatepickerModule,
     {
       provide: HAMMER_GESTURE_CONFIG,
       useClass: HammerGestureConfig

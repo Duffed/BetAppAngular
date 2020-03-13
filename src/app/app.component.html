@@ -17,7 +17,7 @@
       <tip-list [userID]="userID"></tip-list>
       <winnings class="winnings" [userID]="userID"></winnings>
     </main>
-    
+
     <!-- Mobile View (Tabs) -->
     <main class="mobile">
 
@@ -25,16 +25,16 @@
       mat-align-tabs="center"
       headerPosition="below"
       animationDuration="0ms"
-      [selectedIndex]="selected"  (swipeleft)="swipe($event.type)" (swiperight)="swipe($event.type)">
-      
+      >
+
       <!-- Tab: Tip List -->
-        <mat-tab >
+        <mat-tab>
           <ng-template mat-tab-label>
             <mat-icon color="primary">flag</mat-icon> Tips
           </ng-template>
           <tip-list [userID]="userID"></tip-list>
         </mat-tab>
-        
+
         <!-- Tab: Winnings -->
         <mat-tab>
           <ng-template mat-tab-label>
