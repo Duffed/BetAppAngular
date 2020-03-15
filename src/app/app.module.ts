@@ -34,7 +34,6 @@ import {DragDropModule} from '@angular/cdk/drag-drop';
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
 import { TopBarComponent } from "./top-bar/top-bar.component";
-import { BetListComponent } from "./bet-list/bet-list.component";
 import { TipComponent } from "./tip/tip.component";
 import { TipListComponent } from "./tip-list/tip-list.component";
 import { AddTipDialogComponent } from "./add-tip-dialog/add-tip-dialog.component";
@@ -67,7 +66,6 @@ const firebaseUiAuthConfig: firebaseui.auth.Config = {
   declarations: [
     AppComponent,
     TopBarComponent,
-    BetListComponent,
     TipComponent,
     TipListComponent,
     AddTipDialogComponent,

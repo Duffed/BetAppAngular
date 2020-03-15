@@ -4,9 +4,9 @@ import { TipService } from "../tip.service";
 import { TipListComponent } from '../tip-list/tip-list.component';
 import { OutComeLabel } from 'src/domain/outcomeEnum';
 import { SportLabel } from 'src/domain/sport';
-import { trigger, keyframes, animate, transition } from '@angular/animations';
+import { trigger, keyframes, animate, transition, animation } from '@angular/animations';
 import * as kf from './keyframes'
-import { CdkDrag } from '@angular/cdk/drag-drop';
+import { CdkDragMove } from '@angular/cdk/drag-drop';
 
 @Component({
   selector: "tip",
@@ -14,7 +14,8 @@ import { CdkDrag } from '@angular/cdk/drag-drop';
   styleUrls: ["./tip.component.scss"],
   animations: [
     trigger('cardAnimator', [
-      transition('* => slideOutRight', animate(400, keyframes(kf.slideOutRight)))
+      transition('* => slideOutRight', animate(400, keyframes(kf.slideOutRight))),
+      transition('* => slideOutLeft', animate(400, keyframes(kf.slideOutLeft)))
     ])
   ]
 })
@@ -25,9 +26,14 @@ export class TipComponent {
 
   constructor(private tipService: TipService, private tiplist: TipListComponent) {}
 
-  async test($event: CdkDrag) {
-    // let distance = $event.ended.
-    console.log($event);
+  async test($event: CdkDragMove) {
+    if ($event.distance.x >= 150) {
+      this.animationState = "slideOutRight"
+    }
+
+    if ($event.distance.x <= -150) {
+      this.animationState = "slideOutLeft"
+    }
   }
 
   startAnimation(state) {
@@ -39,8 +45,8 @@ export class TipComponent {
 
   resetAnimationState() {
     if (this.animationState !== '') {
-      this.deleteTip(this.tip);
       this.animationState = ''
+      this.deleteTip(this.tip);
     }
   }
 

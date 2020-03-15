@@ -16,8 +16,7 @@ export class AppComponent implements OnInit {
   THEMES = { DARK: "dark-theme", LIGHT: "light-theme" };
 
   constructor(public overlayContainer: OverlayContainer,
-      private auth: AuthService,
-      private tipService: TipService) {
+      private auth: AuthService) {
 
     if (localStorage.getItem(this.THEMES.DARK) == null) {
       this.onSetTheme(this.THEMES.DARK);
@@ -48,19 +47,13 @@ export class AppComponent implements OnInit {
     this.auth.user.subscribe(user => {
       if (user) {
         this.isLoggedIn = true;
-        this.tipService.userIDSubject.next(user.uid);
         this.userID = user.uid;
       } else {
         this.isLoggedIn = false;
-        this.tipService.userIDSubject.next("anonymous");
         this.userID = "anonymous";
       }
 
     })
-  }
-
-  googleLogin() {
-    this.auth.googleLogin();
   }
 
   @HostBinding('class') componentCssClass;

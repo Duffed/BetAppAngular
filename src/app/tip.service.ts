@@ -11,7 +11,6 @@ import { AuthService } from './auth.service';
   providedIn: "root"
 })
 export class TipService implements OnInit {
-  userIDSubject: Subject<string> = new Subject();
   private userID: string;
   private userPath = "users";
   private betsPath = "bets";

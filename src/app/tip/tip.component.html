@@ -1,7 +1,17 @@
+<div class="swipe-boundary">
 <div class="tip"
   [className]="tip.markedAsWin ? 'win' : 'loss'"
-  cdkDrag cdkDragLockAxis="x" DragRef (cdkDragReleased)="test($event)">
-  <header (click)="editTip(tip)" [matTooltip]="'Click here to edit'">{{ tip.opponent1 }} - {{ tip.opponent2 }}</header>
+  cdkDrag
+
+  cdkDragLockAxis="x"  
+  (cdkDragMoved)="test($event)"
+  [@cardAnimator]="animationState"
+  (@cardAnimator.done)="resetAnimationState()">
+
+  <header (click)="editTip(tip)" [matTooltip]="'Click here to edit'">
+    {{ tip.opponent1 }} - {{ tip.opponent2 }}
+  </header>
+
   <div class="content">
       <div class="infos">
         Odds: {{ tip.odds }} <br />
@@ -23,9 +33,10 @@
     </footer>
 
     <mat-icon
-    [routerLink]="'/'"
-    (click)="deleteTip(tip)"
-    class="removeTip cursor"
-    matTooltip="Delete Tip">clear</mat-icon>
+      [routerLink]="'/'"
+      (click)="deleteTip(tip)"
+      class="removeTip cursor"
+      matTooltip="Delete Tip">clear</mat-icon>
   </div>
+</div>
 </div>
