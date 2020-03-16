@@ -4,9 +4,9 @@ import { TipService } from "../tip.service";
 import { TipListComponent } from '../tip-list/tip-list.component';
 import { OutComeLabel } from 'src/domain/outcomeEnum';
 import { SportLabel } from 'src/domain/sport';
-import { trigger, keyframes, animate, transition, animation } from '@angular/animations';
+import { trigger, keyframes, animate, transition, animation, useAnimation, AnimationBuilder, style } from '@angular/animations';
 import * as kf from './keyframes'
-import { CdkDragMove } from '@angular/cdk/drag-drop';
+import { CdkDragMove, CdkDragEnd } from '@angular/cdk/drag-drop';
 
 @Component({
   selector: "tip",
@@ -24,15 +24,36 @@ export class TipComponent {
   @Input() userID: string;
   animationState: string = '';
 
-  constructor(private tipService: TipService, private tiplist: TipListComponent) {}
+  constructor(private tipService: TipService, private tiplist: TipListComponent, private _builder: AnimationBuilder) {
+  }
 
-  async test($event: CdkDragMove) {
+  makeAnimation(element: any, xpos: number) {
+    const animation = this._builder.build([
+      style({transform: `translate3d(${xpos}px, 0, 0)`}),
+      animate('400ms')
+    ])
+
+    const player = animation.create(element);
+    player.play();
+  }
+
+  test($event: CdkDragMove) {
     if ($event.distance.x >= 150) {
       this.animationState = "slideOutRight"
     }
 
     if ($event.distance.x <= -150) {
       this.animationState = "slideOutLeft"
+    }
+  }
+
+
+  ended($event: CdkDragEnd) {
+    let xpos = $event.distance.x; 
+    console.log(xpos);
+    
+    if (xpos > -150 || xpos < 150) {      
+      this.makeAnimation($event.source.element.nativeElement, xpos);
     }
   }
 

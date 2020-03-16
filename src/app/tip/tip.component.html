@@ -5,10 +5,11 @@
 
   cdkDragLockAxis="x"  
   (cdkDragMoved)="test($event)"
+  (cdkDragEnded)="ended($event)"
   [@cardAnimator]="animationState"
   (@cardAnimator.done)="resetAnimationState()">
 
-  <header (click)="editTip(tip)" [matTooltip]="'Click here to edit'">
+  <header >
     {{ tip.opponent1 }} - {{ tip.opponent2 }}
   </header>
 
@@ -23,20 +24,40 @@
         <time>{{ printDate() | date:'dd.MM.yyyy' }}</time>
       </span>
 
-      <mat-slide-toggle
+      <!-- <mat-slide-toggle
         class="toggle"
         color="primary"
         [matTooltip]="tip.markedAsWin ? 'Mark as Loss' : 'Mark as Win'"
         [checked]="tip.markedAsWin"
         (change)="clickWinToggle(tip)">
-      </mat-slide-toggle>
+      </mat-slide-toggle> -->
+      <!-- <mat-icon 
+        class="toggle cursor"
+        (click)="clickWinToggle(tip)"
+        [matTooltip]="tip.markedAsWin ? 'Mark as Loss' : 'Mark as Win'"
+        [color]="tip.markedAsWin? 'text': 'warn'">
+        {{ tip.markedAsWin? 'sentiment_very_satisfied': 'sentiment_dissatisfied'}}
+      </mat-icon> -->
+
+      <label class="switch">
+        <input (change)="clickWinToggle(tip)" [checked]="tip.markedAsWin" type="checkbox" id="togBtn">
+        <div class="slider round"></div>
+      </label>
+
     </footer>
 
-    <mat-icon
-      [routerLink]="'/'"
-      (click)="deleteTip(tip)"
-      class="removeTip cursor"
-      matTooltip="Delete Tip">clear</mat-icon>
+    <div class="floating">
+      <mat-icon
+        class="cursor editTip"
+        matTooltip='Edit Tip'
+        (click)="editTip(tip)">edit</mat-icon>
+      <mat-icon
+        [routerLink]="'/'"
+        (click)="deleteTip(tip)"
+        class="removeTip cursor"
+        matTooltip="Delete Tip">clear</mat-icon>
+    </div>
+
   </div>
 </div>
 </div>

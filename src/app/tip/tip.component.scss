@@ -36,6 +36,10 @@
   &:hover .removeTip {
     opacity: 1;
   }
+
+  &:hover .editTip {
+    opacity: 1;
+  }
 }
 
 .content {
@@ -60,10 +64,6 @@ footer {
   align-items: flex-end;
 }
 
-.toggle {
-  size: 5px
-}
-
 header {
   border-radius: 3px 3px 0 0;
   padding: 15px 15px 15px 20px;
@@ -71,20 +71,89 @@ header {
   font-size: 1em;
 }
 
-.removeTip {
+.floating {
+  display: flex;
   opacity: 1;
   transition: ease-in-out 0.3s opacity;
   position: absolute;
   top: 15px;
   right: 15px;
+
+  .removeTip {
+    margin-left: 5px
+  }
+
+  .editTip {
+    transform: scale(0.9)
+  }
+}
+
+// SWITCH
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 5em;
+  height: 2em;
+}
+
+.switch input { display: none; }
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+  transition: 0.2s;
+  border-radius: 99999px;
+}
+
+.slider::before {
+  position: absolute;
+  content: "";
+  height: 1em;
+  width: 1em;
+  left: 0.45em;
+  bottom: 0.45em;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+  transition: 0.2s;
+  border-radius: 50%;
+}
+
+input:checked + .slider::before {
+  transform: translateX(3.2em);
+}
+
+.slider::after {
+ content: 'Loss';
+ display: block;
+ position: absolute;
+ transition: 0.2s;
+ height: 2.5em;
+ margin-top:-1.25em;
+ top: 50%;
+ left: 1em;
+ right: 1em;
+ font-size: 0.7em;
+ text-align: right;
+ font-family: Verdana, sans-serif;
+}
+
+input:checked + .slider::after {  
+  content: 'Win';
+  color: white;
+  text-align: Left;
 }
 
 @media only screen and (min-width: 800px) {
-  .removeTip {
+  .removeTip, .editTip {
     opacity: 0;
   }
 
-  .tip:hover > .removeTip {
+  .tip:hover > .removeTip,
+  .tip:hover > .editTip {
     opacity: 1;
   }
 }

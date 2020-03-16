@@ -7,11 +7,24 @@ import { SportEnum } from "src/domain/sport";
 import { Observable } from 'rxjs';
 import { OutComeEnum } from 'src/domain/outcomeEnum';
 import * as firebase from 'firebase';
+import { trigger, transition, style, group, animate } from '@angular/animations';
 
 @Component({
   selector: "tip-list",
   templateUrl: "./tip-list.component.html",
-  styleUrls: ["./tip-list.component.scss"]
+  styleUrls: ["./tip-list.component.scss"],
+  animations: [
+    trigger('listItemAnimation', [
+      transition(':enter', [
+        style({ height: '0px', overflow: 'hidden'}),
+        group([animate('250ms ease-out', style({ height:'!' }))])
+      ]),
+      transition(':leave', [
+        style({ height: '!', overflow:'hidden'}),
+        group([animate('250ms ease-out', style({ height: '0px' }))])
+      ])
+    ])
+  ]
 })
 export class TipListComponent implements OnInit {
   @Input() userID: string;
