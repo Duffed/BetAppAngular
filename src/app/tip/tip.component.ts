@@ -71,7 +71,8 @@ export class TipComponent {
     }
   }
 
-  clickWinToggle(tip) {
+  clickWinToggle(event, tip) {
+    event.stopPropagation();
     this.tipService.toggleMarkedAsWin(tip, this.userID);
   }
 

@@ -6,6 +6,11 @@ header figure {
   position: relative;
 }
 
+header figure img {
+  height: 180px;
+  width: 180px;
+}
+
 header caption {
   position: absolute;
   left: 95px;

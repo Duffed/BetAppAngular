@@ -6,6 +6,7 @@
 @import './app/app.component.scss-theme.scss';
 @import './app/top-bar/top-bar.component.scss-theme.scss';
 @import './app/winnings/winnings.component.scss-theme.scss';
+@import './app/saved-tips/saved-tips.component.scss-theme.scss'; 
 
 // HTML Theme
 @mixin html-theme($theme) {
@@ -25,6 +26,7 @@
   @include app-component-theme($theme);
   @include top-bar-component-theme($theme);
   @include winnings-component-theme($theme);
+  @include saved-tips-component-theme($theme);
 }
 
 // Themes
@@ -52,7 +54,7 @@
   margin: 0;
   padding: 0;
 }
-
+ 
 html, body {
   height: 100%;
   box-sizing: border-box;

@@ -15,7 +15,10 @@
     <!-- Desktop View -->
     <main class="desktop">
       <tip-list [userID]="userID"></tip-list>
-      <winnings class="winnings" [userID]="userID"></winnings>
+      <div class="right-side-wrapper">
+        <winnings class="winnings" [userID]="userID"></winnings>
+        <saved-tips [userID]="userID"></saved-tips>
+      </div>
     </main>
 
     <!-- Mobile View (Tabs) -->

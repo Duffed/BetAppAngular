@@ -1,0 +1,18 @@
+<div class="wrapper">
+    <h2 color="primary">Collections</h2>
+    <div class="saveCollection-container">
+
+        <mat-form-field appearance="outline" class="stake">
+            <mat-icon class="dollarSign" matSuffix>save</mat-icon>
+            <mat-label>Collection Name</mat-label>
+            <input
+                matInput
+                type="text"
+                #collectionName
+            />
+          </mat-form-field>
+
+        <button mat-raised-button class="mat-primary" (click)="saveCurrentSetOfTips(collectionName)">Save</button>
+    </div>
+</div>
+  

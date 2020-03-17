@@ -11,9 +11,10 @@ import { AuthService } from './auth.service';
   providedIn: "root"
 })
 export class TipService implements OnInit {
-  private userID: string;
   private userPath = "users";
-  private betsPath = "bets";
+  private currentTipsPath = "currentTips";
+  private savedTipsCollectionPath = "savedTips";
+  private savedTipsCollectionName = "tips";
   private stakePath = "stake";
   private CombinationBetSubject: Subject<CombinationBet[]> = new Subject();
 
@@ -29,7 +30,7 @@ export class TipService implements OnInit {
   }
 
   private getBetCollection(userID: string): AngularFirestoreCollection<Tip> {
-    return this.db.collection(this.userPath).doc(userID).collection(this.betsPath);
+    return this.db.collection(this.userPath).doc(userID).collection(this.currentTipsPath);
   }
 
   private async getTipsOnce(userID: string): Promise<Tip[]> {
@@ -67,6 +68,23 @@ export class TipService implements OnInit {
     )
 
     this.updateCombinationBets(userID);
+  }
+
+  async saveCurrentSetOfTips(userID: string, collectionName: string) {
+    let currentSetOfTips = await this.db.collection(this.userPath).doc(userID).collection(this.currentTipsPath).get().toPromise();
+
+    let currentStake = await this.getStake(userID);
+
+    let savedTipsCollection = await this.db.collection(this.userPath).doc(userID).collection(this.savedTipsCollectionPath);
+    
+    let createNewDocument = savedTipsCollection.add({
+      name: collectionName,
+      stake: currentStake
+    })
+
+    createNewDocument.then(doc => {
+      currentSetOfTips.forEach(data => doc.collection(this.savedTipsCollectionName).add(data.data()));
+    });
   }
 
   async addTip(tip: Tip, userID: string){

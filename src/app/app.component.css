@@ -13,26 +13,16 @@
   padding-top: 50px;
 }
 
+.loginscreen h2 {
+  text-align: center;
+}
+
 .login {
-  cursor: pointer;
-  margin-top: 50px;
-  padding: 20px;
-  border-radius: 3px;
-  color: white;
+  max-width: 360px;
   margin: auto;
-  background: none;
-  border: none;
-  display: flex;
-  align-items: center;
-  transition: ease-in-out 0.3s background;
-}
-
-.login mat-icon {
-  margin-right: 10px;
-}
-
-.login:hover {
-  background: #222222;
+  margin-top: 50px;
+  padding: 15px 20px;
+  border-radius: 3px;
 }
 
 .desktop {
@@ -47,11 +37,9 @@
   flex: 2;
 }
 
-.desktop winnings {
+.desktop .right-side-wrapper {
   flex: 1;
   margin-left: 20px;
-  padding-left: 20px;
-  border-left: 1px solid #252525;
 }
 
 ::ng-deep .mat-tab-body-content {

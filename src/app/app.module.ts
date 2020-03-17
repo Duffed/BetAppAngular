@@ -39,6 +39,7 @@ import { TipListComponent } from "./tip-list/tip-list.component";
 import { AddTipDialogComponent } from "./add-tip-dialog/add-tip-dialog.component";
 import { WinningsComponent } from "./winnings/winnings.component";
 import { ServiceWorkerModule } from '@angular/service-worker';
+import { SavedTipsComponent } from './saved-tips/saved-tips.component';
 
 const firebaseUiAuthConfig: firebaseui.auth.Config = {
   signInFlow: 'popup',
@@ -69,7 +70,8 @@ const firebaseUiAuthConfig: firebaseui.auth.Config = {
     TipComponent,
     TipListComponent,
     AddTipDialogComponent,
-    WinningsComponent
+    WinningsComponent,
+    SavedTipsComponent
   ],
   imports: [
     DragDropModule,

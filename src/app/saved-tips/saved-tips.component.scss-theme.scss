@@ -1,0 +1,41 @@
+@import '~@angular/material/theming';
+ 
+// mixin name will be used in main style.scss
+@mixin saved-tips-component-theme($theme) {
+    $primary:       map-get($theme, primary);
+    $accent:        map-get($theme, accent);
+    $warn:          map-get($theme, accent);
+    $foreground:    map-get($theme, foreground);
+    $background:    map-get($theme, background);
+    
+    saved-tips { 
+        color: mat-color($foreground, text);
+
+        h2 {
+            color: mat-color($primary);
+        }
+
+        .wrapper {
+            background: mat-color($background, card);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+        }
+
+        .positive {
+            color: mat-color($primary);
+        }
+
+        .negative {
+            color: mat-color($warn, text);
+        }
+
+        .dollarSign {
+            color: mat-color($primary);
+        }
+
+        table {
+            tr:nth-child(even) {
+                background: mat-color($background, app-bar)
+            }
+        }
+    }
+}

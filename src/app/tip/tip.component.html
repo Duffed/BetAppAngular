@@ -1,13 +1,5 @@
-<div class="swipe-boundary">
 <div class="tip"
-  [className]="tip.markedAsWin ? 'win' : 'loss'"
-  cdkDrag
-
-  cdkDragLockAxis="x"  
-  (cdkDragMoved)="test($event)"
-  (cdkDragEnded)="ended($event)"
-  [@cardAnimator]="animationState"
-  (@cardAnimator.done)="resetAnimationState()">
+  [className]="tip.markedAsWin ? 'win' : 'loss'">
 
   <header >
     {{ tip.opponent1 }} - {{ tip.opponent2 }}
@@ -40,7 +32,7 @@
       </mat-icon> -->
 
       <label class="switch">
-        <input (change)="clickWinToggle(tip)" [checked]="tip.markedAsWin" type="checkbox" id="togBtn">
+        <input (click)="clickWinToggle($event, tip)" [checked]="tip.markedAsWin" type="checkbox" id="togBtn">
         <div class="slider round"></div>
       </label>
 
@@ -59,5 +51,4 @@
     </div>
 
   </div>
-</div>
 </div>
