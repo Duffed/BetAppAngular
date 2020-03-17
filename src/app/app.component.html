@@ -35,7 +35,6 @@
           <ng-template mat-tab-label>
             <mat-icon color="primary">flag</mat-icon> Tips
           </ng-template>
-          <saved-tips [userID]="userID"></saved-tips>
           <tip-list [userID]="userID"></tip-list>
         </mat-tab>
 
@@ -45,6 +44,14 @@
             <mat-icon color="primary">attach_money</mat-icon> Winnings
           </ng-template>
           <winnings [userID]="userID"></winnings>
+        </mat-tab>
+
+        <!-- Tab: Winnings -->
+        <mat-tab>
+          <ng-template mat-tab-label>
+            <mat-icon color="primary">save</mat-icon> Collections
+          </ng-template>
+          <saved-tips [userID]="userID"></saved-tips>
         </mat-tab>
 
       </mat-tab-group>
