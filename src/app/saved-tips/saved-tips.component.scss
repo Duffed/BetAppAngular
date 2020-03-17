@@ -15,3 +15,28 @@
         margin-left: 10px;
     }
 }
+
+.cursor {
+    cursor: pointer;
+}
+
+ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+}
+.collection {
+    display: flex;
+    flex-direction: row;
+    padding: 7px;
+    justify-content: space-between;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    align-items: center;
+    margin-bottom: 5px;
+
+    mat-icon {
+        margin-left: 10px;
+    }
+
+}

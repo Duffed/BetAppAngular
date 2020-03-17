@@ -67,18 +67,18 @@ $md-yellow: (
 @import "~@angular/material/theming";
 @include mat-core();
 
-$custom-theme-primary: mat-palette($md-yellow);
+$custom-theme-primary: mat-palette($mat-red);
 $custom-theme-accent: mat-palette($md-yellow, A200, A100, A400);
 $custom-theme-warn: mat-palette($mat-red);
 
 $custom-theme: mat-light-theme(
-    $custom-theme-primary, 
-    $custom-theme-accent, 
+    $custom-theme-primary,
+    $custom-theme-accent,
     $custom-theme-warn
 );
 
 $custom-dark-theme: mat-dark-theme(
-    $custom-theme-primary, 
-    $custom-theme-accent, 
+    $custom-theme-primary,
+    $custom-theme-accent,
     $custom-theme-warn
 );

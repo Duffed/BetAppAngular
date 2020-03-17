@@ -5,12 +5,18 @@ import { CombinationbetService } from "./combinationbet.service";
 import { Observable, Subject } from 'rxjs';
 import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
 import { map } from "rxjs/operators";
-import { AuthService } from './auth.service';
+
+export enum SaveCollectionOutput {
+  nameInUse,
+  noTips,
+  noNameProvided,
+  okay
+}
 
 @Injectable({
   providedIn: "root"
 })
-export class TipService implements OnInit {
+export class TipService {
   private userPath = "users";
   private currentTipsPath = "currentTips";
   private savedTipsCollectionPath = "savedTips";
@@ -18,12 +24,7 @@ export class TipService implements OnInit {
   private stakePath = "stake";
   private CombinationBetSubject: Subject<CombinationBet[]> = new Subject();
 
-  constructor(private combinationBetService: CombinationbetService, private db: AngularFirestore, private auth: AuthService) {
-  }
-
-  ngOnInit() {
-
-  }
+  constructor(private combinationBetService: CombinationbetService, private db: AngularFirestore) {  }
 
   getNumberOfBets(userID: string): Observable<number> {
     return this.getBetCollection(userID).snapshotChanges().pipe(map(snapshot => snapshot.length));
@@ -70,24 +71,103 @@ export class TipService implements OnInit {
     this.updateCombinationBets(userID);
   }
 
-  async saveCurrentSetOfTips(userID: string, collectionName: string) {
+  async saveCurrentSetOfTips(userID: string, collectionName: string): Promise<SaveCollectionOutput> {
+    let result = SaveCollectionOutput.okay;
+
+    // Check if empty list
+    if ((await this.getTipsOnce(userID)).length === 0)
+      return SaveCollectionOutput.noTips;
+
+    // Check if empty name
+    if (collectionName === '')
+      return SaveCollectionOutput.noNameProvided;
+
     let currentSetOfTips = await this.db.collection(this.userPath).doc(userID).collection(this.currentTipsPath).get().toPromise();
-
     let currentStake = await this.getStake(userID);
+    let savedTipsCollection = this.db.collection(this.userPath).doc(userID).collection(this.savedTipsCollectionPath);
 
-    let savedTipsCollection = await this.db.collection(this.userPath).doc(userID).collection(this.savedTipsCollectionPath);
-    
-    let createNewDocument = savedTipsCollection.add({
+    // Check if name is already in use
+    let collectionID = await this.collectionNameIsAlreadyInUse(savedTipsCollection, collectionName);
+    if (collectionID !== "") {
+      this.deleteSavedCollection(userID, collectionID);
+      result = SaveCollectionOutput.nameInUse;
+    }
+
+    // Create new Document
+    let newDocument = await savedTipsCollection.add({
       name: collectionName,
       stake: currentStake
     })
 
-    createNewDocument.then(doc => {
-      currentSetOfTips.forEach(data => doc.collection(this.savedTipsCollectionName).add(data.data()));
-    });
+    // Add current set of tips
+    currentSetOfTips.forEach(tip => newDocument.collection(this.savedTipsCollectionName).add(tip.data()));
+
+    return result;
   }
 
-  async addTip(tip: Tip, userID: string){
+  async deleteSavedCollection(userID: string, collectionID: string) {
+    let collection = this.db.collection(this.userPath).doc(userID).collection(this.savedTipsCollectionPath);
+
+    collection.doc(collectionID)
+      .collection(this.savedTipsCollectionName)
+      .get()
+      .toPromise().then(val => val.forEach(doc => doc.ref.delete()));
+
+    collection.doc(collectionID).delete();
+  }
+
+  private async collectionNameIsAlreadyInUse(collection: AngularFirestoreCollection,  name: string): Promise<string> {
+    let result = "";
+
+    await collection.get().forEach(snapshot => snapshot.forEach(doc => {
+      let currentCollectionName = doc.get("name");
+      if (currentCollectionName === name) result = doc.id;
+    }))
+
+    return result;
+  }
+
+   getSavedCollections(userID: string): Observable<any> {
+    // let collection = this.db.collection(this.userPath).doc(userID).collection(this.savedTipsCollectionPath);
+
+    return this.db.collection(this.userPath).doc(userID).collection(this.savedTipsCollectionPath).snapshotChanges().pipe(
+      map(changes => {
+        return changes.map( doc => {
+          const id = doc.payload.doc.id;
+          const name = doc.payload.doc.get("name");
+          // const size = await this.getCollectionSize(userID, id);
+          return {id, name}
+        })
+      })
+    )
+  }
+
+  async getCollectionSize(userID, collectionID): Promise<number> {
+    let collection = await this.db.collection(this.userPath).doc(userID).collection(this.savedTipsCollectionPath)
+      .doc(collectionID)
+      .collection(this.savedTipsCollectionName)
+      .get()
+      .toPromise();
+
+    return collection.size;
+  }
+
+  async loadCollection(userID: string, collectionID: string) {
+    // Remove current List
+    await this.db.collection(this.userPath).doc(userID).collection(this.currentTipsPath)
+      .get()
+      .toPromise()
+      .then(tips => tips.forEach(tip => tip.ref.delete()));
+
+    // Load list
+    this.db.collection(this.userPath).doc(userID).collection(this.savedTipsCollectionPath)
+      .doc(collectionID).collection(this.savedTipsCollectionName)
+      .get().toPromise()
+      .then(snapshot => snapshot.forEach(doc =>  this.addTip(doc.data(), userID)));
+
+  }
+
+  async addTip(tip: any, userID: string){
     await this.getBetCollection(userID)
       .add({
         opponent1: tip.opponent1,
