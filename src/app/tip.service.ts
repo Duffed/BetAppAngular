@@ -160,11 +160,19 @@ export class TipService {
       .then(tips => tips.forEach(tip => tip.ref.delete()));
 
     // Load list
+    let savedCollection = await this.db.collection(this.userPath).doc(userID).collection(this.savedTipsCollectionPath)
+      .doc(collectionID).get().toPromise();
+
+      
     this.db.collection(this.userPath).doc(userID).collection(this.savedTipsCollectionPath)
       .doc(collectionID).collection(this.savedTipsCollectionName)
       .get().toPromise()
-      .then(snapshot => snapshot.forEach(doc =>  this.addTip(doc.data(), userID)));
-
+      .then(snapshot => {
+        snapshot.forEach(doc =>  this.addTip(doc.data(), userID))
+      });
+      
+    let newStake = savedCollection.get("stake");
+    this.setStake(newStake, userID);
   }
 
   async addTip(tip: any, userID: string){
