@@ -11,11 +11,14 @@ import { Observable } from 'rxjs';
 export class SavedTipsComponent implements OnInit {
   @Input() userID: string
   savedCollections$: Observable<any>
+  numberOfCollections: number;
 
   constructor(private tipService: TipService, private snackbar: MatSnackBar) { }
 
   async ngOnInit() {
     this.savedCollections$ = this.tipService.getSavedCollections(this.userID);
+    this.tipService.getNumberSavedCollections(this.userID).subscribe(observer => 
+      this.numberOfCollections = observer);
   }
 
   async saveCurrentSetOfTips(collectionName: HTMLInputElement) {

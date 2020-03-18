@@ -12,7 +12,7 @@
             />
           </mat-form-field>
 
-        <button class="saveButton" mat-raised-button class="mat-primary" (click)="saveCurrentSetOfTips(collectionName)">Save</button>
+        <button [disabled]="numberOfCollections > 4" class="saveButton" mat-raised-button class="mat-primary" (click)="saveCurrentSetOfTips(collectionName)">Save</button>
     </div>
 
     <ul role="list">
@@ -27,6 +27,7 @@
                     class="removeTip cursor"
                     matTooltip="Delete Collection">clear</mat-icon>
             </li>
+            <div class="collectionCount">{{ numberOfCollections }} / 5 collections</div>
         </ng-container>
 
         <ng-template #loading>

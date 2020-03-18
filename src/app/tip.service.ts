@@ -127,6 +127,10 @@ export class TipService {
     return result;
   }
 
+  getNumberSavedCollections(userID: string): Observable<number> {
+    return this.db.collection(this.userPath).doc(userID).collection(this.savedTipsCollectionPath).snapshotChanges().pipe(map(snapshot => snapshot.length));
+  }
+
    getSavedCollections(userID: string): Observable<any> {
     // let collection = this.db.collection(this.userPath).doc(userID).collection(this.savedTipsCollectionPath);
 
@@ -160,19 +164,12 @@ export class TipService {
       .then(tips => tips.forEach(tip => tip.ref.delete()));
 
     // Load list
-    let savedCollection = await this.db.collection(this.userPath).doc(userID).collection(this.savedTipsCollectionPath)
-      .doc(collectionID).get().toPromise();
-
-      
     this.db.collection(this.userPath).doc(userID).collection(this.savedTipsCollectionPath)
       .doc(collectionID).collection(this.savedTipsCollectionName)
       .get().toPromise()
       .then(snapshot => {
         snapshot.forEach(doc =>  this.addTip(doc.data(), userID))
       });
-      
-    let newStake = savedCollection.get("stake");
-    this.setStake(newStake, userID);
   }
 
   async addTip(tip: any, userID: string){
