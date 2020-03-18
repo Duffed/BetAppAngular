@@ -12,18 +12,20 @@
             />
           </mat-form-field>
 
-        <button mat-raised-button class="mat-primary" (click)="saveCurrentSetOfTips(collectionName)">Save</button>
+        <button class="saveButton" mat-raised-button class="mat-primary" (click)="saveCurrentSetOfTips(collectionName)">Save</button>
     </div>
 
     <ul role="list">
         <ng-container *ngIf="savedCollections$ | async as collections; else loading">
-            <li class="collection cursor" *ngFor="let collection of collections" (click)=(loadCollection(collection.id))>
-                {{ collection.name }}
+            <li class="collection cursor" *ngFor="let collection of collections">
+                <span class="collectionName" matTooltip="Load Collection" (click)=(loadCollection(collection.id))>
+                    {{ collection.name }}
+                </span>
                 <mat-icon
-                [routerLink]="'/'"
-                (click)="deleteCollection(collection.id)"
-                class="removeTip cursor"
-                matTooltip="Delete Collection">clear</mat-icon>
+                    [routerLink]="'/'"
+                    (click)="deleteCollection(collection.id)"
+                    class="removeTip cursor"
+                    matTooltip="Delete Collection">clear</mat-icon>
             </li>
         </ng-container>
 

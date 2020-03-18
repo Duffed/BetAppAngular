@@ -34,10 +34,8 @@
             color: mat-color($primary);
         }
 
-        table {
-            tr:nth-child(even) {
-                background: mat-color($background, app-bar)
-            }
+        table tr:hover {
+            background-color: mat-color($background, app-bar)
         }
     }
 }

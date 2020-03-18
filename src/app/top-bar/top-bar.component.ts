@@ -9,6 +9,7 @@ import { AppComponent } from '../app.component';
 })
 export class TopBarComponent implements OnInit {
   isLoggedIn: boolean;
+  isDarkTheme: boolean;
 
   constructor(public approot: AppComponent, private auth: AuthService) {
 
@@ -22,6 +23,8 @@ export class TopBarComponent implements OnInit {
         this.isLoggedIn = false;
       }
     })
+
+    this.isDarkTheme = this.approot.isDarkTheme;
   }
   
   logout(){
@@ -30,6 +33,7 @@ export class TopBarComponent implements OnInit {
 
   toggleTheme() {
     this.approot.toggleTheme();
+    this.isDarkTheme = this.approot.isDarkTheme;
   }
 
 

@@ -34,6 +34,23 @@
             color: mat-color($primary);
         }
 
+         // Slider
+         .slider {
+            background-color: mat-color($background, button)
+        }
+
+        .slider::before {
+            background-color: mat-color($background, app-bar);
+        }
+
+        input:checked + .slider {
+            background-color: mat-color($primary);
+        }
+
+        .slider::after {
+            color: mat-color($foreground, text);
+        }
+
 
     }
 }

@@ -4,16 +4,17 @@
       <img src="../../assets/bhtrans.png" alt="">
       <!-- <caption>Make educated bets</caption> -->
     </figure>
-    <ng-container *ngIf="isLoggedIn">
-      <div class="logout">
-        <!--  -->
+
+    <div class="actions">
+      <ng-container *ngIf="isLoggedIn">
         <button class="logout_btn" (click)="logout()"><div>Logout </div><mat-icon>input</mat-icon></button>
-      </div>
-    </ng-container>
-    <mat-slide-toggle 
-      class="themeToggle"
-      matTooltip='Toggle Dark/Light Theme' 
-      (change)="toggleTheme()">
-    </mat-slide-toggle>
+      </ng-container>
+      
+      <label class="switch" matTooltip='Toggle Dark/Light Theme' >
+        <input (click)="toggleTheme()" [checked]="isDarkTheme" type="checkbox" id="togBtn">
+        <div class="slider round"></div>
+      </label>
+    </div>
+
   </div>
 </header>
