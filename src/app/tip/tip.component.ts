@@ -2,7 +2,7 @@ import { Component, OnInit, Input } from "@angular/core";
 import { Tip } from "src/domain/tip";
 import { TipService } from "../tip.service";
 import { TipListComponent } from '../tip-list/tip-list.component';
-import { OutComeLabel } from 'src/domain/outcomeEnum';
+import { OutComeLabel, OutComeEnum, dynamicOutComeLabel } from 'src/domain/outcomeEnum';
 import { SportLabel } from 'src/domain/sport';
 import { trigger, keyframes, animate, transition, animation, useAnimation, AnimationBuilder, style } from '@angular/animations';
 import * as kf from './keyframes'
@@ -81,9 +81,7 @@ export class TipComponent {
   }
 
   printOutcome(): string {
-    let outcome = OutComeLabel.get(+this.tip.outcome);
-
-    return outcome;
+    return dynamicOutComeLabel(this.tip);
   }
 
   printDate(): Date {

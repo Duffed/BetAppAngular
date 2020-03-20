@@ -3,6 +3,7 @@ import { CombinationBet } from "src/domain/combinationBet";
 import { TipService } from "../tip.service";
 import { Tip } from "src/domain/tip";
 import { Observable } from 'rxjs';
+import { HttpClient, HttpRequest } from '@angular/common/http';
 
 @Component({
   selector: "winnings",
@@ -13,9 +14,9 @@ export class WinningsComponent implements OnInit {
   @Input() userID: string
   combinations$: Observable<CombinationBet[]>;
   tipsLength: number;
-  stake: number;
+  stake$: number;
 
-  constructor(private tipService: TipService) { }
+  constructor(private tipService: TipService, private http: HttpClient) {}
 
   async ngOnInit(): Promise<void> {
     this.combinations$ = this.tipService.getCombinationBets();
@@ -24,8 +25,11 @@ export class WinningsComponent implements OnInit {
       this.tipsLength = observer
     })
 
-    this.stake = await this.tipService.getStake(this.userID);
-    if (!this.stake) this.setStakePerNumber(100);
+    this.tipService.getStake(this.userID).subscribe(stake => {
+      if (stake === 0) this.setStakePerNumber(100);
+
+      this.stake$ = stake;
+    });
   }
 
   private setStakePerNumber(n: number) {

@@ -1,19 +1,24 @@
 <div class="wrapper">
     <h2 color="primary">My Collections</h2>
-    <div class="saveCollection-container">
-
+    <form class="saveCollection-container" [formGroup]="form" (ngSubmit)="saveCurrentSetOfTips(name)">
         <mat-form-field appearance="outline" class="stake">
             <mat-icon class="dollarSign" matSuffix>save</mat-icon>
             <mat-label>Collection Name</mat-label>
             <input
+                formControlName="collectionName"
                 matInput
                 type="text"
-                #collectionName
-            />
-          </mat-form-field>
-
-        <button [disabled]="numberOfCollections > 4" class="saveButton" mat-raised-button class="mat-primary" (click)="saveCurrentSetOfTips(collectionName)">Save</button>
-    </div>
+                #name
+                maxlength="20"
+                [attr.disabled]="numberOfCollections > 4? '' : null"
+                />
+            <mat-error *ngIf="numberOfCollections < 5 && collectionName.touched && collectionName.invalid && collectionName.errors.required">
+                Please enter a name for your collection
+            </mat-error>
+        </mat-form-field>
+        
+        <button type="submit" [disabled]="numberOfCollections > 4" class="saveButton" mat-raised-button class="mat-primary" >Save</button>
+    </form>
 
     <ul role="list">
         <ng-container *ngIf="savedCollections$ | async as collections; else loading">

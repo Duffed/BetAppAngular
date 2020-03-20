@@ -7,8 +7,8 @@
 
   <div class="content">
       <div class="infos">
-        Odds: {{ tip.odds }} <br />
-        Outcome: {{ printOutcome() }}
+        <strong>Odds:</strong> {{ tip.odds }} <br />
+        <strong>Outcome:</strong> {{ printOutcome() }}
     </div>
     <footer>
       <span>
@@ -16,26 +16,10 @@
         <time>{{ printDate() | date:'dd.MM.yyyy' }}</time>
       </span>
 
-      <!-- <mat-slide-toggle
-        class="toggle"
-        color="primary"
-        [matTooltip]="tip.markedAsWin ? 'Mark as Loss' : 'Mark as Win'"
-        [checked]="tip.markedAsWin"
-        (change)="clickWinToggle(tip)">
-      </mat-slide-toggle> -->
-      <!-- <mat-icon 
-        class="toggle cursor"
-        (click)="clickWinToggle(tip)"
-        [matTooltip]="tip.markedAsWin ? 'Mark as Loss' : 'Mark as Win'"
-        [color]="tip.markedAsWin? 'text': 'warn'">
-        {{ tip.markedAsWin? 'sentiment_very_satisfied': 'sentiment_dissatisfied'}}
-      </mat-icon> -->
-
       <label class="switch" [matTooltip]="tip.markedAsWin ? 'Mark as Loss' : 'Mark as Win'">
         <input (click)="clickWinToggle($event, tip)" [checked]="tip.markedAsWin" type="checkbox" id="togBtn">
         <div class="slider round"></div>
       </label>
-
     </footer>
 
     <div class="floating">

@@ -22,22 +22,18 @@
         }
 
         // Slider
-        .slider {
-            background-color: mat-color($background, button)
-        }
+            .slider {
+                background-color: mat-color($background, button)
+            }
 
-        .slider::before {
-            background-color: mat-color($background, app-bar);
-        }
+            .slider::after {
+                color: mat-color($foreground, text);
+            }
 
-        input:checked + .slider {
-            background-color: mat-color($primary);
+        .infos strong {
+            color: mat-color($primary);
         }
-
-        .slider::after {
-            color: mat-color($foreground, text);
-        }
-
+        
         .removeTip {
             color: mat-color($foreground, text)
         }

@@ -3,6 +3,7 @@ import { NgModule } from "@angular/core";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { environment } from '../environments/environment';
+import { HttpClientModule } from '@angular/common/http';
 
 // Firestore
 import { AngularFireModule } from 'angularfire2';
@@ -74,6 +75,7 @@ const firebaseUiAuthConfig: firebaseui.auth.Config = {
     SavedTipsComponent
   ],
   imports: [
+    HttpClientModule,
     DragDropModule,
     BrowserModule,
     AppRoutingModule,

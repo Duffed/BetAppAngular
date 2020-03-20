@@ -63,12 +63,45 @@ $md-yellow: (
     )
 );
 
+$md-red: (
+    50 : #f5e1e1,
+    100 : #e5b3b3,
+    200 : #d48181,
+    300 : #c34e4e,
+    400 : #b62828,
+    500 : #a90202,
+    600 : #a20202,
+    700 : #980101,
+    800 : #8f0101,
+    900 : #7e0101,
+    A100 : #ffacac,
+    A200 : #ff7979,
+    A400 : #ff4646,
+    A700 : #ff2c2c,
+    contrast: (
+        50 : #000000,
+        100 : #000000,
+        200 : #000000,
+        300 : #ffffff,
+        400 : #ffffff,
+        500 : #ffffff,
+        600 : #ffffff,
+        700 : #ffffff,
+        800 : #ffffff,
+        900 : #ffffff,
+        A100 : #000000,
+        A200 : #000000,
+        A400 : #ffffff,
+        A700 : #ffffff,
+    )
+);
+
 @import '~minireset.css/minireset';
 @import "~@angular/material/theming";
 @include mat-core();
 
-$custom-theme-primary: mat-palette($mat-red);
-$custom-theme-accent: mat-palette($md-yellow, A200, A100, A400);
+$custom-theme-primary: mat-palette($mat-amber);
+$custom-theme-accent: mat-palette($mat-green);
 $custom-theme-warn: mat-palette($mat-red);
 
 $custom-theme: mat-light-theme(

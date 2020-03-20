@@ -56,7 +56,15 @@ export class TipService {
     );
   }
 
-  getStake(userID: string): Promise<number> {
+  getStake(userID: string): Observable<number> {
+    return this.db.collection(this.userPath).doc(userID).snapshotChanges().pipe(
+      map(changes => { 
+        return changes.payload.get(this.stakePath) 
+      })
+    );
+  }
+
+  private getStakeOnce(userID: string): Promise<number> {
     return this.db.collection(this.userPath).doc(userID).get().toPromise().then(
       res => res.get(this.stakePath)
     );
@@ -83,7 +91,7 @@ export class TipService {
       return SaveCollectionOutput.noNameProvided;
 
     let currentSetOfTips = await this.db.collection(this.userPath).doc(userID).collection(this.currentTipsPath).get().toPromise();
-    let currentStake = await this.getStake(userID);
+    let currentStake = await this.getStakeOnce(userID);
     let savedTipsCollection = this.db.collection(this.userPath).doc(userID).collection(this.savedTipsCollectionPath);
 
     // Check if name is already in use
@@ -170,6 +178,14 @@ export class TipService {
       .then(snapshot => {
         snapshot.forEach(doc =>  this.addTip(doc.data(), userID))
       });
+
+    // Set Stake
+    let newStake = await this.db.collection(this.userPath).doc(userID).collection(this.savedTipsCollectionPath)
+      .doc(collectionID).get().toPromise().then(doc => {
+        return doc.get("stake");
+      })
+
+    this.setStake(newStake, userID);
   }
 
   async addTip(tip: any, userID: string){
@@ -227,7 +243,7 @@ export class TipService {
     const numberOfTips = tips.length;
     let numberOfBets: number;
     const availableCombinationBets = await this.combinationBetService.getAvailableCombinationBets(numberOfTips);
-    const stake: number = await this.getStake(userID);
+    const stake: number = await this.getStakeOnce(userID);
 
     if (!availableCombinationBets) {
       return [];

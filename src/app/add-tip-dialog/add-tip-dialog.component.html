@@ -13,74 +13,76 @@
   {{ editMode? "Edit Tip":"Add Tip" }}
 </h1>
 
-<mat-dialog-content [formGroup]="form">
-  <!-- Opponents -->
-  <div class="opponents">
-    <mat-form-field appearance="outline" class="marginbottomopponent">
-      <mat-label>Opponent1</mat-label>
-      <input id="opponent1" placeholder="Henry Cejudo" formControlName="opponent1" matInput type="text" />
-      <mat-error *ngIf="opponent1.touched && opponent1.invalid">
-        Opponent 1 required
-      </mat-error>
-      <mat-icon matSuffix>person</mat-icon>
-    </mat-form-field>
+<form [formGroup]="form" (ngSubmit)="save()">
+  <mat-dialog-content>
+    <!-- Opponents -->
+    <div class="opponents">
+      <mat-form-field appearance="outline" class="marginbottomopponent">
+        <mat-label>Opponent 1</mat-label>
+        <input maxlength="20" id="opponent1" placeholder="Henry Cejudo" formControlName="opponent1" matInput type="text" />
+        <mat-error *ngIf="opponent1.touched && opponent1.invalid">
+          Opponent 1 required
+        </mat-error>
+        <mat-icon matSuffix>person</mat-icon>
+      </mat-form-field>
 
-    <strong>vs</strong>
+      <strong>vs</strong>
 
+      <mat-form-field appearance="outline" class="marginbottom">
+        <mat-label>Opponent 2</mat-label>
+        <input maxlength="20" id="opponent2" placeholder="Nate Diaz" formControlName="opponent2" matInput type="text" />
+        <mat-error *ngIf="opponent2.touched && opponent2.invalid">
+          Opponent 2 required
+        </mat-error>
+        <mat-icon matSuffix>person</mat-icon>
+      </mat-form-field>
+    </div>
+
+    <!-- Odds -->
     <mat-form-field appearance="outline" class="marginbottom">
-      <mat-label>Opponent1</mat-label>
-      <input id="opponent2" placeholder="Nate Diaz" formControlName="opponent2" matInput type="text" />
-      <mat-error *ngIf="opponent2.touched && opponent2.invalid">
-        Opponent 2 required
+      <mat-label>Odds</mat-label>
+      <input id="odds" min="0.1" step="0.1" type="number" formControlName="odds" matInput value="1"/>
+      <mat-error *ngIf="odds.touched && odds.invalid">
+        Please enter a number
       </mat-error>
-      <mat-icon matSuffix>person</mat-icon>
     </mat-form-field>
-  </div>
 
-  <!-- Odds -->
-  <mat-form-field appearance="outline" class="marginbottom">
-    <mat-label>Odds</mat-label>
-    <input id="odds" min="0.1" step="0.1" type="number" formControlName="odds" matInput value="1"/>
-    <mat-error *ngIf="odds.touched && odds.invalid">
-      Please enter a number
-    </mat-error>
-  </mat-form-field>
+    <!-- Date -->
+    <mat-form-field appearance="outline">
+      <mat-label>Date of the Event</mat-label>
+      <input formControlName="date" matInput [matDatepicker]="picker" />
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
 
-  <!-- Date -->
-  <mat-form-field appearance="outline">
-    <mat-label>Date of the Event</mat-label>
-    <input formControlName="date" matInput [matDatepicker]="picker" />
-    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-    <mat-datepicker #picker></mat-datepicker>
-  </mat-form-field>
+    <!-- Sport -->
+    <mat-form-field appearance="outline">
+      <mat-label>Sport</mat-label>
+      <mat-icon matSuffix>sports_mma</mat-icon>
+      <mat-select formControlName="sport" matNativeControl>
+        <mat-option *ngFor="let sport of getSportKeys()" [value]="sport">
+          {{ getSportLabel(sport) }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
 
-  <!-- Sport -->
-  <mat-form-field appearance="outline">
-    <mat-label>Sport</mat-label>
-    <mat-icon matSuffix>sports_mma</mat-icon>
-    <mat-select formControlName="sport" matNativeControl>
-      <mat-option *ngFor="let sport of getSportKeys()" [value]="sport">
-        {{ getSportLabel(sport) }}
-      </mat-option>
-    </mat-select>
-  </mat-form-field>
+    <!-- Outcome -->
+    <mat-form-field appearance="outline">
+      <mat-label>Outcome</mat-label>
+      <mat-icon matSuffix>flag</mat-icon>
+      <mat-select formControlName="outcome" matNativeControl>
+        <mat-option *ngFor="let outcome of getOutcomeKeys()" [value]="outcome">
+          {{ getOutcomeLabel(outcome) }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </mat-dialog-content>
 
-  <!-- Outcome -->
-  <mat-form-field appearance="outline">
-    <mat-label>Outcome</mat-label>
-    <mat-icon matSuffix>flag</mat-icon>
-    <mat-select formControlName="outcome" matNativeControl>
-      <mat-option *ngFor="let outcome of getOutcomeKeys()" [value]="outcome">
-        {{ getOutcomeLabel(outcome) }}
-      </mat-option>
-    </mat-select>
-  </mat-form-field>
-</mat-dialog-content>
-
-<mat-dialog-actions align="end">
-  <button mat-raised-button mat-dialog-close>Cancel</button>
-  <button id="submitButton" mat-raised-button class="mat-primary" (click)="save()" cdkFocusInitial>
-    <ng-container *ngIf="editMode"></ng-container>
-    {{ editMode? "Save changes":"Add Tip" }}
-  </button>
-</mat-dialog-actions>
+  <mat-dialog-actions align="end">
+    <button mat-raised-button mat-dialog-close>Cancel</button>
+    <button id="submitButton" mat-raised-button class="mat-primary" type="submit" cdkFocusInitial>
+      <ng-container *ngIf="editMode"></ng-container>
+      {{ editMode? "Save changes":"Add Tip" }}
+    </button>
+  </mat-dialog-actions>
+</form>
