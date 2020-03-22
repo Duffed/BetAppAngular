@@ -8,6 +8,9 @@ import {
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { SportEnum, SportLabel } from "src/domain/sport";
 import { OutComeEnum, OutComeLabel } from 'src/domain/outcomeEnum';
+import fightersJson from './fighters.json' 
+import { Observable } from 'rxjs';
+import { startWith, map } from 'rxjs/operators';
 
 @Component({
   selector: "add-tip-dialog",
@@ -17,41 +20,63 @@ import { OutComeEnum, OutComeLabel } from 'src/domain/outcomeEnum';
 export class AddTipDialogComponent implements OnInit {
   form: FormGroup;
   editMode = false;
+  filteredFighters1: Observable<string[]>;
+  filteredFighters2: Observable<string[]>;
+  fighters: string[] = [];
 
   constructor(
     private snackbar: MatSnackBar,
     private fb: FormBuilder,
     public dialog: MatDialog,
     public dialogRef: MatDialogRef<AddTipDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data) {}
+    @Inject(MAT_DIALOG_DATA) public data) {
+    }
 
   ngOnInit(): void {
-      if (this.data) {
-        // Editmode
-        this.editMode = true;
-        this.form = this.fb.group({
-          opponent1: [this.data.opponent1, Validators.required],
-          opponent2: [this.data.opponent2, Validators.required],
-          odds: [
-            this.data.odds,
-            [Validators.required, Validators.maxLength(3)]
-          ],
-          date: [this.data.date.toDate()],
-          sport: [String(this.data.sport)],
-          outcome: [String(this.data.outcome)],
-          submitted: [""]
-        });
-      } else {
-        this.form = this.fb.group({
-          opponent1: ["", Validators.required],
-          opponent2: ["", Validators.required],
-          odds: ["1.9", [Validators.required, Validators.maxLength(3)]],
-          date: [new Date()],
-          sport: ["0"],
-          outcome: ["0"],
-          submitted: [""]
-        });
-      }
+    if (this.data) {
+      // Editmode
+      this.editMode = true;
+      this.form = this.fb.group({
+        opponent1: [this.data.opponent1, Validators.required],
+        opponent2: [this.data.opponent2, Validators.required],
+        odds: [
+          this.data.odds,
+          [Validators.required, Validators.maxLength(3)]
+        ],
+        date: [this.data.date.toDate()],
+        sport: [String(this.data.sport)],
+        outcome: [String(this.data.outcome)],
+        submitted: [""]
+      });
+    } else {
+      this.form = this.fb.group({
+        opponent1: ["", Validators.required],
+        opponent2: ["", Validators.required],
+        odds: ["1.9", [Validators.required, Validators.maxLength(3)]],
+        date: [new Date()],
+        sport: ["0"],
+        outcome: ["0"],
+        submitted: [""]
+      });
+    } 
+
+    this.fighters = fightersJson.fighters;
+    this.filteredFighters1 = this.opponent1.valueChanges
+      .pipe(
+        startWith(''),
+        map(fighter => fighter ? this._filterFighters1(fighter) : this.fighters.slice())
+      );
+
+    this.filteredFighters2 = this.opponent2.valueChanges
+      .pipe(
+        startWith(''),
+        map(fighter => fighter ? this._filterFighters1(fighter) : this.fighters.slice())
+      );
+  }
+
+  private _filterFighters1(value: string): string[] {
+    const filterValue = value.toLowerCase();
+    return this.fighters.filter(input => input.toLowerCase().indexOf(filterValue) === 0);
   }
 
   // Getter for Formgroups

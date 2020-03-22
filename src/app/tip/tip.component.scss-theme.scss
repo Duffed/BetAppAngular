@@ -23,7 +23,7 @@
 
         // Slider
             .slider {
-                background-color: mat-color($background, button)
+                background-color: mat-color($background, app-bar)
             }
 
             .slider::after {
@@ -31,7 +31,7 @@
             }
 
         .infos strong {
-            color: mat-color($primary);
+            // color: mat-color($primary);
         }
         
         .removeTip {

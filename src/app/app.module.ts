@@ -30,6 +30,7 @@ import { MatCardModule } from "@angular/material/card";
 import { MatTabsModule } from "@angular/material/tabs";
 import { HammerGestureConfig, HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
 import {DragDropModule} from '@angular/cdk/drag-drop';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
 
 // Components
 import { AppRoutingModule } from "./app-routing.module";
@@ -99,6 +100,7 @@ const firebaseUiAuthConfig: firebaseui.auth.Config = {
     MatCardModule,
     MatTabsModule,
     HammerModule,
+    MatAutocompleteModule,
     AngularFireModule.initializeApp(environment.firebase), AngularFirestoreModule, AngularFireAuthModule, FirebaseUIModule, FirebaseUIModule.forRoot(firebaseUiAuthConfig),
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],

@@ -10,7 +10,7 @@
 -->
 
 <h1 mat-dialog-title class="marginbottom">
-  {{ editMode? "Edit Tip":"Add Tip" }}
+  {{ editMode? "Edit Bet":"Add Bet" }}
 </h1>
 
 <form [formGroup]="form" (ngSubmit)="save()">
@@ -19,7 +19,18 @@
     <div class="opponents">
       <mat-form-field appearance="outline" class="marginbottomopponent">
         <mat-label>Opponent 1</mat-label>
-        <input maxlength="20" id="opponent1" placeholder="Henry Cejudo" formControlName="opponent1" matInput type="text" />
+        <input maxlength="20" 
+          id="opponent1" 
+          placeholder="Henry Cejudo" 
+          formControlName="opponent1" 
+          matInput 
+          type="text"
+          [matAutocomplete]="auto1" />
+        <mat-autocomplete #auto1="matAutocomplete">
+          <mat-option *ngFor="let fighter of filteredFighters1 | async" [value]="fighter">
+            <span>{{ fighter }}</span>
+          </mat-option>
+        </mat-autocomplete>
         <mat-error *ngIf="opponent1.touched && opponent1.invalid">
           Opponent 1 required
         </mat-error>
@@ -30,7 +41,18 @@
 
       <mat-form-field appearance="outline" class="marginbottom">
         <mat-label>Opponent 2</mat-label>
-        <input maxlength="20" id="opponent2" placeholder="Nate Diaz" formControlName="opponent2" matInput type="text" />
+        <input maxlength="20" 
+          id="opponent2" 
+          placeholder="Nate Diaz" 
+          formControlName="opponent2" 
+          matInput 
+          type="text" 
+          [matAutocomplete]="auto2"/>
+        <mat-autocomplete #auto2="matAutocomplete">
+          <mat-option *ngFor="let fighter of filteredFighters2 | async" [value]="fighter">
+            <span>{{ fighter }}</span>
+          </mat-option>
+        </mat-autocomplete>
         <mat-error *ngIf="opponent2.touched && opponent2.invalid">
           Opponent 2 required
         </mat-error>

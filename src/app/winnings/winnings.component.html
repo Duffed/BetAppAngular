@@ -1,5 +1,5 @@
 <div class="wrapper">
-  <h2 color="primary">{{ tipsLength > 0? 'Winnings' : 'No active bets'}}</h2>
+  <h2 color="primary">{{ tipsLength > 0? 'Winnings' : 'No active Bets'}}</h2>
   <ng-container *ngIf="tipsLength > 0">
     <mat-form-field appearance="outline" class="stake">
       <mat-icon class="dollarSign" matSuffix>attach_money</mat-icon>
@@ -23,7 +23,9 @@
         </tr>
         <tr *ngFor="let combination of combinations">
           <td>{{ combination.name }}:  </td>
-          <td [className]="combination.winnings > 0? 'positive':'negative'">{{ combination.winnings | currency: "USD":"symbol":"0.0-2" }}</td>
+          <td [className]="combination.winnings > 0? 'positive':'negative'">
+            {{ combination.winnings | currency: "USD":"symbol":"0.0-2" }}
+          </td>
           <td>({{ combination.stakePerBet | currency: "USD":"symbol":"0.0-2" }})</td>
         </tr>
       </ng-container>
