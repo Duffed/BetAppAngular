@@ -23,8 +23,11 @@ export class TipService {
   private savedTipsCollectionName = "tips";
   private stakePath = "stake";
   private CombinationBetSubject: Subject<CombinationBet[]> = new Subject();
+  public stakeSubject: Subject<number> = new Subject();
 
-  constructor(private combinationBetService: CombinationbetService, private db: AngularFirestore) {  }
+  constructor(private combinationBetService: CombinationbetService, private db: AngularFirestore) { 
+    
+   }
 
   getNumberOfBets(userID: string): Observable<number> {
     return this.getBetCollection(userID).snapshotChanges().pipe(map(snapshot => snapshot.length));
@@ -64,7 +67,7 @@ export class TipService {
     );
   }
 
-  private getStakeOnce(userID: string): Promise<number> {
+  getStakeOnce(userID: string): Promise<number> {
     return this.db.collection(this.userPath).doc(userID).get().toPromise().then(
       res => res.get(this.stakePath)
     );
@@ -75,7 +78,7 @@ export class TipService {
       // create Field if there is none
       this.db.collection(this.userPath).doc(userID).set({ stake: stake})
     )
-
+    
     this.updateCombinationBets(userID);
   }
 
@@ -186,6 +189,7 @@ export class TipService {
       })
 
     this.setStake(newStake, userID);
+    this.stakeSubject.next(newStake);
   }
 
   async addTip(tip: any, userID: string){
