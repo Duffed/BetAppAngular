@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { TipService, SaveCollectionOutput } from '../tip.service';
+import { TipService, SaveCollectionOutput } from '../services/tip.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable } from 'rxjs';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -23,7 +23,7 @@ export class SavedTipsComponent implements OnInit {
       this.numberOfCollections = observer);
     
       this.form = this.formBuilder.group({
-        'collectionName': ['', [Validators.maxLength(30),Validators.required]]
+        'collectionName': ['', [Validators.required]]
       })
   }
 

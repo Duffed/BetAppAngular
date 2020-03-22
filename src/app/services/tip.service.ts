@@ -1,6 +1,6 @@
-import { Injectable, OnInit, Input } from "@angular/core";
-import { Tip } from "src/domain/tip";
-import { CombinationBet } from "src/domain/combinationBet";
+import { Injectable } from "@angular/core";
+import { Tip } from "src/app/domain/tip";
+import { CombinationBet } from "src/app/domain/combinationBet";
 import { CombinationbetService } from "./combinationbet.service";
 import { Observable, Subject } from 'rxjs';
 import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
@@ -86,7 +86,9 @@ export class TipService {
     let result = SaveCollectionOutput.okay;
 
     // Check if empty list
-    if ((await this.getTipsOnce(userID)).length === 0)
+    const tips = await this.getTipsOnce(userID);
+    const numberOfTips = tips.length;
+    if (numberOfTips === 0)
       return SaveCollectionOutput.noTips;
 
     // Check if empty name
@@ -107,7 +109,9 @@ export class TipService {
     // Create new Document
     let newDocument = await savedTipsCollection.add({
       name: collectionName,
-      stake: currentStake
+      stake: currentStake,
+      numberOfBets: numberOfTips,
+      creationDate: new Date()
     })
 
     // Add current set of tips
@@ -150,8 +154,11 @@ export class TipService {
         return changes.map( doc => {
           const id = doc.payload.doc.id;
           const name = doc.payload.doc.get("name");
-          // const size = await this.getCollectionSize(userID, id);
-          return {id, name}
+          const stake = doc.payload.doc.get("stake");
+          const numberOfBets = doc.payload.doc.get("numberOfBets");
+          const creationDate = doc.payload.doc.get("creationDate");
+          
+          return {id, name, numberOfBets, creationDate, stake}
         })
       })
     )

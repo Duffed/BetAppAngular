@@ -1,11 +1,11 @@
 import { Component, OnInit, Input } from "@angular/core";
-import { Tip } from "src/domain/tip";
-import { TipService } from "../tip.service";
+import { Tip } from "src/app/domain/tip";
+import { TipService } from "../services/tip.service";
 import { MatDialog } from "@angular/material/dialog";
 import { AddTipDialogComponent } from "../add-tip-dialog/add-tip-dialog.component";
-import { SportEnum } from "src/domain/sport";
+import { SportEnum } from "src/app/domain/sport";
 import { Observable } from 'rxjs';
-import { OutComeEnum } from 'src/domain/outcomeEnum';
+import { OutComeEnum } from 'src/app/domain/outcomeEnum';
 import * as firebase from 'firebase';
 import { trigger, transition, style, group, animate } from '@angular/animations';
 

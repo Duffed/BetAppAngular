@@ -1,6 +1,6 @@
 import { Component, OnInit, DoCheck, Input } from "@angular/core";
-import { CombinationBet } from "src/domain/combinationBet";
-import { TipService } from "../tip.service";
+import { CombinationBet } from "src/app/domain/combinationBet";
+import { TipService } from "../services/tip.service";
 import { Observable } from 'rxjs';
 
 @Component({

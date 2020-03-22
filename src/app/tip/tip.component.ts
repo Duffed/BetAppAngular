@@ -1,9 +1,9 @@
-import { Component, OnInit, Input } from "@angular/core";
-import { Tip } from "src/domain/tip";
-import { TipService } from "../tip.service";
+import { Component, Input } from "@angular/core";
+import { Tip } from "src/app/domain/tip";
+import { TipService } from "../services/tip.service";
 import { TipListComponent } from '../tip-list/tip-list.component';
-import { dynamicOutComeLabel } from 'src/domain/outcomeEnum';
-import { SportLabel } from 'src/domain/sport';
+import { dynamicOutComeLabel } from 'src/app/domain/outcomeEnum';
+import { SportLabel } from 'src/app/domain/sport';
 
 @Component({
   selector: "tip",
@@ -13,10 +13,8 @@ import { SportLabel } from 'src/domain/sport';
 export class TipComponent {
   @Input() tip: Tip;
   @Input() userID: string;
-  animationState: string = '';
 
-  constructor(private tipService: TipService, private tiplist: TipListComponent) {
-  }
+  constructor(private tipService: TipService, private tiplist: TipListComponent) {  }
 
   clickWinToggle(event, tip) {
     event.stopPropagation();

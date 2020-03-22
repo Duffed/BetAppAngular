@@ -1,6 +1,6 @@
 import { Component, HostBinding, OnInit } from "@angular/core";
 import { OverlayContainer } from '@angular/cdk/overlay';
-import { AuthService } from './auth.service';
+import { AuthService } from './services/auth.service';
 
 @Component({
   selector: "app-root",

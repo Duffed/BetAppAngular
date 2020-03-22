@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
-import { CombinationBet } from "src/domain/combinationBet";
-import { Tip } from "src/domain/tip";
+import { CombinationBet } from "src/app/domain/combinationBet";
+import { Tip } from "src/app/domain/tip";
 import { Observable, onErrorResumeNext, of } from 'rxjs';
 
 @Injectable({

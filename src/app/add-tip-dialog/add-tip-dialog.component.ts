@@ -6,8 +6,8 @@ import {
   MatDialog
 } from "@angular/material/dialog";
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { SportEnum, SportLabel } from "src/domain/sport";
-import { OutComeEnum, OutComeLabel } from 'src/domain/outcomeEnum';
+import { SportEnum, SportLabel } from "src/app/domain/sport";
+import { OutComeEnum, OutComeLabel } from 'src/app/domain/outcomeEnum';
 import fightersJson from './fighters.json' 
 import { Observable } from 'rxjs';
 import { startWith, map } from 'rxjs/operators';

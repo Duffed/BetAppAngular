@@ -23,8 +23,17 @@
     <ul role="list">
         <ng-container *ngIf="savedCollections$ | async as collections; else loading">
             <li class="collection cursor" *ngFor="let collection of collections">
-                <span class="collectionName" matTooltip="Load Collection" (click)=(loadCollection(collection.id))>
-                    {{ collection.name }}
+                <span class="collectionInfos" matTooltip="Load Collection" (click)=(loadCollection(collection.id))>
+                    <div class="collectionName">{{ collection.name }}</div>
+                    <div class="collectionDetails">
+                        <span>
+                            <span class="highlight">Bets:</span> {{ collection.numberOfBets }}
+                        </span>
+                        <span>
+                            <span class="highlight">Stake:</span> {{ collection.stake }}
+                        </span>
+                        <span><span class="highlight">Created:</span> {{ collection.creationDate.toDate() |  date:'dd.MM.yyyy'  }}</span>
+                    </div>
                 </span>
                 <mat-icon
                     [routerLink]="'/'"
@@ -32,6 +41,7 @@
                     class="removeTip cursor"
                     matTooltip="Delete Collection">clear</mat-icon>
             </li>
+            
             <div class="collectionCount">{{ numberOfCollections }} / 5 collections</div>
         </ng-container>
 
