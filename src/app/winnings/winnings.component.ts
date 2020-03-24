@@ -23,11 +23,7 @@ export class WinningsComponent implements OnInit {
       this.tipsLength = observer
     })
 
-    //init field
-    let initStake = await this.tipService.getStakeOnce(this.userID);
-    this.tipService.stakeSubject.next(initStake);
-    
-    this.tipService.stakeSubject.asObservable().subscribe(stake => {
+    this.tipService.getStake(this.userID).subscribe(stake => {
       this.stake$ = stake;
     });
   }

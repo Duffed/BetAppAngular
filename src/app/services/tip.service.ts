@@ -23,11 +23,8 @@ export class TipService {
   private savedTipsCollectionName = "tips";
   private stakePath = "stake";
   private CombinationBetSubject: Subject<CombinationBet[]> = new Subject();
-  public stakeSubject: Subject<number> = new Subject();
 
-  constructor(private combinationBetService: CombinationbetService, private db: AngularFirestore) { 
-    
-   }
+  constructor(private combinationBetService: CombinationbetService, private db: AngularFirestore) {  }
 
   getNumberOfBets(userID: string): Observable<number> {
     return this.getBetCollection(userID).snapshotChanges().pipe(map(snapshot => snapshot.length));
@@ -62,7 +59,9 @@ export class TipService {
   getStake(userID: string): Observable<number> {
     return this.db.collection(this.userPath).doc(userID).snapshotChanges().pipe(
       map(changes => { 
-        return changes.payload.get(this.stakePath) 
+        let stake = changes.payload.get(this.stakePath);
+        if (!stake) this.setStake(100, userID);
+        return stake;
       })
     );
   }
@@ -146,7 +145,7 @@ export class TipService {
     return this.db.collection(this.userPath).doc(userID).collection(this.savedTipsCollectionPath).snapshotChanges().pipe(map(snapshot => snapshot.length));
   }
 
-   getSavedCollections(userID: string): Observable<any> {
+  getSavedCollections(userID: string): Observable<any> {
     // let collection = this.db.collection(this.userPath).doc(userID).collection(this.savedTipsCollectionPath);
 
     return this.db.collection(this.userPath).doc(userID).collection(this.savedTipsCollectionPath).snapshotChanges().pipe(
@@ -196,7 +195,6 @@ export class TipService {
       })
 
     this.setStake(newStake, userID);
-    this.stakeSubject.next(newStake);
   }
 
   async addTip(tip: any, userID: string){

@@ -17,7 +17,6 @@ export class TipComponent {
   constructor(private tipService: TipService, private tiplist: TipListComponent) {  }
 
   clickWinToggle(event, tip) {
-    event.stopPropagation();
     this.tipService.toggleMarkedAsWin(tip, this.userID);
   }
 
